@@ -4801,7 +4801,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 10000
+  far clip plane: 1000
   field of view: 111
   orthographic: 0
   orthographic size: 5
@@ -4847,7 +4847,7 @@ MonoBehaviour:
   textureName: stereoRender
   textureSize: {x: 4096, y: 4096}
   depthMaterial: {fileID: 2100000, guid: 4feb0b5861c49bb438d70d58592ea1fc, type: 2}
-  depthCorrection: 0.23
+  depthCorrection: 0.4
 --- !u!1001 &953838433
 Prefab:
   m_ObjectHideFlags: 0
