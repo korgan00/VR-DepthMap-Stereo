@@ -133,7 +133,7 @@ public class RenderStereo : MonoBehaviour {
         System.IO.File.WriteAllBytes(Application.dataPath + "/_ProjectFolder/RenderedTextures/" + textureName + "_depth.png", stereoTexture.EncodeToPNG());
 
 
-        //camera.SetReplacementShader(null, "RenderType");
+        camera.SetReplacementShader(null, "RenderType");
         camera.renderingPath = RenderingPath.UsePlayerSettings;
         camera.clearFlags = clrFlgs;
         camera.backgroundColor = bgColor;
