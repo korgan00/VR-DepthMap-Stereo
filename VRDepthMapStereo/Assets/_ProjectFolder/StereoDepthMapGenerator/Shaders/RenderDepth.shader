@@ -16,9 +16,11 @@ Shader "Hidden/Camera-DepthTexture" {
 
 // fooplot function
 // http://fooplot.com/?lang=es#W3sidHlwZSI6MCwiZXEiOiJtaW4obWF4KCh4LTEpKigxLzAuMykrMSwwKSwxKSIsImNvbG9yIjoiIzAwMDAwMCJ9LHsidHlwZSI6MTAwMCwid2luZG93IjpbIi0wLjU5MjQ2Njk0NTM0MDUwNzUiLCIxLjU4ODU3MTEzNDY1OTQ4NzMiLCItMC4wOTM4MjIxOTI1OTI3MzY3OCIsIjEuMjQ4MzU1MDg3NDA3MjYiXSwic2l6ZSI6WzExMDAsNjUwXX1d
-#define RETURN_DEPTH(a,depthMod) fixed outZ = clamp((a - 1) * (1/depthMod) + 1, 0, 1); return fixed4(outZ, outZ, outZ, 1.0f);
+#define RETURN_DEPTH(a,depthMod) fixed outZ = clamp((a - 1) * (1/depthMod) + 1, 0, 1); return EncodeFloatRGBA(outZ); // return fixed4(outZ, outZ, outZ, 1.0f);
 
+// formula got from this url to interpolate between near and far:
 // https://github.com/robertcupisz/LightShafts/blob/master/Depth.shader
+// Linear01Depth make depth linear "from 0 to far" instead of "from near to far"
 #define VERTEX_DEPTH(depth) float d; COMPUTE_EYEDEPTH(d); depth = 1 - ((d - _ProjectionParams.y) / (_ProjectionParams.z - _ProjectionParams.y));
 
     ENDCG
