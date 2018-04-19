@@ -6,9 +6,8 @@ Text can be **bold**, _italic_, or ~~strikethrough~~.
 
 [Link to another page](./another-page.html).
 
-[![Test 1](https://img.youtube.com/vi/F6zIchbR1Rg/0.jpg)](https://www.youtube.com/watch?v=F6zIchbR1Rg)
+[{:.youtube-video}![Test 1](https://img.youtube.com/vi/F6zIchbR1Rg/0.jpg)](https://www.youtube.com/watch?v=F6zIchbR1Rg)
 
-[linkname](https://youtubevideourl)
 
 There should be whitespace between paragraphs.
 
