@@ -1,0 +1,34 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel Clear
+#pragma kernel DisplaceAlbedo
+
+#include "UnityCG.cginc"
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+Texture2D<fixed4> DepthTexture;
+Texture2D<fixed4> AlbedoTexture;
+RWTexture2D<float4> Result;
+RWTexture2D<float4> Depth;
+float RelativePosition;
+float ParallaxAmount;
+
+[numthreads(32, 32, 1)]
+void Clear(uint3 id : SV_DispatchThreadID) {
+    Result[id.xy] = float4(1.0f, 0.0f, 1.0f, -1.0f);
+    Result[id.xy] = float4(1.0f, 0.0f, 1.0f, -1.0f);
+}
+
+[numthreads(1, 1, 1)]
+void DisplaceAlbedo (uint3 id : SV_DispatchThreadID) {
+    float epsilon = 0.0001f;
+    float height = DecodeFloatRGBA(DepthTexture[id.xy]);
+    float displacementFactor = height * ParallaxAmount * RelativePosition;
+    uint2 newUV = uint2((id.x + displacementFactor) % 4096, id.y);
+    float3 albedoColor = AlbedoTexture[id.xy].rgb;
+
+    //Result[id.xy] = float4(height, height, height, height);
+    while ((height - Result[newUV.xy].a) > epsilon) {
+        Result[newUV.xy] = float4(albedoColor, height);
+    }
+}

@@ -18,11 +18,12 @@
 // This shader switches the culling to the front side and inverts the normal so
 // textures are drawn on the inside or back of the object.
 //
-Shader "VR/VideoDemo InsideShader" {
+Shader "VR/Stereo 360 parallax" {
     Properties {
         _Gamma ("Video gamma", Range(0.01,3.0)) = 1.0
         _MainTex("Base (RGB)", 2D) = "white" {}
-        _StereoVideo ("Render Stereo Video", Int) = 1
+        _StereoVideo("Render Stereo Video", Int) = 1
+        _RenderedEye("RenderedEye", Int) = 0
         [Header(Parallax)]
         _DepthTex("Depth", 2D) = "white" {}
         _RelativePosition("Position", Range(-1.0,1.0)) = 0
@@ -51,6 +52,7 @@ Shader "VR/VideoDemo InsideShader" {
             float _Gamma;
             float _RelativePosition;
             float _ParallaxAmount;
+            int _RenderedEye;
 
             struct v2f {
                 float4 pos : SV_POSITION;
@@ -83,7 +85,7 @@ Shader "VR/VideoDemo InsideShader" {
                 o.uv = TRANSFORM_TEX (v.texcoord, _MainTex);
                 if (_StereoVideo > 0) {
                     o.uv.y *= 0.5f;
-                    if(unity_StereoEyeIndex == 0) {
+                    if(unity_StereoEyeIndex == _RenderedEye) {
                         o.uv.y += 0.5f;
                     }
                 }
@@ -111,7 +113,7 @@ Shader "VR/VideoDemo InsideShader" {
 
                 //float targetPositionFactor = dot(normalize(i.viewDir), float3(0.0f, 0.0f, 1.0f));
 
-                float displacementFactor = _ParallaxAmount * -_RelativePosition * _DepthTex_TexelSize.x * 400;
+                float displacementFactor = _ParallaxAmount * -_RelativePosition * _DepthTex_TexelSize.x * 40;
 
                 for (int itCount = 0; itCount < 40; itCount++) {
                     float2 currUV = i.uv + float2(u, 0);

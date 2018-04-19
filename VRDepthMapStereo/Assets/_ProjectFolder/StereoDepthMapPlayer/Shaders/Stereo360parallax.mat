@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: VideoDemoInsideShader
+  m_Name: Stereo360parallax
   m_Shader: {fileID: 4800000, guid: 18b49ed6b0d83054fa720b251d077197, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -71,8 +71,9 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ParallaxAmount: 0
+    - _ParallaxAmount: 1
     - _RelativePosition: 0
+    - _RenderedEye: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
