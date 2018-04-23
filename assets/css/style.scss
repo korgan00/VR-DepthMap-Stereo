@@ -7,7 +7,7 @@
   position: relative;
   text-align: center;
 }
-.youtube-video:after {
+.youtube-video a:after {
   content: "";
   
   position: absolute;
@@ -23,10 +23,9 @@
   background-size: 100px 70px;
 }
 
-
-h1, h5 {
+.main-content h1, .main-content h5 {
   margin-top: 0rem;
 }
-h1 {
+.main-content h1 {
   margin-bottom: 0rem;
 }
