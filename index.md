@@ -9,8 +9,16 @@ layout: default
 
 
 <div class="youtube-video" markdown="1">
-  [![Test 1](https://img.youtube.com/vi/F6zIchbR1Rg/0.jpg)](https://www.youtube.com/watch?v=F6zIchbR1Rg)
+  [![Test 1](https://img.youtube.com/vi/F6zIchbR1Rg/0.jpg)](https://www.youtube.com/watch?v=F6zIchbR1Rg){:target="_blank"}
 </div>
+
+# Objective of the project
+##### April 9, 2018
+
+The main objective is to reach 6 DOF in VR in 360 images using a few images to get it working. Parallax will be the main way to work.
+
+
+
 
 # Header 1
 
