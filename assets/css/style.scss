@@ -4,5 +4,25 @@
 @import 'jekyll-theme-cayman';
 
 .youtube-video {
-  border: 2px solid black;
+  position: relative;
+}
+.youtube-video:after {
+  position: absolute;
+  margin: 0 0 0 0;
+  
+  background-image: url(assets/images/yt_icon_rgb.png);
+  background-position: center;
+}
+
+.youtube-video img {
+  margin: 0 auto;
+  position: relative;
+  display: block;
+}
+
+h1, h5 {
+  margin-top: 0rem;
+}
+h1 {
+  margin-bottom: 0rem;
 }
