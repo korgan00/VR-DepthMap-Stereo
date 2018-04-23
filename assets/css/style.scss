@@ -8,12 +8,19 @@
   text-align: center;
 }
 .youtube-video:after {
+  content: "";
+  
   position: absolute;
-  margin: 0 0 0 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
   
   background-image: url(assets/images/yt_icon_rgb.png);
   background-position: center;
-  content: "";
+  background-repeat: no-repeat;
+  background-size: 100px 70px;
 }
 
 
