@@ -6,7 +6,6 @@
 .youtube-video {
   position: relative;
   text-align: center;
-  content: "";
 }
 .youtube-video:after {
   position: absolute;
@@ -14,6 +13,7 @@
   
   background-image: url(assets/images/yt_icon_rgb.png);
   background-position: center;
+  content: "";
 }
 
 
