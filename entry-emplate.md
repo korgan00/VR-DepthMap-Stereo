@@ -7,13 +7,14 @@ layout: default
 ##### April 9, 2018
 
 
+[Link to another page](./another-page.html).
+
 [![Test 1](https://img.youtube.com/vi/F6zIchbR1Rg/0.jpg)]({:.youtube-video}https://www.youtube.com/watch?v=F6zIchbR1Rg)
+
 
 There should be whitespace between paragraphs.
 
 There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
-
-# Header 1
 
 This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
 
