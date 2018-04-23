@@ -5,6 +5,7 @@
 
 .youtube-video {
   position: relative;
+  text-align: center;
 }
 .youtube-video:after {
   position: absolute;
@@ -14,11 +15,6 @@
   background-position: center;
 }
 
-.youtube-video img {
-  margin: 0 auto;
-  position: relative;
-  display: block;
-}
 
 h1, h5 {
   margin-top: 0rem;
