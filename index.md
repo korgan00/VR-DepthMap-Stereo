@@ -6,8 +6,8 @@ layout: default
 # Test 1 
 ##### April 9, 2018
 
-<div class="youtube-video">
-[![Test 1](https://img.youtube.com/vi/F6zIchbR1Rg/0.jpg)](https://www.youtube.com/watch?v=F6zIchbR1Rg)
+<div class="youtube-video" markdown="1">
+  [![Test 1](https://img.youtube.com/vi/F6zIchbR1Rg/0.jpg)](https://www.youtube.com/watch?v=F6zIchbR1Rg)
 
 </div>
 
