@@ -19,7 +19,9 @@ public class RenderDisplacedTexture : MonoBehaviour {
 
 
     private RenderTexture _outputRT;
+    private RenderTexture _depthRT;
     private int _clearKernel;
+    private int _writeDepthKernel;
     private int _displaceKernel;
     private uint _xf, _yf;
     private uint _xd, _yd;
@@ -28,7 +30,8 @@ public class RenderDisplacedTexture : MonoBehaviour {
     // Use this for initialization
     void Start () {
         _outputRT = CreateRenderTexture();
-        UpdateShaderParameters(_outputRT);
+        _depthRT = CreateRenderTexture();
+        UpdateShaderParameters(_outputRT, _depthRT);
     }
 	
 	// Update is called once per frame
@@ -39,7 +42,8 @@ public class RenderDisplacedTexture : MonoBehaviour {
     [ContextMenu("ComputeOnTexture")]
     public void ComputeOnTexture() {
         RenderTexture t = CreateRenderTexture();
-        UpdateShaderParameters(t);
+        RenderTexture d = CreateRenderTexture();
+        UpdateShaderParameters(t, d);
         DispatchBoth();
     }
 
@@ -55,6 +59,8 @@ public class RenderDisplacedTexture : MonoBehaviour {
         */
 
         _shader.Dispatch(_clearKernel, textureSize.x / (int) _xf, textureSize.y / (int) _yf, 1);
+        _shader.Dispatch(_writeDepthKernel, textureSize.x / (int) _xd, textureSize.y / (int) _yd, 1);
+        //_shader.Dispatch(_writeDepthKernel, textureSize.x / (int) _xd, textureSize.y / (int) _yd, 1);
         _shader.Dispatch(_displaceKernel, textureSize.x / (int) _xd, textureSize.y / (int) _yd, 1);
     }
 
@@ -68,16 +74,24 @@ public class RenderDisplacedTexture : MonoBehaviour {
         return t;
     }
 
-    private void UpdateShaderParameters(RenderTexture t) {
+    private void UpdateShaderParameters(RenderTexture t, RenderTexture d) {
         uint _zf, _zd;
         if (t == null) { t = _outputRT; }
 
         _materialToShareTexture.SetTexture(_textureName, t);
         _clearKernel = _shader.FindKernel("Clear");
+        _writeDepthKernel = _shader.FindKernel("WriteDepth");
         _displaceKernel = _shader.FindKernel("DisplaceAlbedo");
         _shader.SetTexture(_clearKernel, "Result", t);
+        _shader.SetTexture(_clearKernel, "Depth", d);
+        
+        _shader.SetTexture(_writeDepthKernel, "Depth", d);
+        _shader.SetTexture(_writeDepthKernel, "DepthTexture", depth);
+        _shader.SetTexture(_writeDepthKernel, "Result", t);
+        _shader.SetTexture(_writeDepthKernel, "AlbedoTexture", albedo);
 
         _shader.SetTexture(_displaceKernel, "Result", t);
+        _shader.SetTexture(_displaceKernel, "Depth", d);
         _shader.SetTexture(_displaceKernel, "DepthTexture", depth);
         _shader.SetTexture(_displaceKernel, "AlbedoTexture", albedo);
 

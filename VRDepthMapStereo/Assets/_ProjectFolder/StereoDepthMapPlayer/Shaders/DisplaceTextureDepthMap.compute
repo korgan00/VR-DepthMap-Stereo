@@ -1,5 +1,6 @@
 ﻿// Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel Clear
+#pragma kernel WriteDepth
 #pragma kernel DisplaceAlbedo
 
 #include "UnityCG.cginc"
@@ -9,26 +10,68 @@
 Texture2D<fixed4> DepthTexture;
 Texture2D<fixed4> AlbedoTexture;
 RWTexture2D<float4> Result;
-RWTexture2D<float4> Depth;
+RWTexture2D<float> Depth;
 float RelativePosition;
 float ParallaxAmount;
 
-[numthreads(32, 32, 1)]
+[numthreads(1, 1, 1)]
 void Clear(uint3 id : SV_DispatchThreadID) {
     Result[id.xy] = float4(1.0f, 0.0f, 1.0f, -1.0f);
-    Result[id.xy] = float4(1.0f, 0.0f, 1.0f, -1.0f);
+    Depth[id.xy] = 0;
 }
 
-[numthreads(1, 1, 1)]
-void DisplaceAlbedo (uint3 id : SV_DispatchThreadID) {
-    float epsilon = 0.0001f;
+
+[numthreads(1024, 1, 1)]
+void WriteDepth(uint3 id : SV_DispatchThreadID) {
     float height = DecodeFloatRGBA(DepthTexture[id.xy]);
     float displacementFactor = height * ParallaxAmount * RelativePosition;
     uint2 newUV = uint2((id.x + displacementFactor) % 4096, id.y);
-    float3 albedoColor = AlbedoTexture[id.xy].rgb;
+    //int heightInt = asint(height);
 
-    //Result[id.xy] = float4(height, height, height, height);
-    while ((height - Result[newUV.xy].a) > epsilon) {
-        Result[newUV.xy] = float4(albedoColor, height);
+//    heightInt ^= (1 + ~(heightInt >> 31) | 0x80000000);
+
+    int outdata = 0, outdata2 = 0;
+
+    //[allow_uav_condition]
+    //for (int i = 0; i < 10; i++) {
+        //InterlockedMax(Depth[id.xy], heightInt);
+        //AllMemoryBarrier();
+        /*InterlockedCompareExchange(
+            Depth[newUV.xy],
+            outdata,
+            heightInt,
+            outdata2
+        );*/
+    //}
+    [allow_uav_condition]
+    do {
+        [allow_uav_condition]
+        while (Depth[newUV.xy] < height) {
+            Depth[newUV.xy] = height;
+        }
+    } while (Depth[newUV.xy] < height);
+    AllMemoryBarrier();
+
+    //Result[id.xy] = float4(asfloat(Depth[newUV.xy].x), asfloat(heightInt), height, height);
+    /*if (newUV.x == id.x && newUV.y == id.y) {
+        Result[id.xy] = float4(0.8,0.4,0.1, height);
+    }*/
+}
+
+[numthreads(1, 1, 1)]
+void DisplaceAlbedo(uint3 id : SV_DispatchThreadID) {
+    //float3 albedoColor = AlbedoTexture[newUV.xy].rgb;
+    //Result[id.xy] = float4(Depth[id.xy], Depth[id.xy], 0, 1);
+
+    float height = Depth[id.xy];
+    float displacementFactor = height * ParallaxAmount * -RelativePosition;
+    uint2 newUV = uint2((id.x + displacementFactor) % 4096, id.y);
+    //uint heightInt = asuint(height);
+
+    //if (height >= asfloat(Depth[newUV.xy])) {
+    if (height != 0) {
+        float3 albedoColor = AlbedoTexture[newUV.xy].rgb;
+        Result[id.xy] = float4(albedoColor, height);
     }
+    //}
 }
