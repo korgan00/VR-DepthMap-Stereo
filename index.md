@@ -37,7 +37,7 @@ This parameters are choosen to get faster results and check the problems, in the
 The vertex shader is not interesting for what concerns us.
 The fragment shader is this: 
 
-```shader
+```HLSL
 float4 frag (v2f i) : SV_Target {
     // Getting depth form texture
     float h = DecodeFloatRGBA(tex2D(_DepthTex, i.uv));
@@ -50,7 +50,7 @@ float4 frag (v2f i) : SV_Target {
 ```
 
 Obviously this is a bad aproach. The pixel is chosen taking in acount the current pixel height and not the other pixel height.
-This is visual result:
+This is the visual result:
 
 <div class="youtube-video" markdown="1">
   [![Test 1](https://img.youtube.com/vi/F6zIchbR1Rg/0.jpg)](https://www.youtube.com/watch?v=F6zIchbR1Rg){:target="_blank"}
@@ -70,6 +70,7 @@ Thats because the human eye and cameras see as a persepective projection.
 That phenomenon is called parallax.
 
 [![Octocat](assets/images/parallax-example.gif)](https://imgur.com/gallery/TF1iHpr){:target="_blank"}
+
 Parallax example from [imgur](https://imgur.com/gallery/TF1iHpr){:target="_blank"}
 
 ### Source images to work with
