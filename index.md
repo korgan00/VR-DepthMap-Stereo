@@ -2,7 +2,7 @@
 layout: default
 ---
 
-
+<!--
 # Parallax Test 3
 ###### April 19, 2018
 
@@ -11,7 +11,7 @@ layout: default
 <div class="youtube-video" markdown="1">
   [![Test 1](https://img.youtube.com/vi/R2rfZYyaCcE/0.jpg)](https://www.youtube.com/watch?v=R2rfZYyaCcE){:target="_blank"}
 </div>
-
+-->
 # Parallax Test 2 
 ###### April 17, 2018
 
