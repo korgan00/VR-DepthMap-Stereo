@@ -37,7 +37,7 @@ This parameters are choosen to get faster results and check the problems, in the
 The vertex shader is not interesting for what concerns us.
 The fragment shader is this: 
 
-{% highlight hlsl linenos %}
+{% highlight glsl %}
 float4 frag (v2f i) : SV_Target {
     // Getting depth form texture
     float h = DecodeFloatRGBA(tex2D(_DepthTex, i.uv));

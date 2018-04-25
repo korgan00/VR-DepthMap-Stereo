@@ -31,3 +31,17 @@
 .main-content h1 {
   margin-bottom: 0rem;
 }
+
+
+.highlight {
+  margin-left: 10px;
+  margin-right: 10px;
+  table {
+    border: 1px solid #e9ebec;
+    padding: 1rem 1.5rem;
+  }
+  pre, td {
+    padding: 0;
+    border: 0;
+  }
+}
