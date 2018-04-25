@@ -15,7 +15,62 @@ layout: default
 # Parallax Test 2 
 ###### April 17, 2018
 
+To solve the parallax test 1 errors, the current pixel should look at the neighborhood and calculate wich is 
+the best pixel to occupy the current pixel.
 
+That idea make lots of texture fetchs. When observer is displaced, every pixel should move on the same direction 
+with diferent displacement amount. Taking that into account, the number of fetchs will be optimized only looking 
+through the pixels into the displacement line.
+
+With this algorithm the main problem is that many pixels wont have a good fetch to fill it. At the moment, this
+pixels will be pink.
+
+The new fragment code is a bit more complicated:
+
+{% highlight glsl %}
+float4 frag (v2f i) : SV_Target {
+    // fetch height and initialize variables
+    float height = DecodeFloatRGBA(tex2D(_DepthTex, i.uv));
+    float maxHeight = 0;
+    float2 bestUV = 0;
+    float u = 0;
+    bool found = false;
+    
+    // texel size with a sign depending on displacement
+    float texelSignedSize = sign(-_RelativePosition) * _DepthTex_TexelSize.x;
+
+    // displacement factor as in test 1
+    float displacementFactor = _ParallaxAmount * -_RelativePosition * _DepthTex_TexelSize.x * 40;
+
+    for (int itCount = 0; itCount < 40; itCount++) {
+        // fetch each pixel in the selected row
+        float2 currUV = i.uv + float2(u, 0);
+        float currCellHeight = DecodeFloatRGBA(tex2D(_DepthTex, currUV));
+        float currCelluDispl = currCellHeight * displacementFactor;
+        // compute where the current fetched texel should be displaced
+        float2 newUV = currUV + float2(currCelluDispl, 0);
+        
+        // if the fetched texel is in the bounds of current pixel
+        // is a good candidate
+        if (abs(newUV.x - i.uv.x) <= _DepthTex_TexelSize.x) {
+            // if is the least deep pixel, is the best candidate until now
+            if (currCellHeight >= maxHeight) {
+                maxHeight = currCellHeight;
+                bestUV = currUV;
+                found = true;
+            }
+        }
+        // iteration pass
+        u -= texelSignedSize;
+    }
+    
+    // if there is a good candidate paint the pixel from albedo.
+    // in other case paint it pink
+    return found ? gammaCorrect(tex2D(_MainTex, bestUV)) : float4(1.0, 0.0, 1.0, 1.0);
+}
+{% endhighlight %}
+
+This aproach is considerably better than last one, here it is the results.
 
 <div class="youtube-video" markdown="1">
   [![Test 1](https://img.youtube.com/vi/wDxo_LH5Wjs/0.jpg)](https://www.youtube.com/watch?v=wDxo_LH5Wjs){:target="_blank"}
@@ -45,7 +100,6 @@ float4 frag (v2f i) : SV_Target {
     float uDisplacement = h * _ParallaxAmount * _RelativePosition * _DepthTex_TexelSize.x * 40;
     // Getting a pixel in the displaced direction.
     return gammaCorrect(tex2D(_MainTex, i.uv + float2(uDisplacement, 0)));
-
 }
 {% endhighlight %}
 
