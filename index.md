@@ -37,7 +37,7 @@ This parameters are choosen to get faster results and check the problems, in the
 The vertex shader is not interesting for what concerns us.
 The fragment shader is this: 
 
-```HLSL
+{% highlight hlsl linenos %}
 float4 frag (v2f i) : SV_Target {
     // Getting depth form texture
     float h = DecodeFloatRGBA(tex2D(_DepthTex, i.uv));
@@ -47,7 +47,7 @@ float4 frag (v2f i) : SV_Target {
     return gammaCorrect(tex2D(_MainTex, i.uv + float2(uDisplacement, 0)));
 
 }
-```
+{% endhighlight %}
 
 Obviously this is a bad aproach. The pixel is chosen taking in acount the current pixel height and not the other pixel height.
 This is the visual result:
