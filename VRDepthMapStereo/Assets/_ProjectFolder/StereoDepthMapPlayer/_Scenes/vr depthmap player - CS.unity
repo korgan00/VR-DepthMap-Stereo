@@ -289,7 +289,7 @@ MonoBehaviour:
   _textureName: _MainTex
   depth: {fileID: 2800000, guid: 95c8b3169c21ed04790abb11ea86123b, type: 3}
   albedo: {fileID: 2800000, guid: 9f3dcbb3e4700a74cbb0ddc246837863, type: 3}
-  _relativePosition: 1
+  _relativePosition: 0.54
   _parallaxAmount: 1
 --- !u!1001 &354910216
 Prefab:

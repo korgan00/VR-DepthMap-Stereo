@@ -26,7 +26,7 @@ void Clear(uint3 id : SV_DispatchThreadID) {
 
 [numthreads(32, 32, 1)]
 void WriteDepth(uint3 id : SV_DispatchThreadID) {
-    float height = DecodeFloatRGBA(DepthTexture[id.xy]);
+    float height = DepthTexture[id.xy].r;
     float displacementFactor = height * ParallaxAmount * -RelativePosition;
     uint3 newUV = uint3((id.x + displacementFactor + 4096) % 4096, id.y, id.z);
     int heightInt = (int)(height * 4096);
@@ -43,8 +43,8 @@ void DisplaceAlbedo(uint3 id : SV_DispatchThreadID) {
     float displacementFactor = height * ParallaxAmount * RelativePosition;
     uint2 newUV = uint2((id.x + displacementFactor + 4096) % 4096, id.y);
 
-    float3 albedoColor = heightInt == -1 ? float3(1.0f, 0.0f, 1.0f) :
-                                            AlbedoTexture[newUV.xy].rgb;
+    float3 albedoColor = heightInt == -1 ? float3(1.0f, 0.0f, 1.0f) : //float3(heightTex, heightTex, heightTex);
+                                           AlbedoTexture[newUV.xy].rgb;
 
     Result[id.xy] = float4(albedoColor, height);
 }

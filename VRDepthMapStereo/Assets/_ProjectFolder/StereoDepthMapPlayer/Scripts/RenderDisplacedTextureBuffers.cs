@@ -98,16 +98,17 @@ public class RenderDisplacedTextureBuffers : MonoBehaviour {
         _clearKernel = _shader.FindKernel("Clear");
         _writeDepthKernel = _shader.FindKernel("WriteDepth");
         _displaceKernel = _shader.FindKernel("DisplaceAlbedo");
-        _shader.SetTexture(_clearKernel, "Result", t);
+
         _shader.SetBuffer(_clearKernel, "Depth", d);
+        _shader.SetTexture(_clearKernel, "Result", t);
 
         _shader.SetBuffer(_writeDepthKernel, "Depth", d);
-        _shader.SetTexture(_writeDepthKernel, "DepthTexture", depth);
         _shader.SetTexture(_writeDepthKernel, "Result", t);
+        _shader.SetTexture(_writeDepthKernel, "DepthTexture", depth);
         _shader.SetTexture(_writeDepthKernel, "AlbedoTexture", albedo);
 
-        _shader.SetTexture(_displaceKernel, "Result", t);
         _shader.SetBuffer(_displaceKernel, "Depth", d);
+        _shader.SetTexture(_displaceKernel, "Result", t);
         _shader.SetTexture(_displaceKernel, "DepthTexture", depth);
         _shader.SetTexture(_displaceKernel, "AlbedoTexture", albedo);
 
