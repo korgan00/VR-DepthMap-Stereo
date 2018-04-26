@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 296837009}
   - component: {fileID: 296837008}
   - component: {fileID: 296837007}
-  - component: {fileID: 296837011}
+  - component: {fileID: 296837013}
   - component: {fileID: 296837012}
   m_Layer: 0
   m_Name: Main Camera
@@ -259,26 +259,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -71.8, z: 0}
---- !u!114 &296837011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 296837006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6cf2bccc29b6bc479a9b428cf731b79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textureSize: {x: 4096, y: 4096}
-  _shader: {fileID: 7200000, guid: e3fb88405f0d1654e884d1574c7dd953, type: 3}
-  _materialToShareTexture: {fileID: 2100000, guid: ab941bf7a5e55a847b303dfc16761530,
-    type: 2}
-  _textureName: _MainTex
-  depth: {fileID: 2800000, guid: 95c8b3169c21ed04790abb11ea86123b, type: 3}
-  albedo: {fileID: 2800000, guid: 9f3dcbb3e4700a74cbb0ddc246837863, type: 3}
-  _relativePosition: 1
-  _parallaxAmount: 1
 --- !u!114 &296837012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +271,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 1932507111}
+--- !u!114 &296837013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 296837006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081b70a688a513a4a9ccb1597967b26a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureSize: {x: 4096, y: 4096}
+  _shader: {fileID: 7200000, guid: 03a8e6ccbddef9445acc667a730b1d4c, type: 3}
+  _materialToShareTexture: {fileID: 2100000, guid: ab941bf7a5e55a847b303dfc16761530,
+    type: 2}
+  _textureName: _MainTex
+  depth: {fileID: 2800000, guid: 95c8b3169c21ed04790abb11ea86123b, type: 3}
+  albedo: {fileID: 2800000, guid: 9f3dcbb3e4700a74cbb0ddc246837863, type: 3}
+  _relativePosition: 1
+  _parallaxAmount: 1
 --- !u!1001 &354910216
 Prefab:
   m_ObjectHideFlags: 0
@@ -390,7 +390,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1373536865015938, guid: 1d8329e77a030a44391eb6273348283e, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1d8329e77a030a44391eb6273348283e, type: 2}
