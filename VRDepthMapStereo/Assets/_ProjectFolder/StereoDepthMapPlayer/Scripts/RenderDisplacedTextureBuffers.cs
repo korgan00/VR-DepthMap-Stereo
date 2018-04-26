@@ -59,7 +59,7 @@ public class RenderDisplacedTextureBuffers : MonoBehaviour {
         _shader.SetFloat("RelativePosition", _relativePosition);
         _shader.SetFloat("ParallaxAmount", _parallaxAmount * 40);
         
-        if (!_kernelsLoaded) {
+        if (_kernelsLoaded) {
             _shader.Dispatch(_clearKernel, textureSize.x / (int) _xf, textureSize.y / (int) _yf, 1);
             _shader.Dispatch(_writeDepthKernel, textureSize.x / (int) _xw, textureSize.y / (int) _yw, 1);
             _shader.Dispatch(_displaceKernel, textureSize.x / (int) _xd, textureSize.y / (int) _yd, 1);
