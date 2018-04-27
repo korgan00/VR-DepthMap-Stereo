@@ -24,6 +24,7 @@
   background-repeat: no-repeat;
   background-size: 100px 70px;
   opacity: 0.5;
+  transition: opacity 0.2s;
 }
 .youtube-video a:hover:after {
   opacity: 1;
