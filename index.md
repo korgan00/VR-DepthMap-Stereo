@@ -308,7 +308,7 @@ To get faster results, a comercial engine will be used. The choosen one is Unity
         } 
       }
       for(var k = 0; k < kWords.length; k++) {
-        if (a[i].textContent == kWords[j]) {
+        if (a[i].textContent == kWords[k]) {
           a[i].classList.add("k");
         }
       }
