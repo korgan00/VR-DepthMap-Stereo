@@ -293,7 +293,7 @@ To get faster results, a comercial engine will be used. The choosen one is Unity
     var a = document.getElementsByClassName("n");
     var ktWords = ["float2", "float3", "float4", 
                    "fixed2", "fixed3", "fixed4",
-                   "uint2", "uint3 ", "uint4", 
+                   "uint2", "uint3", "uint4", 
                    "RWTexture2D", "RWTexture3D", 
                    "Texture2D", "Texture3D", 
                    "RWStructuredBuffer", "v2f"];
