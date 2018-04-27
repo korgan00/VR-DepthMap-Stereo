@@ -286,3 +286,33 @@ In a late stage, when the parallax is working, the images will be replaced for r
 
 ### The engine
 To get faster results, a comercial engine will be used. The choosen one is Unity.
+
+<script>
+
+  (function() {
+    var a = document.getElementsByClassName("n");
+    var ktWords = ["float2", "float3", "float4", 
+                   "fixed2", "fixed3", "fixed4",
+                   "uint2", "uint3 ", "uint4", 
+                   "RWTexture2D", "RWTexture3D", 
+                   "Texture2D", "Texture3D", 
+                   "RWStructuredBuffer", "v2f"];
+                   
+    var kWords = ["tex2D", "InterlockedMax", "AllMemoryBarrier", 
+                  "SV_DispatchThreadID", "SV_Target"];
+    
+    for(var i = 0; i < a.length; i++) {
+      for(var j = 0; j < ktWords.length; j++) {
+        if (a[i].textContent == ktWords[j]) {
+          a[i].classList.add("kt");
+        } 
+      }
+      for(var k = 0; k < kWords.length; k++) {
+        if (a[i].textContent == kWords[j]) {
+          a[i].classList.add("k");
+        }
+      }
+    }
+  })();
+
+</script>
