@@ -113,7 +113,7 @@ and we decided to try compute shaders
 ###### April 20, 2018
 
 Last test makes 40 texture fetchs to select the best texel to ocuppy the current fragment, this also means that
-pixels can be moved only by 40 pixels, if more movement is required more fetchs should be fetched.
+pixels can be moved only by 40 pixels, if more movement is required more fetchs should be done.
 
 The main reason to fetch so much texels is the restriction of fragment shader on writing at a different position
 of the textures. To solve this restriction, the usual shader is replaced by a compute shader.
