@@ -5,8 +5,8 @@ layout: default
 # Parallax Test 4
 ###### April 27, 2018
 
-It is necesary to fix that "z-fighting noise". As solution a depth texture used as z-buffer
-should solve z-figthing:
+It is necesary to fix that "z-fighting noise". As solution, a depth texture used as z-buffer
+should solve that z-figthing:
 
 {% highlight glsl %}
 ...
