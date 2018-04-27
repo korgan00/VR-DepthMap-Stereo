@@ -118,7 +118,7 @@ pixels can be moved only by 40 pixels, if more movement is required more fetchs 
 The main reason to fetch so much texels is the restriction of fragment shader on writing at a different position
 of the textures. To solve this restriction, the usual shader is replaced by a compute shader.
 
-Here is the first compute shader:
+Here is the first compute shader developed:
 {% highlight glsl %}
 // Public kernels -----------------------
 #pragma kernel Clear
