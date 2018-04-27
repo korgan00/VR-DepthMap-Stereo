@@ -97,10 +97,7 @@ Looking at other works to get inspired, some of them was made using a high-poly 
 to simulate parallax. That have many restrictions as well as a performance problem when "high-poly" is too much
 vertices to handle.
 
-```
-Code from Joan
-[https://github.com/IraltaVR/6DoF](https://github.com/IraltaVR/6DoF){:target="_blank"}
-```
+Vertex displacement project from Joan: [https://github.com/IraltaVR/6DoF](https://github.com/IraltaVR/6DoF){:target="_blank"}
 
 [@soylentgraham](https://twitter.com/soylentgraham){:target="_blank"} from Twitter made some tips and provided
 a link to his "PopDepthMap360" project using kinect.
