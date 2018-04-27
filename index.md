@@ -3,10 +3,12 @@ layout: default
 ---
 
 <!--
-# Parallax Test 3
-###### April 19, 2018
+# Parallax Test 4
+###### April 27, 2018
 
-A depth texture used as z-buffer could solve z-figthing:
+It is necesary to fix that "z-fighting noise". As solution a depth texture used as z-buffer
+should solve z-figthing:
+
 {% highlight glsl %}
 ...
 #pragma kernel WriteDepth
@@ -46,7 +48,6 @@ void DisplaceAlbedo(uint3 id : SV_DispatchThreadID) {
 At the moment of press play with this shader, nothing had change. After several tests, the only answer to
 the problem should be that InterlockedMax function does not work with textures.
 
-
 {% highlight glsl %}
 ...
 RWStructuredBuffer<int> Depth;
@@ -82,7 +83,6 @@ void DisplaceAlbedo(uint3 id : SV_DispatchThreadID) {
 Changing the RWTexture2D&lt;float4&gt; to a RWStructuredBuffer&lt;int&gt; the results have improved a lot but
 some anoying noise was still there. Changing depth map options and albedo options, the noise was more regular 
 and less frequent.
-
 
 <div class="youtube-video" markdown="1">
   [![Test 1](https://img.youtube.com/vi/R2rfZYyaCcE/0.jpg)](https://www.youtube.com/watch?v=R2rfZYyaCcE){:target="_blank"}
