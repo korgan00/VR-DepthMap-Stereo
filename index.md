@@ -2,7 +2,6 @@
 layout: default
 ---
 
-<!--
 # Parallax Test 4
 ###### April 27, 2018
 
@@ -85,9 +84,8 @@ some anoying noise was still there. Changing depth map options and albedo option
 and less frequent.
 
 <div class="youtube-video" markdown="1">
-  [![Test 1](https://img.youtube.com/vi/R2rfZYyaCcE/0.jpg)](https://www.youtube.com/watch?v=R2rfZYyaCcE){:target="_blank"}
+  [![Test 4](https://img.youtube.com/vi/MSG_IU-Xcjc/0.jpg)](https://www.youtube.com/watch?v=MSG_IU-Xcjc){:target="_blank"}
 </div>
--->
 
 
 # Making research 
