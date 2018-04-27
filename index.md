@@ -99,7 +99,7 @@ vertices to handle.
 
 ```
 Code from Joan
-https://github.com/IraltaVR/6DoF
+[https://github.com/IraltaVR/6DoF](https://github.com/IraltaVR/6DoF){:target="_blank"}
 ```
 
 [@soylentgraham](https://twitter.com/soylentgraham){:target="_blank"} from Twitter made some tips and provided
