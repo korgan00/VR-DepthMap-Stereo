@@ -2,15 +2,171 @@
 layout: default
 ---
 
-
+<!--
 # Parallax Test 3
 ###### April 19, 2018
 
-The last test work
+A depth texture used as z-buffer could solve z-figthing:
+{% highlight glsl %}
+...
+#pragma kernel WriteDepth
+...
+RWTexture2D<int> Depth;
+...
+
+[numthreads(32, 32, 1)]
+void Clear(uint3 id : SV_DispatchThreadID) {
+    ...
+    Depth[id.xy] = -1;
+}
+
+[numthreads(32, 32, 1)]
+void WriteDepth(uint3 id : SV_DispatchThreadID) {
+    float height = DecodeFloatRGBA(DepthTexture[id.xy]);
+    float displacementFactor = height * ParallaxAmount * RelativePosition;
+    uint2 newUV = uint2((id.x + displacementFactor) % 4096, id.y);
+    int heightInt = height * 1024;
+
+    InterlockedMax(Depth[newUV.xy], heightInt);
+    AllMemoryBarrier();
+}
+
+[numthreads(32, 32, 1)]
+void DisplaceAlbedo(uint3 id : SV_DispatchThreadID) {
+    float height = Depth[id.xy] / 1024.0f;
+    float displacementFactor = height * ParallaxAmount * -RelativePosition;
+    uint2 newUV = uint2((id.x + displacementFactor) % 4096, id.y);
+
+    if (height != -1) {
+        Result[id.xy] = float4(AlbedoTexture[newUV.xy].rgb, 1.0f);
+    }
+}
+{% endhighlight %}
+
+At the moment of press play with this shader, nothing had change. After several tests, the only answer to
+the problem should be that InterlockedMax function does not work with textures.
+
+
+{% highlight glsl %}
+...
+RWStructuredBuffer<int> Depth;
+...
+uint bufferPos(uint3 id) {
+    return id.x + id.y * 4096;
+}
+
+[numthreads(32, 32, 1)]
+void Clear(uint3 id : SV_DispatchThreadID) {
+    Result[id.xy] = float4(1.0f, 0.0f, 1.0f, -1.0f);
+    Depth[bufferPos(id)] = -1;
+}
+
+[numthreads(32, 32, 1)]
+void WriteDepth(uint3 id : SV_DispatchThreadID) {
+    ...
+    InterlockedMax(Depth[bufferPos(newUV)], heightInt);
+    AllMemoryBarrier();
+}
+
+[numthreads(32, 32, 1)]
+void DisplaceAlbedo(uint3 id : SV_DispatchThreadID) {
+    int heightInt = Depth[bufferPos(id)];
+    float height = (heightInt / 4096.0f);
+    ....
+    float3 albedoColor = heightInt == -1 ? float3(1.0f, 0.0f, 1.0f) : 
+                                           AlbedoTexture[newUV.xy].rgb;
+    Result[id.xy] = float4(albedoColor, height);
+}
+{% endhighlight %}
+
+Changing the RWTexture2D&lt;float4&gt; to a RWStructuredBuffer&lt;int&gt; the results have improved a lot but
+some anoying noise was still there. Changing depth map options and albedo options, the noise was more regular 
+and less frequent.
+
 
 <div class="youtube-video" markdown="1">
   [![Test 1](https://img.youtube.com/vi/R2rfZYyaCcE/0.jpg)](https://www.youtube.com/watch?v=R2rfZYyaCcE){:target="_blank"}
 </div>
+-->
+
+
+# Making research 
+###### April 25, 2018
+
+Looking at other works to get inspired, some of them was made using a high-poly sphere and displacing vertex
+to simulate parallax. That have many restrictions as well as a performance problem when "high-poly" is too much
+vertices to handle.
+
+```
+Code from Joan
+https://github.com/IraltaVR/6DoF
+```
+
+[@soylentgraham](https://twitter.com/soylentgraham){:target="_blank"} from Twitter made some tips and provided
+a link to his "PopDepthMap360" project using kinect.
+
+After some time searching solutions, we evaluate that use textures as point cloud should be the best way to work,
+and we decided to try compute shaders 
+
+
+# Parallax Test 3
+###### April 20, 2018
+
+Last test makes 40 texture fetchs to select the best texel to ocuppy the current fragment, this also means that
+pixels can be moved only by 40 pixels, if more movement is required more fetchs should be fetched.
+
+The main reason to fetch so much texels is the restriction of fragment shader on writing at a different position
+of the textures. To solve this restriction, the usual shader is replaced by a compute shader.
+
+Here is the first compute shader:
+{% highlight glsl %}
+// Public kernels -----------------------
+#pragma kernel Clear
+#pragma kernel DisplaceAlbedo
+
+#include "UnityCG.cginc"
+
+// Config -------------------------------
+// 360 stereo depth texture (IN)
+Texture2D<fixed4> DepthTexture;
+// 360 stereo albedo texture (IN)
+Texture2D<fixed4> AlbedoTexture;
+// 360 stereo computed result (OUT)
+RWTexture2D<float4> Result;
+// Same config parameters as shader in Test 1 and 2
+float RelativePosition;
+float ParallaxAmount;
+
+
+// initialize result with pink to see gaps
+[numthreads(32, 32, 1)]
+void Clear(uint3 id : SV_DispatchThreadID) {
+    Result[id.xy] = float4(1.0f, 0.0f, 1.0f, -1.0f);
+}
+
+[numthreads(32, 32, 1)]
+void DisplaceAlbedo (uint3 id : SV_DispatchThreadID) {
+    // Decode height from depth
+    float height = DecodeFloatRGBA(DepthTexture[id.xy]);
+    // compute displacement
+    float displacementFactor = height * ParallaxAmount * RelativePosition;
+    // apply displacement
+    uint2 newUV = uint2((id.x + displacementFactor) % 4096, id.y);
+    
+    // return albedo at computed position
+    Result[newUV.xy] = float4(AlbedoTexture[id.xy].rgb, 1.0);
+}
+{% endhighlight %}
+
+The first problem that appeared at this moment is about concurrency. When a thread compute the new UV, it is 
+done using height and many pixels can compute the same UV. If that happens, something similar to z-fighting
+is rendered.
+
+In the video below it can be seen (near the windows is more noticeable).
+<div class="youtube-video" markdown="1">
+  [![Test 1](https://img.youtube.com/vi/R2rfZYyaCcE/0.jpg)](https://www.youtube.com/watch?v=R2rfZYyaCcE){:target="_blank"}
+</div>
+
 
 # Parallax Test 2 
 ###### April 17, 2018
@@ -73,7 +229,7 @@ float4 frag (v2f i) : SV_Target {
 This aproach is considerably better than last one, here it is the results.
 
 <div class="youtube-video" markdown="1">
-  [![Test 1](https://img.youtube.com/vi/wDxo_LH5Wjs/0.jpg)](https://www.youtube.com/watch?v=wDxo_LH5Wjs){:target="_blank"}
+  [![Test 2](https://img.youtube.com/vi/wDxo_LH5Wjs/0.jpg)](https://www.youtube.com/watch?v=wDxo_LH5Wjs){:target="_blank"}
 </div>
 
 
