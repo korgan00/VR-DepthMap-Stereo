@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
-public class RenderDisplacedTextureBuffers : MonoBehaviour {
+public class FakeRenderDisplacedTextureBuffers : MonoBehaviour {
 
     public Vector2Int textureSize = Vector2Int.one * 4096;
     public ComputeShader _shader;
@@ -12,7 +12,7 @@ public class RenderDisplacedTextureBuffers : MonoBehaviour {
 
     public Texture2D depth;
     public Texture2D albedo;
-    [Range(-0.1f, 0.1f)]
+    [Range(-1, 1)]
     public float _relativePosition;
     [Range(0, 1)]
     public float _parallaxAmount;
@@ -28,10 +28,8 @@ public class RenderDisplacedTextureBuffers : MonoBehaviour {
     private uint _xd, _yd;
     
     private bool _kernelsLoaded = false;
+
     
-    private Camera cam { get { return GetComponent<Camera>(); } }
-
-
     void Start() {
         _outputRT = CreateRenderTexture();
         _depthBuffer = CreateDepthBuffer();
@@ -53,16 +51,14 @@ public class RenderDisplacedTextureBuffers : MonoBehaviour {
         ComputeBuffer d = CreateDepthBuffer();
         UpdateShaderParameters(t, d);
         DispatchBoth();
-        d.Release();
+        _depthBuffer.Release();
         t.Release();
     }
 
     private void DispatchBoth() {
         _shader.SetFloat("RelativePosition", _relativePosition);
-        _shader.SetFloat("ParallaxAmount", _parallaxAmount);
-        //_shader.SetMatrix("CameraToWorldMatrix", cam.cameraToWorldMatrix);
-        //_shader.SetMatrix("WorldToCameraMatrix", cam.cameraToWorldMatrix.inverse);
-
+        _shader.SetFloat("ParallaxAmount", _parallaxAmount * 40);
+        
         if (_kernelsLoaded) {
             _shader.Dispatch(_clearKernel, textureSize.x / (int) _xf, textureSize.y / (int) _yf, 1);
             _shader.Dispatch(_writeDepthKernel, textureSize.x / (int) _xw, textureSize.y / (int) _yw, 1);

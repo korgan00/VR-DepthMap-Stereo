@@ -13,38 +13,105 @@ RWTexture2D<float4> Result;
 RWStructuredBuffer<int> Depth;
 float RelativePosition;
 float ParallaxAmount;
+//float4x4 CameraToWorldMatrix;
+//float4x4 WorldToCameraMatrix;
+static const float _PI = 3.14159265;
+static const float _2PI = 6.28318530;
+static const float _PI_2 = 1.57079632;
 
-uint bufferPos(uint3 id) {
+static const uint2 TexDim = uint2(4096, 4096);
+static const uint2 TexGrid = uint2(1, 2);
+static const uint2 GridElemDim = uint2(4096, 2048);
+static const uint FloatToUintDepthMultiplier = 4096;
+
+uint3 Displacement(uint2 id, float height, float3 displacementVector) {
+    float depth = 1 - height;
+
+    // id = ([0, 4095], [0, 2047])
+    float2 onePixelInRadians = float2(_2PI, _PI) / (GridElemDim - 1);
+    float2 theta_phi = (id.xy * onePixelInRadians) - float2(_PI, _PI_2);
+    // 
+    //return uint3(id.xy, height * 4096);
+
+    float2 sin_theta_phi = sin(theta_phi);
+    float2 cos_theta_phi = cos(theta_phi);
+    
+    float3 worldPos = float3(cos_theta_phi.y*sin_theta_phi.x, sin_theta_phi.y, cos_theta_phi.y*cos_theta_phi.x) * depth;
+    worldPos += displacementVector;
+
+    float newDepth = length(worldPos);
+    float3 newWorldNorm = worldPos / newDepth; // normalized
+
+    /*
+    cos_phi = newWorldNorm.z;
+    sin_phi = sqrt(1-cos_phi*cos_phi);
+    sin_theta = newWorldNorm.y / sin_phi;
+    cos_theta = newWorldNorm.x / sin_phi;
+    */
+    //theta_phi = float2(asin(sin_theta), asin(sin_phi));
+
+    theta_phi = float2(atan2(newWorldNorm.x, newWorldNorm.z), asin(newWorldNorm.y));
+    theta_phi = (theta_phi + float2(_PI, _PI_2)) / onePixelInRadians;
+    //uint3 coords = uint3(theta_phi + 40960, newDepth * 4096) % 4096;
+
+    return uint3(theta_phi, (1-newDepth) * FloatToUintDepthMultiplier);
+
+
+    //return uint3(id.yyy*2);
+
+    //return uint3(theta_phi * float2(4096.0 / _2PI, 2048 / _PI) , newDepth * 4096);
+
+    //return uint3(newWorldNorm.xy*4096.0, newDepth*4096.0);
+
+    //return uint3(id.xy, height * 4096);
+}
+
+uint BufferPos(uint3 id) {
     return id.x + id.y * 4096;
 }
 
 [numthreads(32, 32, 1)]
 void Clear(uint3 id : SV_DispatchThreadID) {
     Result[id.xy] = float4(1.0f, 0.0f, 1.0f, -1.0f);
-    Depth[bufferPos(id)] = -1;
+    Depth[BufferPos(id)] = -1;
 }
 
 [numthreads(32, 32, 1)]
 void WriteDepth(uint3 id : SV_DispatchThreadID) {
     float height = DepthTexture[id.xy].r;
+    /*
     float displacementFactor = height * ParallaxAmount * -RelativePosition;
     uint3 newUV = uint3((id.x + displacementFactor + 4096) % 4096, id.y, id.z);
     int heightInt = (int)(height * 4096);
+    */
 
-    InterlockedMax(Depth[bufferPos(newUV)], heightInt);
+    uint2 quadrant = id.xy / GridElemDim;
+    uint3 newUV = Displacement(uint2(id.x, id.y) % GridElemDim, height, float3(ParallaxAmount * -RelativePosition, 0, 0));
+    //return uint3((theta_phi + 40960) % 4096, (1 - newDepth) * 4096);
+    newUV.xy += quadrant * GridElemDim;
+
+    //Result[newUV.xy] = float4(newUV/float3(TexDim.xy, FloatToUintDepthMultiplier), 1);
+    
+    InterlockedMax(Depth[BufferPos(newUV)], (int)newUV.z);
     
     AllMemoryBarrier();
 }
 
 [numthreads(32, 32, 1)]
 void DisplaceAlbedo(uint3 id : SV_DispatchThreadID) {
-    int heightInt = Depth[bufferPos(id)];
+    int heightInt = Depth[BufferPos(id)];
     float height = (heightInt / 4096.0f);
-    float displacementFactor = height * ParallaxAmount * RelativePosition;
-    uint2 newUV = uint2((id.x + displacementFactor + 4096) % 4096, id.y);
+    
+    //float displacementFactor = height * ParallaxAmount * RelativePosition;
+    //uint2 newUV = uint2((id.x + displacementFactor + 4096) % 4096, id.y);
+    uint2 quadrant = id.xy / GridElemDim;
+    uint3 newUV = Displacement(uint2(id.x, id.y) % GridElemDim, height, float3(ParallaxAmount * RelativePosition, 0, 0));
+    newUV.xy += quadrant * GridElemDim;
+    //uint3 newUV = Displacement(uint2(id.x, id.y % 2048), height, float3(ParallaxAmount * RelativePosition, 0, 0));
 
-    float3 albedoColor = heightInt == -1 ? float3(1.0f, 0.0f, 1.0f) : //float3(heightTex, heightTex, heightTex);
+    float3 albedoColor = heightInt == -1 ? float3(1.0, 0.0, 1.0) : //float3(heightTex, heightTex, heightTex);
                                            AlbedoTexture[newUV.xy].rgb;
 
-    Result[id.xy] = float4(albedoColor, height);
+    Result[id.xy] = float4(albedoColor, 1.0);
+
 }

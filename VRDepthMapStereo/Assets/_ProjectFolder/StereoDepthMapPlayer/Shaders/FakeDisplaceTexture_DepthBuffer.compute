@@ -1,0 +1,50 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel Clear
+#pragma kernel WriteDepth
+#pragma kernel DisplaceAlbedo
+
+#include "UnityCG.cginc"
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+Texture2D<fixed4> DepthTexture;
+Texture2D<fixed4> AlbedoTexture;
+RWTexture2D<float4> Result;
+RWStructuredBuffer<int> Depth;
+float RelativePosition;
+float ParallaxAmount;
+
+uint bufferPos(uint3 id) {
+    return id.x + id.y * 4096;
+}
+
+[numthreads(32, 32, 1)]
+void Clear(uint3 id : SV_DispatchThreadID) {
+    Result[id.xy] = float4(1.0f, 0.0f, 1.0f, -1.0f);
+    Depth[bufferPos(id)] = -1;
+}
+
+[numthreads(32, 32, 1)]
+void WriteDepth(uint3 id : SV_DispatchThreadID) {
+    float height = DepthTexture[id.xy].r;
+    float displacementFactor = height * ParallaxAmount * -RelativePosition;
+    uint3 newUV = uint3((id.x + displacementFactor + 4096) % 4096, id.y, id.z);
+    int heightInt = (int)(height * 4096);
+
+    InterlockedMax(Depth[bufferPos(newUV)], heightInt);
+    
+    AllMemoryBarrier();
+}
+
+[numthreads(32, 32, 1)]
+void DisplaceAlbedo(uint3 id : SV_DispatchThreadID) {
+    int heightInt = Depth[bufferPos(id)];
+    float height = (heightInt / 4096.0f);
+    float displacementFactor = height * ParallaxAmount * RelativePosition;
+    uint2 newUV = uint2((id.x + displacementFactor + 4096) % 4096, id.y);
+
+    float3 albedoColor = heightInt == -1 ? float3(1.0f, 0.0f, 1.0f) : //float3(heightTex, heightTex, heightTex);
+                                           AlbedoTexture[newUV.xy].rgb;
+
+    Result[id.xy] = float4(albedoColor, height);
+}

@@ -379,7 +379,7 @@ Prefab:
     - target: {fileID: 114881463273223672, guid: 1d8329e77a030a44391eb6273348283e,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1373536865015938, guid: 1d8329e77a030a44391eb6273348283e, type: 2}
       propertyPath: m_IsActive
@@ -410,7 +410,7 @@ Prefab:
       propertyPath: m_Text
       value: 'DepthMap
 
-        Parallax Test v3
+        Parallax Test v5
 
 '
       objectReference: {fileID: 0}
@@ -545,7 +545,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1242439162}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -571,7 +571,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Using Compute Shaders
+  m_Text: 'Displacement World Space
 
 '
 --- !u!222 &1242439167

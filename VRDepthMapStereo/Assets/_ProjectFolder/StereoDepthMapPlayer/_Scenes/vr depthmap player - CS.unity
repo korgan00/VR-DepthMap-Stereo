@@ -225,7 +225,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -251,14 +251,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 296837006}
-  m_LocalRotation: {x: 0, y: -0.5863724, z: 0, w: 0.81004167}
+  m_LocalRotation: {x: 0, y: 0.2164396, z: 0, w: 0.97629607}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 943313245}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -71.8, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 25, z: 0}
 --- !u!114 &296837012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,7 +289,7 @@ MonoBehaviour:
   _textureName: _MainTex
   depth: {fileID: 2800000, guid: 95c8b3169c21ed04790abb11ea86123b, type: 3}
   albedo: {fileID: 2800000, guid: 9f3dcbb3e4700a74cbb0ddc246837863, type: 3}
-  _relativePosition: 0.54
+  _relativePosition: 0
   _parallaxAmount: 1
 --- !u!1001 &354910216
 Prefab:
@@ -311,7 +311,7 @@ Prefab:
     - target: {fileID: 224842930953618312, guid: 1d8329e77a030a44391eb6273348283e,
         type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1.365
+      value: 0.418
       objectReference: {fileID: 0}
     - target: {fileID: 224842930953618312, guid: 1d8329e77a030a44391eb6273348283e,
         type: 2}
@@ -341,7 +341,7 @@ Prefab:
     - target: {fileID: 224842930953618312, guid: 1d8329e77a030a44391eb6273348283e,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.461
+      value: -0.059
       objectReference: {fileID: 0}
     - target: {fileID: 224842930953618312, guid: 1d8329e77a030a44391eb6273348283e,
         type: 2}
@@ -390,7 +390,22 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1373536865015938, guid: 1d8329e77a030a44391eb6273348283e, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224842930953618312, guid: 1d8329e77a030a44391eb6273348283e,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224842930953618312, guid: 1d8329e77a030a44391eb6273348283e,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224842930953618312, guid: 1d8329e77a030a44391eb6273348283e,
+        type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1d8329e77a030a44391eb6273348283e, type: 2}
@@ -416,19 +431,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ccce57c29858c1344b1bb4e2013ea34e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.46415004
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ccce57c29858c1344b1bb4e2013ea34e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5334462
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ccce57c29858c1344b1bb4e2013ea34e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.5334461
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ccce57c29858c1344b1bb4e2013ea34e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.46415004
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ccce57c29858c1344b1bb4e2013ea34e, type: 3}
       propertyPath: m_RootOrder
@@ -456,7 +471,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ccce57c29858c1344b1bb4e2013ea34e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -97.94701
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ccce57c29858c1344b1bb4e2013ea34e, type: 3}
