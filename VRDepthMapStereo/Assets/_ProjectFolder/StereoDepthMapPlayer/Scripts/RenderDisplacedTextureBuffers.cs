@@ -39,7 +39,9 @@ public class RenderDisplacedTextureBuffers : MonoBehaviour {
     }
 
     private void OnDestroy() {
-        _depthBuffer.Release();
+        if (_depthBuffer != null && _depthBuffer.IsValid())
+            _depthBuffer.Release();
+
         _outputRT.Release();
     }
     
@@ -60,9 +62,7 @@ public class RenderDisplacedTextureBuffers : MonoBehaviour {
     private void DispatchBoth() {
         _shader.SetFloat("RelativePosition", _relativePosition);
         _shader.SetFloat("ParallaxAmount", _parallaxAmount);
-        //_shader.SetMatrix("CameraToWorldMatrix", cam.cameraToWorldMatrix);
-        //_shader.SetMatrix("WorldToCameraMatrix", cam.cameraToWorldMatrix.inverse);
-
+       
         if (_kernelsLoaded) {
             _shader.Dispatch(_clearKernel, textureSize.x / (int) _xf, textureSize.y / (int) _yf, 1);
             _shader.Dispatch(_writeDepthKernel, textureSize.x / (int) _xw, textureSize.y / (int) _yw, 1);

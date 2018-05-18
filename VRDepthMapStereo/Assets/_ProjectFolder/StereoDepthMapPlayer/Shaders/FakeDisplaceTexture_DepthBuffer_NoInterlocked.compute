@@ -1,0 +1,108 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel Clear
+#pragma kernel WriteDepth
+#pragma kernel DisplaceAlbedo
+
+#include "UnityCG.cginc"
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+Texture2D<fixed4> DepthTexture;
+Texture2D<fixed4> AlbedoTexture;
+RWTexture2D<float4> Result;
+RWStructuredBuffer<int> Depth; 
+struct Mutex {
+    int locked;
+    int id;
+};
+RWStructuredBuffer<Mutex> mutexBuffer;
+float RelativePosition;
+float ParallaxAmount;
+
+uint BufferPos(uint3 id) {
+    return id.x + id.y * 4096;
+}
+
+[numthreads(32, 32, 1)]
+void Clear(uint3 id : SV_DispatchThreadID) {
+    Result[id.xy] = float4(1.0f, 0.0f, 1.0f, -1.0f);
+    uint buffPos = BufferPos(id);
+    Depth[buffPos] = -1;
+    mutexBuffer[buffPos].locked = false;
+    mutexBuffer[buffPos].id = -1;
+}
+
+[numthreads(32, 32, 1)]
+void WriteDepth(uint3 id : SV_DispatchThreadID) {
+    float height = DepthTexture[id.xy].r;
+    float displacementFactor = height * ParallaxAmount * -RelativePosition;
+    uint3 newUV = uint3((id.x + displacementFactor + 4096) % 4096, id.y, id.z);
+    
+    int heightInt = (int)(height * 4096);
+    uint buffPos = BufferPos(newUV);
+    
+    if (Depth[BufferPos(newUV)] < heightInt) {
+        Depth[BufferPos(newUV)] = heightInt;
+    }
+    if (Depth[BufferPos(newUV)] < heightInt) {
+        Depth[BufferPos(newUV)] = heightInt;
+    }
+    if (Depth[BufferPos(newUV)] < heightInt) {
+        Depth[BufferPos(newUV)] = heightInt;
+    }
+    if (Depth[BufferPos(newUV)] < heightInt) {
+        Depth[BufferPos(newUV)] = heightInt;
+    }
+    if (Depth[BufferPos(newUV)] < heightInt) {
+        Depth[BufferPos(newUV)] = heightInt;
+    }
+
+    float3 albedoColor = float3(1.0f, 0.0f, 1.0f);
+    if (Depth[BufferPos(newUV)] == heightInt) {
+        Result[newUV.xy] = float4(AlbedoTexture[id.xy].rgb, height);
+    }
+    
+
+    /*
+    // this one crashes
+    // lock
+    bool done = false;
+    while (!done) {
+        [branch]
+        if (mutexBuffer[buffPos].id == -1 && !mutexBuffer[buffPos].locked) {
+            mutexBuffer[buffPos].id = (int)buffPos;
+            [branch]
+            if (mutexBuffer[buffPos].id == (int)buffPos && !mutexBuffer[buffPos].locked) {
+                mutexBuffer[buffPos].locked = true;
+                [branch]
+                if (mutexBuffer[buffPos].id == (int)buffPos && mutexBuffer[buffPos].locked) {
+                    done = true;
+                }
+            }
+        }
+    }
+
+    [branch]
+    if (Depth[buffPos] < heightInt) {
+        Depth[buffPos] = heightInt;
+        Result[newUV.xy] = float4(AlbedoTexture[id.xy].rgb, height);
+    }
+
+    // free
+    mutexBuffer[buffPos].id = -1;
+    mutexBuffer[buffPos].locked = false;
+    */
+}
+
+[numthreads(32, 32, 1)]
+void DisplaceAlbedo(uint3 id : SV_DispatchThreadID) {
+    int heightInt = Depth[BufferPos(id)];
+    float height = (heightInt / 4096.0f);
+    float displacementFactor = height * ParallaxAmount * RelativePosition;
+    uint2 newUV = uint2((id.x + displacementFactor + 4096) % 4096, id.y);
+
+    float3 albedoColor = heightInt == -1 ? float3(1.0f, 0.0f, 1.0f) : //float3(heightTex, heightTex, heightTex);
+                                           AlbedoTexture[newUV.xy].rgb;
+
+    Result[id.xy] = float4(albedoColor, height);
+}
