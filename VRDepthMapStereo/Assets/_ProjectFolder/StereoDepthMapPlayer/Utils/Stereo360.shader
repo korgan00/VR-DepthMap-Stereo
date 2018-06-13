@@ -18,16 +18,12 @@
 // This shader switches the culling to the front side and inverts the normal so
 // textures are drawn on the inside or back of the object.
 //
-Shader "VR/Stereo 360 parallax v/v1" {
+Shader "VR/Stereo 360" {
     Properties {
         _Gamma ("Video gamma", Range(0.01,3.0)) = 1.0
         _MainTex("Base (RGB)", 2D) = "white" {}
-        _StereoVideo("Render Stereo Video", Int) = 1
+        _StereoVideo("Render Stereo", Int) = 1
         _RenderedEye("RenderedEye", Int) = 0
-        [Header(Parallax)]
-        _DepthTex("Depth", 2D) = "white" {}
-        _RelativePosition("Position", Range(-1.0,1.0)) = 0
-        _ParallaxAmount("Amount", Range(0.0,1.0)) = 0.3
     }
 
     SubShader {
@@ -42,22 +38,16 @@ Shader "VR/Stereo 360 parallax v/v1" {
             #pragma fragment frag
 
             #include "UnityCG.cginc"
-            #include "GvrUnityCompatibility.cginc"
 
+            float _Gamma;
             float4 _MainTex_ST;
             sampler2D _MainTex;
-            sampler2D _DepthTex;
-            uniform float4 _DepthTex_TexelSize;
             int _StereoVideo;
-            float _Gamma;
-            float _RelativePosition;
-            float _ParallaxAmount;
             int _RenderedEye;
 
             struct v2f {
                 float4 pos : SV_POSITION;
                 float2 uv : TEXCOORD0;
-                float3 viewDir : NORMAL;
             };
 
             float3 gammaCorrect(float3 v)
@@ -81,7 +71,7 @@ Shader "VR/Stereo 360 parallax v/v1" {
                 v2f o;
                 // invert the normal of the vertex
                 v.normal.xyz = v.normal * -1;
-                o.pos = GvrUnityObjectToClipPos(v.vertex);
+                o.pos = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX (v.texcoord, _MainTex);
                 if (_StereoVideo > 0) {
                     o.uv.y *= 0.5f;
@@ -91,19 +81,11 @@ Shader "VR/Stereo 360 parallax v/v1" {
                 }
                 o.uv.x = 1 - o.uv.x;
 
-                // apply MV matrix
-                o.viewDir = UnityObjectToViewPos(v.normal);
-
                 return o;
             }
 
             float4 frag (v2f i) : SV_Target {
-                
-                //Version 1
-                float h = DecodeFloatRGBA(tex2D(_DepthTex, i.uv));
-                float uDisplacement = h * _ParallaxAmount * _RelativePosition * _DepthTex_TexelSize.x * 40;
-                return gammaCorrect(tex2D(_MainTex, i.uv + float2(uDisplacement, 0)));
-                
+                return gammaCorrect(float4(tex2D(_MainTex, i.uv).rgb, 1.0f));
             }
             ENDCG
         }

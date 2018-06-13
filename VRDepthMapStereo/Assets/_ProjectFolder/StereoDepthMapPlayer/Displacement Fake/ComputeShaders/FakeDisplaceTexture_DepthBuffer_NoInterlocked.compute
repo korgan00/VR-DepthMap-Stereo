@@ -10,12 +10,9 @@
 Texture2D<fixed4> DepthTexture;
 Texture2D<fixed4> AlbedoTexture;
 RWTexture2D<float4> Result;
-RWStructuredBuffer<int> Depth; 
-struct Mutex {
-    int locked;
-    int id;
-};
-RWStructuredBuffer<Mutex> mutexBuffer;
+RWStructuredBuffer<int> Depth;
+RWStructuredBuffer<uint> MutexBuffer;
+RWStructuredBuffer<int> Depth0[4];
 float RelativePosition;
 float ParallaxAmount;
 
@@ -23,13 +20,47 @@ uint BufferPos(uint3 id) {
     return id.x + id.y * 4096;
 }
 
+void WriteMultiDepth(int idx, uint pos, int heightInt) {
+    [branch]
+    switch (idx) {
+        case 0:
+            if (Depth0[0][pos] < heightInt) {
+                Depth0[0][pos] = heightInt;
+            }
+        break;
+        case 1:
+            if (Depth0[1][pos] < heightInt) {
+                Depth0[1][pos] = heightInt;
+            }
+        break;
+        case 2:
+            if (Depth0[2][pos] < heightInt) {
+                Depth0[2][pos] = heightInt;
+            }
+        break;
+        case 3:
+            if (Depth0[3][pos] < heightInt) {
+                Depth0[3][pos] = heightInt;
+            }
+        break;
+        default:
+            if (Depth0[3][pos] < heightInt) {
+                Depth0[3][pos] = heightInt;
+            }
+        break;
+    }
+}
+
 [numthreads(32, 32, 1)]
 void Clear(uint3 id : SV_DispatchThreadID) {
     Result[id.xy] = float4(1.0f, 0.0f, 1.0f, -1.0f);
     uint buffPos = BufferPos(id);
     Depth[buffPos] = -1;
-    mutexBuffer[buffPos].locked = false;
-    mutexBuffer[buffPos].id = -1;
+    Depth0[0][buffPos] = -1;
+    Depth0[1][buffPos] = -1;
+    Depth0[2][buffPos] = -1;
+    Depth0[3][buffPos] = -1;
+    MutexBuffer[buffPos] = 0;
 }
 
 [numthreads(32, 32, 1)]
@@ -37,31 +68,43 @@ void WriteDepth(uint3 id : SV_DispatchThreadID) {
     float height = DepthTexture[id.xy].r;
     float displacementFactor = height * ParallaxAmount * -RelativePosition;
     uint3 newUV = uint3((id.x + displacementFactor + 4096) % 4096, id.y, id.z);
-    
+
+
+    float depth = 1 - height;
     int heightInt = (int)(height * 4096);
+    int bufferIdx = (int)(depth * 8);
     uint buffPos = BufferPos(newUV);
-    
-    if (Depth[BufferPos(newUV)] < heightInt) {
-        Depth[BufferPos(newUV)] = heightInt;
-    }
-    if (Depth[BufferPos(newUV)] < heightInt) {
-        Depth[BufferPos(newUV)] = heightInt;
-    }
-    if (Depth[BufferPos(newUV)] < heightInt) {
-        Depth[BufferPos(newUV)] = heightInt;
-    }
-    if (Depth[BufferPos(newUV)] < heightInt) {
-        Depth[BufferPos(newUV)] = heightInt;
-    }
-    if (Depth[BufferPos(newUV)] < heightInt) {
-        Depth[BufferPos(newUV)] = heightInt;
+    uint retVal = 1;
+
+    /*
+    // this one crashes
+    float3 albedoColor = AlbedoTexture[id.xy].rgb;
+    [allow_uav_condition]
+    while (retVal != 0) { // lock
+        InterlockedCompareExchange(MutexBuffer[buffPos], 0, 1, retVal);
     }
 
+    if (Depth[buffPos] < heightInt) {
+        Depth[buffPos] = heightInt;
+        Result[newUV.xy] = float4(albedoColor, height);
+    }
+
+    // release
+    InterlockedExchange(MutexBuffer[buffPos], 0, retVal);
+    */
+
+    WriteMultiDepth(bufferIdx, buffPos, heightInt);
+    WriteMultiDepth(bufferIdx, buffPos, heightInt);
+    WriteMultiDepth(bufferIdx, buffPos, heightInt);
+    WriteMultiDepth(bufferIdx, buffPos, heightInt);
+
+    
+    /*
     float3 albedoColor = float3(1.0f, 0.0f, 1.0f);
-    if (Depth[BufferPos(newUV)] == heightInt) {
+    if (Depth0[bufferIdx][buffPos] == heightInt) {
         Result[newUV.xy] = float4(AlbedoTexture[id.xy].rgb, height);
     }
-    
+    */
 
     /*
     // this one crashes
@@ -88,7 +131,7 @@ void WriteDepth(uint3 id : SV_DispatchThreadID) {
         Result[newUV.xy] = float4(AlbedoTexture[id.xy].rgb, height);
     }
 
-    // free
+    // release
     mutexBuffer[buffPos].id = -1;
     mutexBuffer[buffPos].locked = false;
     */
@@ -96,7 +139,12 @@ void WriteDepth(uint3 id : SV_DispatchThreadID) {
 
 [numthreads(32, 32, 1)]
 void DisplaceAlbedo(uint3 id : SV_DispatchThreadID) {
-    int heightInt = Depth[BufferPos(id)];
+    int heightInt0 = Depth0[0][BufferPos(id)];
+    int heightInt1 = Depth0[1][BufferPos(id)];
+    int heightInt2 = Depth0[2][BufferPos(id)];
+    int heightInt3 = Depth0[3][BufferPos(id)];
+
+    int heightInt = max(heightInt0, max(heightInt1, max(heightInt2, heightInt3)));
     float height = (heightInt / 4096.0f);
     float displacementFactor = height * ParallaxAmount * RelativePosition;
     uint2 newUV = uint2((id.x + displacementFactor + 4096) % 4096, id.y);

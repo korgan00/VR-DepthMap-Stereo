@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
-public class FakeRenderDisplacedTextureBuffers : MonoBehaviour {
+public class RenderDisplacedTextureBuffersSingleStep : MonoBehaviour {
 
     public Vector2Int textureSize = Vector2Int.one * 4096;
     public ComputeShader _shader;
@@ -12,7 +12,7 @@ public class FakeRenderDisplacedTextureBuffers : MonoBehaviour {
 
     public Texture2D depth;
     public Texture2D albedo;
-    [Range(-1, 1)]
+    [Range(-0.1f, 0.1f)]
     public float _relativePosition;
     [Range(0, 1)]
     public float _parallaxAmount;
@@ -20,32 +20,47 @@ public class FakeRenderDisplacedTextureBuffers : MonoBehaviour {
 
     private RenderTexture _outputRT;
     private ComputeBuffer _depthBuffer;
-    private ComputeBuffer _mutexBuffer;
     private int _clearKernel;
     private int _writeDepthKernel;
     private int _displaceKernel;
     private uint _xf, _yf;
     private uint _xw, _yw;
-    private uint _xd, _yd;
+    //private uint _xd, _yd;
     
     private bool _kernelsLoaded = false;
-
+    
     private Camera cam { get { return GetComponent<Camera>(); } }
+
+
+    public void MoveLeft() {
+        _relativePosition += 0.01f;
+    }
+    public void MoveRight() {
+        _relativePosition -= 0.01f;
+    }
 
     void Start() {
         _outputRT = CreateRenderTexture();
         _depthBuffer = CreateDepthBuffer();
-        _mutexBuffer = CreateMutexBuffer();
-        UpdateShaderParameters(_outputRT, _depthBuffer, _mutexBuffer);
+        UpdateShaderParameters(_outputRT, _depthBuffer);
     }
 
     private void OnDestroy() {
-        _depthBuffer.Release();
-        _mutexBuffer.Release();
-        _outputRT.Release();
+        if (_depthBuffer != null && _depthBuffer.IsValid())
+            _depthBuffer.Release();
+
+        if (_outputRT != null)
+            _outputRT.Release();
     }
-    
+
+    private float _direction = 1;
+
     void OnPreRender() {
+        if (Mathf.Abs(_relativePosition) >= 0.1f) {
+            _direction = -_direction;
+            Mathf.Clamp(_relativePosition, -0.1f, 0.1f);
+        }
+        _relativePosition += 0.03f * Time.deltaTime * _direction;
         DispatchBoth();
     }
 
@@ -53,18 +68,16 @@ public class FakeRenderDisplacedTextureBuffers : MonoBehaviour {
     public void ComputeOnTexture() {
         RenderTexture t = CreateRenderTexture();
         ComputeBuffer d = CreateDepthBuffer();
-        ComputeBuffer m = CreateMutexBuffer();
-        UpdateShaderParameters(t, d, m);
+        UpdateShaderParameters(t, d);
         DispatchBoth();
-        t.Release();
         d.Release();
-        m.Release();
+        t.Release();
     }
 
     private void DispatchBoth() {
         _shader.SetFloat("RelativePosition", _relativePosition);
-        _shader.SetFloat("ParallaxAmount", _parallaxAmount * 400);
-        
+        _shader.SetFloat("ParallaxAmount", _parallaxAmount);
+       
         if (_kernelsLoaded) {
             _shader.Dispatch(_clearKernel, textureSize.x / (int) _xf, textureSize.y / (int) _yf, 1);
             _shader.Dispatch(_writeDepthKernel, textureSize.x / (int) _xw, textureSize.y / (int) _yw, 1);
@@ -86,23 +99,15 @@ public class FakeRenderDisplacedTextureBuffers : MonoBehaviour {
         ComputeBuffer buffer = new ComputeBuffer(textureSize.x * textureSize.y, 4, ComputeBufferType.Default);
         int[] data = new int[textureSize.x * textureSize.y];
         buffer.SetData(data);
-
-        return buffer;
-    }
-    
-    private ComputeBuffer CreateMutexBuffer() {
-        ComputeBuffer buffer = new ComputeBuffer(textureSize.x * textureSize.y, 8, ComputeBufferType.Default);
-        int[] data = new int[textureSize.x * textureSize.y * 2];
-        buffer.SetData(data);
-
+        
         return buffer;
     }
 
-    private void UpdateShaderParameters(RenderTexture t, ComputeBuffer d, ComputeBuffer m) {
-        uint zf, zd, zw;
+    private void UpdateShaderParameters(RenderTexture t, ComputeBuffer d) {
+        uint zf/*, zd*/, zw;
         if (t == null) { t = _outputRT; }
 
-        _kernelsLoaded = _shader.HasKernel("WriteDepth") && _shader.HasKernel("DisplaceAlbedo") && _shader.HasKernel("Clear");
+        _kernelsLoaded = _shader.HasKernel("WriteDepth") /*&& _shader.HasKernel("DisplaceAlbedo")*/ && _shader.HasKernel("Clear");
         if (!_kernelsLoaded) {
             Debug.LogError("Shader Kernel compilation error");
             return;
@@ -111,26 +116,23 @@ public class FakeRenderDisplacedTextureBuffers : MonoBehaviour {
         _materialToShareTexture.SetTexture(_textureName, t);
         _clearKernel = _shader.FindKernel("Clear");
         _writeDepthKernel = _shader.FindKernel("WriteDepth");
-        _displaceKernel = _shader.FindKernel("DisplaceAlbedo");
+        //_displaceKernel = _shader.FindKernel("DisplaceAlbedo");
 
         _shader.SetBuffer(_clearKernel, "Depth", d);
-        _shader.SetBuffer(_clearKernel, "mutexBuffer", m);
         _shader.SetTexture(_clearKernel, "Result", t);
 
         _shader.SetBuffer(_writeDepthKernel, "Depth", d);
-        _shader.SetBuffer(_writeDepthKernel, "mutexBuffer", m);
         _shader.SetTexture(_writeDepthKernel, "Result", t);
         _shader.SetTexture(_writeDepthKernel, "DepthTexture", depth);
         _shader.SetTexture(_writeDepthKernel, "AlbedoTexture", albedo);
 
-        _shader.SetBuffer(_displaceKernel, "Depth", d);
-        _shader.SetBuffer(_displaceKernel, "mutexBuffer", m);
-        _shader.SetTexture(_displaceKernel, "Result", t);
-        _shader.SetTexture(_displaceKernel, "DepthTexture", depth);
-        _shader.SetTexture(_displaceKernel, "AlbedoTexture", albedo);
+        //_shader.SetBuffer(_displaceKernel, "Depth", d);
+        //_shader.SetTexture(_displaceKernel, "Result", t);
+        //_shader.SetTexture(_displaceKernel, "DepthTexture", depth);
+        //_shader.SetTexture(_displaceKernel, "AlbedoTexture", albedo);
 
         _shader.GetKernelThreadGroupSizes(_clearKernel, out _xf, out _yf, out zf);
         _shader.GetKernelThreadGroupSizes(_writeDepthKernel, out _xw, out _yw, out zw);
-        _shader.GetKernelThreadGroupSizes(_displaceKernel, out _xd, out _yd, out zd);
+        //_shader.GetKernelThreadGroupSizes(_displaceKernel, out _xd, out _yd, out zd);
     }
 }

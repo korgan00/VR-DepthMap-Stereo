@@ -43,10 +43,7 @@ uint3 Displacement(uint2 id, float height, float3 displacementVector) {
     float newDepth = length(worldPos);
     snorm float3 newWorldNorm = worldPos / newDepth; // normalized
 
-    float atan2ThetaPhi = 0;
-    if (newWorldNorm.x != 0 || newWorldNorm.z != 0) {
-        atan2ThetaPhi = atan2(newWorldNorm.x, newWorldNorm.z);
-    }
+    float atan2ThetaPhi = atan2(newWorldNorm.x, newWorldNorm.z);
 
     theta_phi = float2(atan2ThetaPhi, asin(newWorldNorm.y));
     //theta_phi = ((theta_phi + float2(_PI, _PI_2)) * (GridElemDim - 1)) / float2(_2PI, _PI);
@@ -61,41 +58,58 @@ uint BufferPos(uint3 id) {
 
 [numthreads(1024, 1, 1)]
 void Clear(uint3 id : SV_DispatchThreadID) {
-    Result[id.xy] = float4(1.0f, 0.0f, 1.0f, -1.0f);
+    //Result[id.xy] = float4(1.0f, 0.0f, 1.0f, -1.0f);
     Depth[BufferPos(id)] = -1;
 }
 
 [numthreads(32, 32, 1)]
 void WriteDepth(uint3 id : SV_DispatchThreadID) {
     float height = DepthTexture[id.xy].r;
-
     uint2 quadrant = id.xy / GridElemDim;
+
+    // 
     uint3 newUV = Displacement(uint2(id.x, id.y) % GridElemDim, height, float3(ParallaxAmount * -RelativePosition, 0, 0));
 
     newUV.xy += quadrant * GridElemDim;
-    
-    //InterlockedMax(Depth[BufferPos(newUV)], (int)newUV.z);
-    //AllMemoryBarrier();
     uint buffPos = BufferPos(newUV);
+
+    // INTERLOCKED MODE
+    // Write Depth
+    InterlockedMax(Depth[buffPos], (int)newUV.z);
+
+
+    // Write Color
+    if (Depth[buffPos] == (int)newUV.z)
+        Result[newUV.xy] = float4(AlbedoTexture[id.xy].rgb, 1.0);
+
+    // MULTIWRITE MODE
+    /*
     int heightInt = (int)newUV.z;
     if (Depth[buffPos] < heightInt){
         Depth[buffPos] = heightInt;
+        Result[newUV.xy] = float4(AlbedoTexture[id.xy].rgb, 1.0);
     }
     if (Depth[buffPos] < heightInt) {
         Depth[buffPos] = heightInt;
+        Result[newUV.xy] = float4(AlbedoTexture[id.xy].rgb, 1.0);
     }
     if (Depth[buffPos] < heightInt) {
         Depth[buffPos] = heightInt;
+        Result[newUV.xy] = float4(AlbedoTexture[id.xy].rgb, 1.0);
     }
     if (Depth[buffPos] < heightInt) {
         Depth[buffPos] = heightInt;
+        Result[newUV.xy] = float4(AlbedoTexture[id.xy].rgb, 1.0);
     }
     if (Depth[buffPos] < heightInt) {
         Depth[buffPos] = heightInt;
+        Result[newUV.xy] = float4(AlbedoTexture[id.xy].rgb, 1.0);
     }
     if (Depth[buffPos] < heightInt) {
         Depth[buffPos] = heightInt;
+        Result[newUV.xy] = float4(AlbedoTexture[id.xy].rgb, 1.0);
     }
+    */
 }
 
 [numthreads(1024, 1, 1)]
@@ -107,9 +121,10 @@ void DisplaceAlbedo(uint3 id : SV_DispatchThreadID) {
     uint3 newUV = Displacement(uint2(id.x, id.y) % GridElemDim, height, float3(ParallaxAmount * RelativePosition, 0, 0));
     newUV.xy += quadrant * GridElemDim;
     
-    float3 albedoColor = heightInt == -1 ? float3(1.0, 0.0, 1.0) :
-                                           AlbedoTexture[newUV.xy].rgb;
+    //float3 albedoColor = heightInt == -1 ? float3(1.0, 0.0, 1.0) :
+    //                                       AlbedoTexture[newUV.xy].rgb;
 
-    Result[id.xy] = float4(albedoColor, 1.0);
+    if(heightInt != -1)
+        Result[id.xy] = float4(AlbedoTexture[newUV.xy].rgb, 1.0);
 
 }

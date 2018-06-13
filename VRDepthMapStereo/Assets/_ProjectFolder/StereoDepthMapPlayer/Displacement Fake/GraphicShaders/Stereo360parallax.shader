@@ -42,7 +42,6 @@ Shader "VR/Stereo 360 parallax" {
             #pragma fragment frag
 
             #include "UnityCG.cginc"
-            #include "GvrUnityCompatibility.cginc"
 
             float4 _MainTex_ST;
             sampler2D _MainTex;
@@ -81,7 +80,7 @@ Shader "VR/Stereo 360 parallax" {
                 v2f o;
                 // invert the normal of the vertex
                 v.normal.xyz = v.normal * -1;
-                o.pos = GvrUnityObjectToClipPos(v.vertex);
+                o.pos = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX (v.texcoord, _MainTex);
                 if (_StereoVideo > 0) {
                     o.uv.y *= 0.5f;

@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Stereo360parallax_v1
-  m_Shader: {fileID: 4800000, guid: 73b75c951839850469674f59399e63a0, type: 3}
+  m_Name: Stereo360parallax_v2
+  m_Shader: {fileID: 4800000, guid: b4e39c244bfc86242ab389be8226ef03, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -72,7 +72,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _ParallaxAmount: 1
-    - _RelativePosition: 0
+    - _RelativePosition: 0.2
     - _RenderedEye: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

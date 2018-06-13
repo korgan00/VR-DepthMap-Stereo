@@ -1,0 +1,115 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel Clear
+#pragma kernel WriteDepth
+#pragma kernel DisplaceAlbedo
+
+#include "UnityCG.cginc"
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+Texture2D<fixed4> DepthTexture;
+Texture2D<fixed4> AlbedoTexture;
+RWTexture2D<float4> Result;
+RWStructuredBuffer<int> Depth;
+float RelativePosition;
+float ParallaxAmount;
+//float4x4 CameraToWorldMatrix;
+//float4x4 WorldToCameraMatrix;
+static const float _PI = 3.14159265359;
+static const float _2PI = 6.28318530718;
+static const float _PI_2 = 1.57079632679;
+
+static const uint2 TexDim = uint2(4096, 4096);
+static const uint2 TexGrid = uint2(1, 2);
+static const uint2 GridElemDim = uint2(4096, 2048);
+static const uint FloatToUintDepthMultiplier = 4096;
+static const unorm float UintToFloatDepthMultiplier = 1.0/4096.0;
+
+uint3 Displacement(uint2 id, float height, float3 displacementVector) {
+    float depth = 1 - height;
+
+    // id = ([0, 4095], [0, 2047])
+    unorm float2 onePixelInRadians = float2(_2PI, _PI) / (GridElemDim - 1);
+    float2 theta_phi = (id.xy * onePixelInRadians) - float2(_PI, _PI_2);
+
+    snorm float2 sin_theta_phi = sin(theta_phi);
+    snorm float2 cos_theta_phi = cos(theta_phi);
+    
+    float3 worldPos = float3(cos_theta_phi.y*sin_theta_phi.x, 
+                             sin_theta_phi.y, 
+                             cos_theta_phi.y*cos_theta_phi.x) * depth;
+    worldPos += displacementVector;
+
+    float newDepth = length(worldPos);
+    snorm float3 newWorldNorm = worldPos / newDepth; // normalized
+
+    float atan2ThetaPhi = atan2(newWorldNorm.x, newWorldNorm.z);
+
+    theta_phi = float2(atan2ThetaPhi, asin(newWorldNorm.y));
+    //theta_phi = ((theta_phi + float2(_PI, _PI_2)) * (GridElemDim - 1)) / float2(_2PI, _PI);
+    theta_phi = (theta_phi / float2(_2PI, _PI) + 0.5) * (GridElemDim - 1);
+
+    return uint3(theta_phi, (1-newDepth) * FloatToUintDepthMultiplier);
+}
+
+uint BufferPos(uint3 id) {
+    return id.x + id.y * 4096;
+}
+
+[numthreads(1024, 1, 1)]
+void Clear(uint3 id : SV_DispatchThreadID) {
+    //Result[id.xy] = float4(1.0f, 0.0f, 1.0f, -1.0f);
+    Depth[BufferPos(id)] = -1;
+}
+
+[numthreads(32, 32, 1)]
+void WriteDepth(uint3 id : SV_DispatchThreadID) {
+    float height = DepthTexture[id.xy].r;
+
+    uint2 quadrant = id.xy / GridElemDim;
+    uint3 newUV = Displacement(uint2(id.x, id.y) % GridElemDim, height, float3(ParallaxAmount * -RelativePosition, 0, 0));
+
+    newUV.xy += quadrant * GridElemDim;
+    
+    InterlockedMax(Depth[BufferPos(newUV)], (int)newUV.z);
+    //AllMemoryBarrier();
+    /*
+    uint buffPos = BufferPos(newUV);
+    int heightInt = (int)newUV.z;
+    if (Depth[buffPos] < heightInt){
+        Depth[buffPos] = heightInt;
+    }
+    if (Depth[buffPos] < heightInt) {
+        Depth[buffPos] = heightInt;
+    }
+    if (Depth[buffPos] < heightInt) {
+        Depth[buffPos] = heightInt;
+    }
+    if (Depth[buffPos] < heightInt) {
+        Depth[buffPos] = heightInt;
+    }
+    if (Depth[buffPos] < heightInt) {
+        Depth[buffPos] = heightInt;
+    }
+    if (Depth[buffPos] < heightInt) {
+        Depth[buffPos] = heightInt;
+    }
+    */
+}
+
+[numthreads(1024, 1, 1)]
+void DisplaceAlbedo(uint3 id : SV_DispatchThreadID) {
+    int heightInt = Depth[BufferPos(id)];
+    float height = (heightInt * UintToFloatDepthMultiplier);
+    
+    uint2 quadrant = id.xy / GridElemDim;
+    uint3 newUV = Displacement(uint2(id.x, id.y) % GridElemDim, height, float3(ParallaxAmount * RelativePosition, 0, 0));
+    newUV.xy += quadrant * GridElemDim;
+    
+    //float3 albedoColor = heightInt == -1 ? float3(1.0, 0.0, 1.0) :
+    //                                       AlbedoTexture[newUV.xy].rgb;
+
+    if(heightInt != -1)
+        Result[id.xy] = float4(AlbedoTexture[newUV.xy].rgb, 1.0);
+
+}
