@@ -1,7 +1,6 @@
 ﻿// Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel Clear
 #pragma kernel WriteDepth
-#pragma kernel DisplaceAlbedo
 
 #include "UnityCG.cginc"
 
@@ -110,21 +109,4 @@ void WriteDepth(uint3 id : SV_DispatchThreadID) {
         Result[newUV.xy] = float4(AlbedoTexture[id.xy].rgb, 1.0);
     }
     */
-}
-
-[numthreads(1024, 1, 1)]
-void DisplaceAlbedo(uint3 id : SV_DispatchThreadID) {
-    int heightInt = Depth[BufferPos(id)];
-    float height = (heightInt * UintToFloatDepthMultiplier);
-    
-    uint2 quadrant = id.xy / GridElemDim;
-    uint3 newUV = Displacement(uint2(id.x, id.y) % GridElemDim, height, float3(ParallaxAmount * RelativePosition, 0, 0));
-    newUV.xy += quadrant * GridElemDim;
-    
-    //float3 albedoColor = heightInt == -1 ? float3(1.0, 0.0, 1.0) :
-    //                                       AlbedoTexture[newUV.xy].rgb;
-
-    if(heightInt != -1)
-        Result[id.xy] = float4(AlbedoTexture[newUV.xy].rgb, 1.0);
-
 }
