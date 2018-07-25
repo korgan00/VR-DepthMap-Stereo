@@ -4,4 +4,9 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_ProjectFolder/StereoDepthMapPlayer/Displacement Fake/vr depthmap
+      player - ComputeShader.unity
+    guid: abf3f428cb434ca4599480a0055f25e0
+  m_configObjects: {}
