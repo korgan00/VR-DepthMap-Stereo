@@ -1,0 +1,73 @@
+
+
+
+\documentclass[11pt]{book}
+\usepackage[paperwidth=17cm, paperheight=22.5cm, bottom=2.5cm, right=2.5cm]{geometry}
+\usepackage{amssymb,amsmath,amsthm} %paquete para símbolo matemáticos
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc} %Paquete para escribir acentos y otros símbolos directamente
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\graphicspath{{Img/}} %En qué carpeta están las imágenes
+\usepackage[nottoc]{tocbibind}
+\usepackage[pdftex,
+            pdfauthor={GREGORIO INIESTA OVEJERO},
+            pdftitle={Investigación, evaluación e implementación de métodos que simulen seis grados de libertad en fotos y vídeo para Realidad Virtual},
+            pdfsubject={Fotos y vídeo en realidad virtual},
+            pdfkeywords={6DOF, Foto, Video, Realidad Virtual},
+            pdfproducer={Latex con hyperref},
+            pdfcreator={pdflatex}]{hyperref}
+
+\usepackage{beton}
+\usepackage{euler}
+\usepackage[rm]{roboto}
+\usepackage[T1]{fontenc}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+%-----------
+%	TITLES REFORMAT
+%-----------
+
+\usepackage{titlesec}
+\titleformat{\chapter}{\bfseries\Large}{\arabic{chapter}.~}{0pt}{}
+
+\begin{document}
+
+\title{TFM - FOTOS Y VÍDEO 6DOF} %Con este nombre se guardará el proyecto en writeLaTex
+
+\include{Capitulos/Portada}
+
+%----------------------------------------------------------------------------------------
+%	INDICE
+%---------------------------------------------------------------------------------------
+
+\tableofcontents
+
+\vspace*{\fill}
+
+%----------------------------------------------------------------------------------------
+%	SECCIONES
+%----------------------------------------------------------------------------------------
+\mainmatter %empieza la numeración de las páginas
+\pagestyle{headings}
+
+%  Incluye los capítulos en el folder de capítulos
+
+%RESUMEN (1 hoja)
+\include{Capitulos/Resumen}
+
+%INTRODUCCIÓN (2,3 hojas)
+\include{Capitulos/Introduccion}
+
+%PLANTEAMIENTO DEL PROBLEMA (1 hoja)
+%OBJETIVOS (1 hoja)
+%ESTADO DEL ARTE (20-25 hojas)
+%DESARROLLO (40-45 hojas)
+%RESULTADOS (5-10 hojas)
+%CONCLUSIONES (2 hojas)
+
+
+\end{document}

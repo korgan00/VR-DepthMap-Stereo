@@ -1,0 +1,210 @@
+%Plantilla basada en "Template for Masters / Doctoral Thesis" (plantilla disponible en writeLaTex) que subió LaTeXTemplates.com
+
+\documentclass[11pt]{book}
+\usepackage[paperwidth=17cm, paperheight=22.5cm, bottom=2.5cm, right=2.5cm]{geometry}
+\usepackage{amssymb,amsmath,amsthm} %paquete para símbolo matemáticos
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc} %Paquete para escribir acentos y otros símbolos directamente
+\usepackage{enumerate}
+\usepackage{graphicx}
+%\usepackage{subfig} %para poner subfiguras
+\graphicspath{{Img/}} %En qué carpeta están las imágenes
+\usepackage[nottoc]{tocbibind}
+\usepackage[pdftex,
+            pdfauthor={NOMBRE DEL AUTOR},
+            pdftitle={TÍTULO DE LA TESIS},
+            pdfsubject={ÁREA DE LA TESIS},
+            pdfkeywords={PALABRAS CLAVE},
+            pdfproducer={Latex con hyperref},
+            pdfcreator={pdflatex}]{hyperref}
+
+
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	COMANDOS PERSONALIZADOS
+%----------------------------------------------------------------------------------------
+
+%SI TU TESIS TIENE TEOREMAS Y DEMOSTRACIONES, PUEDES DESCOMENTAR Y USAR LOS SIGUIENTES COMANDOS
+
+%\renewcommand{\proofname}{Demostración}
+%\providecommand{\norm}[1]{\lVert#1\rVert} %Provee el comando para producir una norma.
+%\providecommand{\innp}[1]{\langle#1\rangle} 
+%\newcommand{\seno}{\mathrm{sen}}
+%\newcommand{\diff}{\mathrm{d}}
+
+%\newtheorem{teo}{Teorema}[section] 
+%\newtheorem{cor}[teo]{Corolario}
+%\newtheorem{lem}[teo]{Lema}
+
+%\theoremstyle{definition}
+%\newtheorem{dfn}[teo]{Definición}
+
+%\theoremstyle{remark}
+%\newtheorem{obs}[teo]{Observación}
+
+%\allowdisplaybreaks
+
+
+%----------------------------------------------------------------------------------------
+%	PORTADA
+%----------------------------------------------------------------------------------------
+
+\title{TÍTULO DE LA TESIS} %Con este nombre se guardará el proyecto en writeLaTex
+
+\begin{titlepage}
+\begin{center}
+
+\textsc{\Large Instituto Tecnológico Autónomo de México}\\[4em]
+
+%Figura
+\begin{figure}[h]
+\begin{center}
+\includegraphics{logo-ITAM_ch.jpg}
+\end{center}
+\end{figure}
+
+\vspace{4em}
+
+\textsc{\huge \textbf{TÍTULO DE LA TESIS}}\\[4em]
+
+\textsc{\large Tesis}\\[1em]
+
+\textsc{que para obtener el título de}\\[1em]
+
+\textsc{TÍTULO  VAS A OBTENER}\\[1em]
+
+\textsc{presenta}\\[1em]
+
+\textsc{\Large AUTOR}\\[1em]
+
+\textsc{\large Asesor: NOMBRE}
+
+\end{center}
+
+\vspace*{\fill}
+\textsc{México, D.F. \hspace*{\fill} 2014}
+
+\end{titlepage}
+
+
+%----------------------------------------------------------------------------------------
+%	DECLARACIÓN
+%----------------------------------------------------------------------------------------
+
+\thispagestyle{empty}
+\vspace*{\fill}
+\begingroup
+``Con fundamento en los artículos 21 y 27 de la Ley Federal del Derecho de Autor y como titular de los derechos moral y patrimonial de la obra titulada ``\textbf{TÍTULO DE LA TESIS}'', otorgo de manera gratuita y permanente al Instituto Tecnológico Autónomo de México y a la Biblioteca Raúl Bailléres Jr., la autorización para que fijen la obra en cualquier medio, incluido el electrónico, y la divulguen entre sus usuarios, profesores, estudiantes o terceras personas, sin que pueda percibir por tal divulgación una contraprestación''.
+
+\centering
+
+\hspace{3em}
+
+\textsc{AUTOR}
+
+\vspace{5em}
+
+\rule[1em]{20em}{0.5pt} % Línea para la fecha
+
+\textsc{Fecha}
+ 
+\vspace{8em}
+
+\rule[1em]{20em}{0.5pt} % Línea para la firma
+
+\textsc{Firma}
+
+\endgroup
+\vspace*{\fill}
+
+
+%----------------------------------------------------------------------------------------
+%	DEDICATORIA
+%----------------------------------------------------------------------------------------
+
+\pagestyle{empty}
+\frontmatter
+
+\chapter*{}
+\begin{flushright}
+\textit{DEDICATORIA}
+\end{flushright}
+
+
+%----------------------------------------------------------------------------------------
+%	AGRADECIMIENTOS
+%----------------------------------------------------------------------------------------
+
+\chapter*{Agradecimientos}
+%\markboth{AGRADECIMIENTOS23}{AGRADECIMIENTOS} % encabezado 
+
+¡Muchas gracias a todos!
+
+
+%----------------------------------------------------------------------------------------
+%	PREFACIO
+%----------------------------------------------------------------------------------------
+
+\chapter*{Prefacio}
+
+\pagestyle{plain}
+%\markboth{PREFACIO23}{PREFACIO} % encabezado 
+
+PUEDEN QUITAR ESTA PARTE
+
+
+%----------------------------------------------------------------------------------------
+%	TABLA DE CONTENIDOS
+%---------------------------------------------------------------------------------------
+
+\tableofcontents
+
+
+%----------------------------------------------------------------------------------------
+%	TESIS
+%----------------------------------------------------------------------------------------
+\mainmatter %empieza la numeración de las páginas
+\pagestyle{headings}
+
+%  Incluye los capítulos en el folder de capítulos
+
+\include{Capitulos/cap1}
+\thispagestyle{empty}
+\include{Capitulos/Conclusiones}
+\thispagestyle{empty}
+
+
+%----------------------------------------------------------------------------------------
+%	APÉNDICES
+%----------------------------------------------------------------------------------------
+
+\addtocontents{toc}{\vspace{2em}} % Agrega espacios en la toc
+
+\appendix % Los siguientes capítulos son apéndices
+
+%  Incluye los apéndices en el folder de apéndices
+
+\include{Apendices/Ap}
+\thispagestyle{empty}
+%\include{Apendices/AppendixB}
+%\include{Apendices/AppendixC}
+
+\addtocontents{toc}{\vspace{2em}} % Agrega espacio en la toc
+
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAFÍA
+%----------------------------------------------------------------------------------------
+\backmatter
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{bibliografía.bib} %Aquí ponen el nombre del archivo .bib
+
+
+
+
+
+
+\end{document}
