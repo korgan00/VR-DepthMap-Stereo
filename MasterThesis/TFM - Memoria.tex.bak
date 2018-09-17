@@ -1,6 +1,3 @@
-
-
-
 \documentclass[11pt]{book}
 \usepackage[paperwidth=17cm, paperheight=22.5cm, bottom=2.5cm, right=2.5cm]{geometry}
 \usepackage{amssymb,amsmath,amsthm} %paquete para símbolo matemáticos
@@ -34,12 +31,19 @@
 \usepackage{titlesec}
 \titleformat{\chapter}{\bfseries\Large}{\arabic{chapter}.~}{0pt}{}
 
-\begin{document}
+%-----------
+%	Index REFORMAT
+%-----------
+\renewcommand*\contentsname{Índice}
 
+\begin{document}
+\pagestyle{empty}
 \title{TFM - FOTOS Y VÍDEO 6DOF} %Con este nombre se guardará el proyecto en writeLaTex
 
-\include{Capitulos/_ - Portada}
+\include{Capitulos/_-Portada}
 
+\frontmatter
+\pagestyle{plain}
 %----------------------------------------------------------------------------------------
 %	INDICE
 %---------------------------------------------------------------------------------------
@@ -49,34 +53,33 @@
 %----------------------------------------------------------------------------------------
 %	SECCIONES
 %----------------------------------------------------------------------------------------
-\mainmatter %empieza la numeración de las páginas
-\pagestyle{headings}
+\mainmatter
 
 %  Incluye los capítulos en el folder de capítulos
 
 %RESUMEN (1 hoja)
-\include{Capitulos/1 - Resumen}
+\include{Capitulos/1-Resumen}
 
 %INTRODUCCIÓN (2,3 hojas)
-\include{Capitulos/2 - Introduccion}
+\include{Capitulos/2-Introduccion}
 
 %PLANTEAMIENTO DEL PROBLEMA (1 hoja)
-\include{Capitulos/3 - PlanteamientoDelProblema}
+\include{Capitulos/3-PlanteamientoDelProblema}
 
 %OBJETIVOS (1 hoja)
-\include{Capitulos/4 - Objetivos}
+\include{Capitulos/4-Objetivos}
 
 %ESTADO DEL ARTE (20-25 hojas)
-\include{Capitulos/5 - EstadoDelArte}
+\include{Capitulos/5-EstadoDelArte}
 
 %DESARROLLO (40-45 hojas)
-\include{Capitulos/6 - Desarrollo}
+\include{Capitulos/6-Desarrollo}
 
 %RESULTADOS (5-10 hojas)
-\include{Capitulos/7 - Resultados}
+\include{Capitulos/7-Resultados}
 
 %CONCLUSIONES (2 hojas)
-\include{Capitulos/8 - Conclusiones}
+\include{Capitulos/8-Conclusiones}
 
 
 \end{document}

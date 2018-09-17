@@ -1,6 +1,3 @@
-
-
-
 \documentclass[11pt]{book}
 \usepackage[paperwidth=17cm, paperheight=22.5cm, bottom=2.5cm, right=2.5cm]{geometry}
 \usepackage{amssymb,amsmath,amsthm} %paquete para símbolo matemáticos
@@ -34,12 +31,19 @@
 \usepackage{titlesec}
 \titleformat{\chapter}{\bfseries\Large}{\arabic{chapter}.~}{0pt}{}
 
-\begin{document}
+%-----------
+%	Index REFORMAT
+%-----------
+\renewcommand*\contentsname{Índice}
 
+\begin{document}
+\pagestyle{empty}
 \title{TFM - FOTOS Y VÍDEO 6DOF} %Con este nombre se guardará el proyecto en writeLaTex
 
 \include{Capitulos/_-Portada}
 
+\frontmatter
+\pagestyle{plain}
 %----------------------------------------------------------------------------------------
 %	INDICE
 %---------------------------------------------------------------------------------------
@@ -49,8 +53,7 @@
 %----------------------------------------------------------------------------------------
 %	SECCIONES
 %----------------------------------------------------------------------------------------
-\mainmatter %empieza la numeración de las páginas
-\pagestyle{headings}
+\mainmatter
 
 %  Incluye los capítulos en el folder de capítulos
 
