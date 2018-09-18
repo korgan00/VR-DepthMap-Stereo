@@ -22,12 +22,15 @@
 \usepackage[rm]{roboto}
 \usepackage[T1]{fontenc}
 \usepackage{setspace}
+\usepackage{parskip}
 
 \singlespace
 
 \renewcommand{\familydefault}{\sfdefault}
 \setlength{\parindent}{0cm}
-\setlength{\parskip}{\baselineskip}
+
+%evita dejar lineas en otra página
+\setlength{\parskip}{1.0\baselineskip plus .5\baselineskip minus .5\baselineskip}
 
 %-----------
 %	TITLES REFORMAT
@@ -42,6 +45,7 @@
 \renewcommand*\contentsname{Índice}
 
 \begin{document}
+
 \pagestyle{empty}
 \title{TFM - FOTOS Y VÍDEO 6DOF} %Con este nombre se guardará el proyecto en writeLaTex
 
