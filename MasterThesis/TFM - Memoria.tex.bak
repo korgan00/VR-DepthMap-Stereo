@@ -21,15 +21,20 @@
 \usepackage{euler}
 \usepackage[rm]{roboto}
 \usepackage[T1]{fontenc}
+\usepackage{setspace}
+
+\singlespace
 
 \renewcommand{\familydefault}{\sfdefault}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{\baselineskip}
 
 %-----------
 %	TITLES REFORMAT
 %-----------
 
 \usepackage{titlesec}
-\titleformat{\chapter}{\bfseries\Large}{\arabic{chapter}.~}{0pt}{}
+\titleformat{\chapter}{\singlespace\bfseries\Large}{\arabic{chapter}.~}{0pt}{}
 
 %-----------
 %	Index REFORMAT
@@ -54,6 +59,8 @@
 %	SECCIONES
 %----------------------------------------------------------------------------------------
 \mainmatter
+
+\onehalfspace
 
 %  Incluye los capítulos en el folder de capítulos
 
