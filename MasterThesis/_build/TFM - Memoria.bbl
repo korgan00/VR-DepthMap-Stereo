@@ -1,0 +1,25 @@
+\begin{thebibliography}{1}
+
+\bibitem{SidewinderAdobe}
+Adobe~Creative Cloud.
+\newblock #projectsidewinder: Adobe max 2017 (sneak peeks) | adobe creative
+  cloud.
+
+\bibitem{Josh6DoFUnity}
+Josh Gladstone.
+\newblock Use depth maps to create 6 dof in unity.
+
+\bibitem{Huang20176DOFVV}
+Jingwei Huang, Zhili Chen, Duygu Ceylan, and Hailin Jin.
+\newblock 6-dof vr videos with a single 360-camera.
+\newblock {\em 2017 IEEE Virtual Reality (VR)}, pages 37--44, 2017.
+
+\bibitem{FBCasual3DCapture}
+Facebook Inc.
+\newblock Casual 3d capture.
+
+\bibitem{UploadVR}
+UploadVR.
+\newblock Point cloud vr - htc vive.
+
+\end{thebibliography}

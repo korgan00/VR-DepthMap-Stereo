@@ -23,6 +23,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{setspace}
 \usepackage{parskip}
+\usepackage{cite}
 
 \singlespace
 
@@ -37,7 +38,8 @@
 %-----------
 
 \usepackage{titlesec}
-\titleformat{\chapter}{\singlespace\bfseries\Large}{\arabic{chapter}.~}{0pt}{}
+\titleformat{\chapter}{\singlespace\bfseries\Huge}{\arabic{chapter}.~}{0pt}{}
+\titlespacing*{\chapter}{0pt}{-30pt}{20pt}
 
 %-----------
 %	Index REFORMAT
@@ -93,4 +95,37 @@
 \include{Capitulos/8-Conclusiones}
 
 
+\bibliography{bibliografia}{}
+\bibliographystyle{plain}
+
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

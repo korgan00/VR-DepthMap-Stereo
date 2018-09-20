@@ -5,10 +5,8 @@
 \pagestyle{empty}
 \chapter {Planteamiento del problema}
 
-La fotografía y el vídeo para realidad virtual actualmente tienen muchas limitaciones tanto para producirlo como para visualizarlo. Esto hace que el problema se pueda intentar solucionar desde los dos extremos siendo estas soluciones en muchos casos compatibles y complementarias entre ellas.
+La fotografía y el vídeo para realidad virtual actualmente tienen muchas limitaciones tanto para producirlo como para visualizarlo. Una de estas limitaciones y del cual este proyecto se ocupa es la falta de libertad movimiento. 
 
-Uno de los principales problemas y del cual este proyecto se ocupa es la falta de libertad movimiento. La foto y el vídeo sólo tienen tres grados de libertad y de ellos cabeceo o \textit{roll} (inclinar la cabeza sobre los hombros) no funciona como cabría esperar y puede provocar desde mareos hasta ver las imágenes duplicadas. La captura de imágenes se hace con cámaras que irremediablemente están en un punto concreto del espacio y eso en principio limita el movimiento del usuario.
+La foto y el vídeo sólo tienen tres grados de libertad y de ellos cabeceo o \textit{roll} (inclinar la cabeza sobre los hombros) no funciona como cabría esperar y puede provocar desde mareos hasta ver las imágenes duplicadas. La captura de imágenes tanto reales como virtuales se hace con cámaras que irremediablemente están en un punto concreto del espacio y eso en principio limita el movimiento del usuario.
 
-Desde el punto de vista de la producción existen soluciones en las que se están trabajando, desde dispositivos especializados a métodos de postproducción que mejoran los problemas de ensamblado de las imágenes capturadas.
-
-Por ello, este trabajo se centra en mejorar la visualización del vídeo con un sistema que permita desplazamiento dentro de un área proponiendo soluciones software que puedan utilizarse en tiempo real.
+Por ello, este trabajo se centra en mejorar la visualización del vídeo con un sistema que permita al usuario desplazarse físicamente dentro de un área reaccionando el vídeo a ese posicionamiento en tiempo real.

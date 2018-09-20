@@ -1,8 +1,16 @@
 \BOOKMARK [0][-]{chapter.1}{Resumen}{}% 1
 \BOOKMARK [0][-]{chapter.2}{Introducci\363n}{}% 2
-\BOOKMARK [0][-]{chapter.3}{Planteamiento del problema}{}% 3
-\BOOKMARK [0][-]{chapter.4}{Objetivos}{}% 4
-\BOOKMARK [0][-]{chapter.5}{Estado del Arte}{}% 5
-\BOOKMARK [0][-]{chapter.6}{Desarrollo}{}% 6
-\BOOKMARK [0][-]{chapter.7}{Resultados}{}% 7
-\BOOKMARK [0][-]{chapter.8}{Conclusiones}{}% 8
+\BOOKMARK [1][-]{section.2.1}{Grados de libertad}{chapter.2}% 3
+\BOOKMARK [1][-]{section.2.2}{Foto y v\355deo en realidad virtual}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.3}{Qu\351 aporta este proyecto}{chapter.2}% 5
+\BOOKMARK [0][-]{chapter.3}{Planteamiento del problema}{}% 6
+\BOOKMARK [0][-]{chapter.4}{Objetivos}{}% 7
+\BOOKMARK [0][-]{chapter.5}{Estado del Arte}{}% 8
+\BOOKMARK [1][-]{section.5.1}{Mapas de profundidad}{chapter.5}% 9
+\BOOKMARK [1][-]{section.5.2}{Project Sidewinder}{chapter.5}% 10
+\BOOKMARK [1][-]{section.5.3}{Nube de puntos}{chapter.5}% 11
+\BOOKMARK [1][-]{section.5.4}{Seis Grados de libertad con Fotogrametr\355a}{chapter.5}% 12
+\BOOKMARK [0][-]{chapter.6}{Desarrollo}{}% 13
+\BOOKMARK [0][-]{chapter.7}{Resultados}{}% 14
+\BOOKMARK [0][-]{chapter.8}{Conclusiones}{}% 15
+\BOOKMARK [0][-]{chapter*.9}{Bibliograf\355a}{}% 16
