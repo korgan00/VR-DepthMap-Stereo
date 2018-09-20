@@ -51,29 +51,97 @@ Esta implementación por contra provoca que aparezcan muchos huecos como se pued
 
 Otro de los problemas que tiene esta técnica es la cantidad de puntos que deben ser tratados, ya que una resolución QHD requiere cuatro millones de puntos y la resolución recomendada actualmente es 4K.
 
+
+\section{Cámara y herramientas de realidad virtual de OTOY y Facebook}
+
+En el F8 de 2017 en Los Ángeles OTOY y Facebook presentaron una colaboración para producir vídeo 360º volumétrico e interactivo a un precio asequible \cite{OtoyVR}. No hay noticias de 2018 por lo que puede que esté abandonado.
+
+La colaboración consistía en una cámara 360º especializada y una serie de herramientas para procesar el contenido y visualizarlo. El procedimiento implica subir el contenido a la nube de OTOY para procesarlo y así reconstruir la escena como una malla tridimensional. 
+
+La calidad presentada en las demos era buena con poca distorsión aunque el desplazamiento que presentaban era pequeño.
+
 \section{Seis Grados de libertad con Fotogrametría}
 Una de las formas de conseguir seis grados de libertad es reconstruir la escena mediante fotogrametría como muestra Facebook en \cite{FBCasual3DCapture} para procesar la imagen y obtener una malla que pueda ser mostrada usando técnicas comunes.
 
-Este procedimiento utiliza una técnica nueva que han llamado mapa de profundidad de limite inferior que la profundidad de cada pixel debe ser estrictamente mayor que en el depthmap normal. Crear este mapa de profundidad le ayuda al ensamblado de las imágenes para crear la imágen final 360º. Además mezclando el mapa de profundidad con otros algoritmos son capaces de obtener un mapa de normales bastante preciso. 
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\linewidth]{FB/fbdepthmap}
+  \caption{Conferencia mostrando un mapa de profundidad de limite inferior}
+  \label{fig:fbLBdepthmap-example}
+\end{figure}
+
+Este procedimiento utiliza una técnica nueva que han llamado mapa de profundidad de limite inferior \ref{fig:depthmap-example} que la profundidad de cada pixel debe ser estrictamente mayor que en el depthmap normal. Crear este mapa de profundidad le ayuda al ensamblado de las imágenes para crear la imágen final 360º. Además mezclando el mapa de profundidad con otros algoritmos son capaces de obtener un mapa de normales bastante preciso. \ref{fig:fbnormalmapcorrected-example}
 
 \begin{figure}[h]
 \centering
-\begin{subfigure}{.5\linewidth}
+\begin{subfigure}{.47\linewidth}
 	\centering
-	\includegraphics[width=0.90\linewidth]{FB/fbdepthmap}
+	\includegraphics[width=\linewidth]{FB/fbnormalartifacts}
+  \caption{Conferencia mostrando los artefactos que obtienen}
+  \label{fig:fbnormalmapartifacts-example}
 \end{subfigure}%
-\begin{subfigure}{.5\linewidth}
+\hspace{.05\linewidth}
+\begin{subfigure}{.47\linewidth}
 	\centering
-	\includegraphics[width=0.97\linewidth]{Unite/mobile-trends.jpg}
+	\includegraphics[width=\linewidth]{FB/fbnormalmap}
+  \caption{Conferencia mostrando los artefactos arreglados}
+  \label{fig:fbnormalmapcorrected-example}
 \end{subfigure}
 \end{figure}
 
+
 Finalmente crean la malla a partir de una nube de puntos. Esta malla como veremos en otras técnicas, tiene agujeros detrás de los objetos que no pueden ser rellenados por falta de información. En este caso optan por difuminar de manera sutil las zonas desconocidas dando un buen resultado.
 
-Todo esto lo aprovechan para poder generar un entorno tridimensional con el que poder interactuar y lo ejemplifican jugando con la iluminación o incluso inundando la escena.
+Todo esto lo aprovechan para poder generar un entorno tridimensional con el que poder interactuar y lo ejemplifican jugando con la iluminación \ref{fig:fblighting-example} o incluso inundando la escena \ref{fig:fbflooding-example}.
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}{.47\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{FB/fblighting}
+  \caption{Conferencia mostrando la malla iluminada}
+  \label{fig:fblighting-example}
+\end{subfigure}%
+\hspace{.05\linewidth}
+\begin{subfigure}{.47\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{FB/fbflooding}
+  \caption{Conferencia mostrando un escenario inundándose}
+  \label{fig:fbflooding-example}
+\end{subfigure}
+\end{figure}
 
 Una de las limitaciones que tiene este método es que está diseñado para fotografía en 360º y no se menciona en ningún momento al vídeo 360 por lo que se puede deducir que no está preparado. Por otro lado este tipo de procesado de imágenes requiere una cantidad grande de tiempo por lo que es posible que no esté al alcance de todos.
 
+\section{``Welcome to Lightfields''}
+Una compañía llamada Lytro creo un sistema que llamo campos de luz o Lightfields \cite{LytroLightfields} por su similitud con el concepto físico. Más tarde Google se interesó por la compañía comprando algunas de sus patentes e incorporando empleados a su plantilla.
+
+Google continuó el proyecto \cite{GoogleLightfields} y construyó un soporte que permite hacer fotografías de una escena desde puntos situados en una esfera.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\linewidth]{lightfields-camera}
+  \caption{Prototipo haciendo una captura del interior de una cabina.}
+  \label{fig:lightfields-camera}
+\end{figure}
+
+A partir de todas las fotos recuperadas se calcula la imagen correspondiente en función de la posición del usuario haciendo una interpolación entre diferentes imágenes.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\linewidth]{lightfields-schema}
+  \caption{Esquema de funcionamiento de los lightfields.}
+  \label{fig:lightfields-schema}
+\end{figure}
 
 
-\cite{Huang20176DOFVV}
+
+
+
+
+
+
+
+
+
+

@@ -10,8 +10,10 @@
 \contentsline {section}{\numberline {5.1}Mapas de profundidad}{11}{section.5.1}
 \contentsline {section}{\numberline {5.2}Project Sidewinder}{12}{section.5.2}
 \contentsline {section}{\numberline {5.3}Nube de puntos}{12}{section.5.3}
-\contentsline {section}{\numberline {5.4}Seis Grados de libertad con Fotogrametr\IeC {\'\i }a}{13}{section.5.4}
-\contentsline {chapter}{\numberline {6}Desarrollo}{17}{chapter.6}
-\contentsline {chapter}{\numberline {7}Resultados}{19}{chapter.7}
-\contentsline {chapter}{\numberline {8}Conclusiones}{21}{chapter.8}
-\contentsline {chapter}{Bibliograf\'{\i }a}{23}{chapter*.9}
+\contentsline {section}{\numberline {5.4}C\IeC {\'a}mara y herramientas de realidad virtual de OTOY y Facebook}{13}{section.5.4}
+\contentsline {section}{\numberline {5.5}Seis Grados de libertad con Fotogrametr\IeC {\'\i }a}{14}{section.5.5}
+\contentsline {section}{\numberline {5.6}``Welcome to Lightfields''}{16}{section.5.6}
+\contentsline {chapter}{\numberline {6}Desarrollo}{19}{chapter.6}
+\contentsline {chapter}{\numberline {7}Resultados}{21}{chapter.7}
+\contentsline {chapter}{\numberline {8}Conclusiones}{23}{chapter.8}
+\contentsline {chapter}{Bibliograf\'{\i }a}{25}{chapter*.11}

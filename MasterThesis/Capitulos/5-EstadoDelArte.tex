@@ -49,14 +49,23 @@ Esta técnica consiste en crear un punto en el espacio por cada pixel de la foto
 
 Esta implementación por contra provoca que aparezcan muchos huecos como se puede ver en \ref{fig:depthmap-example} y generalmente se suele acompañar la implementación con una selección del tamaño del punto como muestra \cite{Josh6DoFUnity} para ver una imagen más sólida.
 
-Otro de los problemas que tiene esta técnica es la cantidad de puntos que deben ser tratados, ya que una resolución QHD requiere cuatro millones de puntos y la resolución recomendada actualmente es 4K.
+Otro de los problemas que tiene esta técnica es la cantidad de puntos que deben ser tratados, ya que una resolución QHD (2560x1440) requiere cuatro millones de puntos siendo la resolución recomendada actualmente es 4K.
+
+
+\section{Cámara y herramientas de realidad virtual de OTOY y Facebook}
+
+En el F8 de 2017 en Los Ángeles \textit{OTOY} y \textit{Facebook} presentaron una colaboración para producir vídeo 360º volumétrico e interactivo a un precio asequible \cite{OtoyVR}. No hay noticias de 2018 por lo que puede que esté abandonado.
+
+La colaboración consistía en una cámara 360º especializada y una serie de herramientas para procesar el contenido y visualizarlo. El procedimiento implica subir el contenido a la nube de OTOY para procesarlo y así reconstruir la escena como una malla tridimensional. 
+
+La calidad presentada en las demos era buena con poca distorsión aunque el desplazamiento que presentaban era pequeño.
 
 \section{Seis Grados de libertad con Fotogrametría}
-Una de las formas de conseguir seis grados de libertad es reconstruir la escena mediante fotogrametría como muestra Facebook en \cite{FBCasual3DCapture} para procesar la imagen y obtener una malla que pueda ser mostrada usando técnicas comunes.
+Una de las formas de conseguir seis grados de libertad es reconstruir la escena mediante fotogrametría como muestra \textit{Facebook} en \cite{FBCasual3DCapture} para procesar la imagen y obtener una malla que pueda ser mostrada usando técnicas convencionales.
 
 \begin{figure}[h]
   \centering
-	\includegraphics[width=0.90\linewidth]{FB/fbdepthmap}
+	\includegraphics[width=\linewidth]{FB/fbdepthmap}
   \caption{Conferencia mostrando un mapa de profundidad de limite inferior}
   \label{fig:fbLBdepthmap-example}
 \end{figure}
@@ -65,15 +74,16 @@ Este procedimiento utiliza una técnica nueva que han llamado mapa de profundida
 
 \begin{figure}[h]
 \centering
-\begin{subfigure}{.5\linewidth}
+\begin{subfigure}{.47\linewidth}
 	\centering
-	\includegraphics[width=0.90\linewidth]{FB/fbnormalartifacts}
+	\includegraphics[width=\linewidth]{FB/fbnormalartifacts}
   \caption{Conferencia mostrando los artefactos que obtienen}
   \label{fig:fbnormalmapartifacts-example}
 \end{subfigure}%
-\begin{subfigure}{.5\linewidth}
+\hspace{.05\linewidth}
+\begin{subfigure}{.47\linewidth}
 	\centering
-	\includegraphics[width=0.90\linewidth]{FB/fbnormalmap}
+	\includegraphics[width=\linewidth]{FB/fbnormalmap}
   \caption{Conferencia mostrando los artefactos arreglados}
   \label{fig:fbnormalmapcorrected-example}
 \end{subfigure}
@@ -86,20 +96,55 @@ Todo esto lo aprovechan para poder generar un entorno tridimensional con el que 
 
 \begin{figure}[h]
 \centering
-\begin{subfigure}{.5\linewidth}
+\begin{subfigure}{.47\linewidth}
 	\centering
-	\includegraphics[width=0.90\linewidth]{FB/fblighting}
+	\includegraphics[width=\linewidth]{FB/fblighting}
   \caption{Conferencia mostrando la malla iluminada}
   \label{fig:fblighting-example}
 \end{subfigure}%
-\begin{subfigure}{.5\linewidth}
+\hspace{.05\linewidth}
+\begin{subfigure}{.47\linewidth}
 	\centering
-	\includegraphics[width=0.90\linewidth]{FB/fbflooding}
+	\includegraphics[width=\linewidth]{FB/fbflooding}
   \caption{Conferencia mostrando un escenario inundándose}
   \label{fig:fbflooding-example}
 \end{subfigure}
 \end{figure}
 
-Una de las limitaciones que tiene este método es que está diseñado para fotografía en 360º y no se menciona en ningún momento al vídeo 360 por lo que se puede deducir que no está preparado. Por otro lado este tipo de procesado de imágenes requiere una cantidad grande de tiempo por lo que es posible que no esté al alcance de todos.
+Una de las limitaciones que tiene este método es que está diseñado para fotografía en 360º y no se menciona en ningún momento al vídeo 360º por lo que se puede deducir que no está preparado. Por otro lado este tipo de procesado de imágenes requiere una cantidad grande de tiempo.
+
+\section{``Welcome to Lightfields''}
+Una compañía llamada Lytro creo un sistema que llamo campos de luz o Lightfields \cite{LytroLightfields} por su similitud con el concepto físico. Más tarde Google se interesó por la compañía comprando algunas de sus patentes e incorporando empleados a su plantilla.
+
+\textit{Google} continuó el proyecto \cite{GoogleLightfields} y construyó un soporte que permite hacer fotografías de una escena desde puntos situados en una esfera.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\linewidth]{lightfields-camera}
+  \caption{Prototipo haciendo una captura del interior de una cabina.}
+  \label{fig:lightfields-camera}
+\end{figure}
+
+A partir de todas las fotos recuperadas se calcula la imagen correspondiente en función de la posición del usuario haciendo una interpolación entre diferentes imágenes, eso hace que se recupere una imagen muy fiel a lo que se vería en la realidad. 
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=0.5\linewidth]{lightfields-schema}
+  \caption{Esquema de funcionamiento de los lightfields.}
+  \label{fig:lightfields-schema}
+\end{figure}
+
+Además esto tiene una implicación que no había sido contemplada hasta ahora que son las superficies especulares. Estas superficies en el resto de técnicas se podían ver con reflejo o no, pero nunca respondería a la posición del usuario. La interpolación de imágenes hace que los espejos reflejen algo diferente en cada posición de la cabeza.
+
+Esta técnica para fotografía es probablemente la mejor en cuanto a calidad de imagen pero sin embargo no se puede utilizar en vídeo debido al tiempo que se tarda en capturar un sólo fotograma. Tampoco permite alterar la luz como se mostraba en la demo de \textit{Facebook}.
+
+
+
+
+
+
+
+
+
 
 

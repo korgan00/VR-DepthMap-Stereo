@@ -1,3 +1,4 @@
+
 @article{Huang20176DOFVV,
   title   = {6-DOF VR videos with a single 360-camera},
   author  = {Jingwei Huang and Zhili Chen and Duygu Ceylan and Hailin Jin},
@@ -84,5 +85,23 @@
   author  = "UploadVR",
   title   = "Point Cloud VR - HTC Vive",
   url     = "https://www.youtube.com/watch?v=LBONrJSvOmU"
+}
+
+@misc{GoogleLightfields,
+  author  = "Paul Debevec",
+  title   = "Experimenting with Light Fields",
+  url     = "https://www.blog.google/products/google-ar-vr/experimenting-light-fields/"
+}
+
+@misc{LytroLightfields,
+  author  = "Ben Lang",
+  title   = "Lytro is Positioning Its Light Field Tech as VR’s Master Capture Format",
+  url     = "https://www.roadtovr.com/lytro-is-positioning-its-light-field-tech-as-vrs-master-capture-format/"
+}
+
+@misc{OtoyVR,
+  author  = "OTOY",
+  title   = "OTOY and Facebook Release Revolutionary 6DOF Video VR Camera Pipeline and Tools",
+  url     = "https://home.otoy.com/otoy-facebook-release-revolutionary-6dof-video-vr-camera-pipeline-tools/"
 }
 
