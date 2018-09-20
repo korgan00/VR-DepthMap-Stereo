@@ -5,19 +5,47 @@
 \pagestyle{empty}
 \chapter {Estado del Arte}
 
+%dejar claro lo de los hapticos...
 La realidad virtual actualmente abarca muchas areas y se puede interactuar con ella de muchas formas. La forma más común y en la cual se va a centrar este documento es en la representación de imágenes mediante un casco o gafas de realidad virtual.
 
+\section{Marco teórico}
 
-%\section{Fotografía y vídeo}
-%La fotografía y el vídeo en realidad virtual es un campo muy amplio en el que se pueden encontrar diferentes maneras guardar y reproducir la información.
+\subsection{Fotografía y vídeo}
+La fotografía y el vídeo en realidad virtual es un campo muy amplio en el que se pueden encontrar diferentes maneras guardar y reproducir la información.
 
-%\subsection{Estereoscopía}
-%La estereoscopía es el factor más importante en contenido multimedia. En el caso de las imágenes consiste en tener dos imágenes que representan la misma escena desde dos puntos cercanos que representan los ojos. Cada una de estas imágenes se reproducen en una de las pantallas de las gafas, de tal manera que el
+\subsubsection{Estereoscopía/Monoscopía}
+La estereoscopía es el factor más importante en contenido multimedia para realidad virtual puesto que es el que más favorece la inmersión. Consiste en tener dos imágenes que representan la misma escena desde dos puntos cercanos que representan los ojos (clásicamente a 6.5cm de distancia). Cada una de estas imágenes se reproducen en una de las pantallas de las gafas, de tal manera que el cerebro del usuario se encarga de reconstruir la escena como si fuera realmente tridimensional. La imagen sigue siendo plana y por lo tanto no es posible desplazarse por el entorno capturado.
 
-%\subsection{Ángulos de proyección}
-%Dentro de fotografía
+La monoscopía implica que sólo existe una imagen para ambos ojos y por lo tanto no hay sensación de profundidad.
 
-\section{Mapas de profundidad}
+\subsubsection{Campo de visión}
+Por lo general se utilizan dos ángulos para el campo de visión. 
+
+El más conocido y del que se suele hablar trata 360º de visión, es decir, una foto que genera una esfera alrededor del dispositivo. Es el que proporciona más inmersión.
+
+El otro ángulo más utilizado es 180º que proporciona toda la visión frontal pero no hay imagen detrás. Las ventajas que más destacan son que puede ser grabado con cámaras poco especializadas y que se puede concentrar mayor cantidad de píxeles en el frente consiguiendo mayor calidad en la acción destacada.
+
+
+\subsubsection{Proyecciones}
+A la hora de guardar o reproducir un contenido multimedia es importante tener en cuenta la proyección ya que distorsiona y puede saturar regiones con píxeles que no interese. 
+
+Una de las proyecciones más extendidas y utilizadas en realidad virtual es la equirectangular (\ref{fig:equirect360-example}) que coincide con la proyección más utilizada en la actualidad para representar el mundo en dos dimensiones. Esta proyección proporciona demasiada información en los polos que típicamente es el lugar al que menos se suele mirar. Esto hace que gran parte de los píxeles se malgasten. Facebook para mejorar el streamming de video en realidad virtual 360 propone mejoras en \cite{FBDynamicStreamming} que pueden ser utilizadas también en vídeo local.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{equirect360}
+  \caption{Ejemplo de proyección equirectangular}
+  \label{fig:equirect360-example}
+\end{figure}
+
+Otra proyección que se utiliza mucho en videojuegos es la cúbica que divide la imágen en seis partes que forman las caras de un cubo. Tiene mayor densidad en las aristas del cubo pero que el porcentaje de píxeles útiles aumenta. Normalmente se le aplica una deformación que reduce la densidad de píxeles para que la distribución se más uniforme.
+
+Por último mencionar la proyección de barril que se construye como un cilindro. La distribución de píxeles es uniforme en el campo de visión típico. Esta proyección desaprovecha píxeles que se pierden en los huecos que dejan las tapas del cilindro.
+
+Existen una infinidad de proyecciones y cada una tiene una serie de ventajas e inconvenientes.
+ 
+
+\subsection{Mapas de profundidad}
 Debido a la cantidad de técnicas que utilizan mapas de profundidad es interesante explicar en que consisten. 
 
 Los mapas de profundidad son imagenes que en cada pixel se encuentra codificada la profundidad de la foto en ese punto. Generalmente se utiliza una escala de grises o de rojos aunque se pueden recurrir a métodos más complejos.\cite{Josh6DoFUnity}
@@ -30,7 +58,18 @@ En el caso de la escala de grises (\ref{fig:depthmap-example}), los tonos más o
   \label{fig:depthmap-example}
 \end{figure}
 
-En el caso de una imagen generada por ordenador, es fácil obetener un buen mapa de profundidad. Sin embargo en el caso de las imágenes captadas por cámaras reales, existe la posibilidad de que la cámara esté preparada y también obtenga la profundidad o en caso contrario habría que aplicar algoritmos que calculen la profundidad en cada píxel. Estos algoritmos no son perfectos y en ocasiones el mapa obtenido tiene ruido y puede afectar a las técnicas que lo usen.
+En el caso de una imagen generada por ordenador, es fácil obetener un buen mapa de profundidad. Sin embargo en el caso de las imágenes captadas por cámaras reales, existe la posibilidad de que la cámara esté preparada o en caso contrario habría que aplicar algoritmos que calculen la profundidad en cada píxel. 
+
+Las cámaras que están preparadas para obtener el mapa de profundidad utilizan típicamente la emisión de infrarrojos. Existe una tecnología llamada LIDAR que obtiene mapas de profundidad de alta precisión con un haz láser, pero el tiempo que tarda en obtenerlo no lo hace compatible con la grabación de vídeo.
+
+Dentro de los algoritmos que infieren el mapa de profundidad, los más conocidos utilizan imágenes estereoscópicas como el algoritmo Algoritmo BM  intenta parear elementos que se encuentren a la misma altura y el Algoritmo SGBM que es una variación del anterior añadiendo una ventana de búsqueda para encontrar las correspondencias.
+
+\subsection{Fotogrametría}
+La fotogrametría consiste en deducir la ubicación de múltiples puntos en el espacio a partir de una serie de fotografías. Después de eso se reconstruyen los triángulos para generar una malla texturizada que represente de la manera más fiel posible la escena fotografiada. Javier de Matías analiza en profundidad la fotogrametría en \cite{PhotogrametryThesis}.
+Al igual que en los mapas de profundidad, utilizar imágenes estereoscópicas ayudan a reconstruir la malla con mayor facilidad.
+Algunos de los programas más conocidos son PIX4D y PhotoScan entre otros.
+
+
 
 \section{Project Sidewinder}
 Adobe presento en 2017 \cite{SidewinderAdobe} una demo que utilizaba un depthmap de manera muy sencilla para permitir seis grados de libertad dentro de un video 360º. No proporcionan mucha información ya que es una prueba de concepto.
@@ -38,7 +77,7 @@ Adobe presento en 2017 \cite{SidewinderAdobe} una demo que utilizaba un depthmap
 El desplazamiento punto a punto parece correcto pero se ve una distorsión en los bordes probablemente debido al estado temprano del proyecto.
 
 \section{Nube de puntos}
-Esta técnica consiste en crear un punto en el espacio por cada pixel de la foto o el vídeo y utilizar la imagen y su mapa de profundidad para seleccionar el color y el desplazamiento del punto en el espacio. \cite{UploadVR}
+Esta técnica consiste en crear un punto en el espacio por cada pixel de la foto o el vídeo y utilizar la imagen y su mapa de profundidad para seleccionar el color y el desplazamiento del punto en el espacio. \cite{UploadVR} %intentar reexplicar
 
 \begin{figure}[h]
   \centering
@@ -49,19 +88,19 @@ Esta técnica consiste en crear un punto en el espacio por cada pixel de la foto
 
 Esta implementación por contra provoca que aparezcan muchos huecos como se puede ver en \ref{fig:depthmap-example} y generalmente se suele acompañar la implementación con una selección del tamaño del punto como muestra \cite{Josh6DoFUnity} para ver una imagen más sólida.
 
-Otro de los problemas que tiene esta técnica es la cantidad de puntos que deben ser tratados, ya que una resolución QHD requiere cuatro millones de puntos y la resolución recomendada actualmente es 4K.
-
+Otro de los problemas que tiene esta técnica es la cantidad de puntos que deben ser tratados, ya que una resolución QHD (2560x1440) requiere cuatro millones de puntos siendo la resolución recomendada actualmente es 4K.
+% recalcar el rendimiento.
 
 \section{Cámara y herramientas de realidad virtual de OTOY y Facebook}
 
-En el F8 de 2017 en Los Ángeles OTOY y Facebook presentaron una colaboración para producir vídeo 360º volumétrico e interactivo a un precio asequible \cite{OtoyVR}. No hay noticias de 2018 por lo que puede que esté abandonado.
+En el F8 de 2017 en Los Ángeles \textit{OTOY} y \textit{Facebook} presentaron una colaboración para producir vídeo 360º volumétrico e interactivo a un precio asequible \cite{OtoyVR}. No hay noticias de 2018 por lo que puede que esté abandonado.
 
 La colaboración consistía en una cámara 360º especializada y una serie de herramientas para procesar el contenido y visualizarlo. El procedimiento implica subir el contenido a la nube de OTOY para procesarlo y así reconstruir la escena como una malla tridimensional. 
 
 La calidad presentada en las demos era buena con poca distorsión aunque el desplazamiento que presentaban era pequeño.
 
-\section{Seis Grados de libertad con Fotogrametría}
-Una de las formas de conseguir seis grados de libertad es reconstruir la escena mediante fotogrametría como muestra Facebook en \cite{FBCasual3DCapture} para procesar la imagen y obtener una malla que pueda ser mostrada usando técnicas comunes.
+\section{Facebook: Seis Grados de libertad con Fotogrametría}
+Una de las formas de conseguir seis grados de libertad es reconstruir la escena mediante fotogrametría como muestra \textit{Facebook} en \cite{FBCasual3DCapture} para procesar la imagen y obtener una malla que pueda ser mostrada usando técnicas convencionales.
 
 \begin{figure}[h]
   \centering
@@ -70,7 +109,7 @@ Una de las formas de conseguir seis grados de libertad es reconstruir la escena 
   \label{fig:fbLBdepthmap-example}
 \end{figure}
 
-Este procedimiento utiliza una técnica nueva que han llamado mapa de profundidad de limite inferior \ref{fig:depthmap-example} que la profundidad de cada pixel debe ser estrictamente mayor que en el depthmap normal. Crear este mapa de profundidad le ayuda al ensamblado de las imágenes para crear la imágen final 360º. Además mezclando el mapa de profundidad con otros algoritmos son capaces de obtener un mapa de normales bastante preciso. \ref{fig:fbnormalmapcorrected-example}
+Este procedimiento utiliza una técnica nueva que han llamado ``mapa de profundidad de limite inferior'' (\ref{fig:depthmap-example}) que la profundidad de cada pixel debe ser estrictamente mayor que en el depthmap normal. Crear este mapa de profundidad le ayuda al ensamblado de las imágenes para crear la imágen final 360º. Además mezclando el mapa de profundidad con otros algoritmos son capaces de obtener un mapa de normales bastante preciso. \ref{fig:fbnormalmapcorrected-example}
 
 \begin{figure}[h]
 \centering
@@ -111,12 +150,12 @@ Todo esto lo aprovechan para poder generar un entorno tridimensional con el que 
 \end{subfigure}
 \end{figure}
 
-Una de las limitaciones que tiene este método es que está diseñado para fotografía en 360º y no se menciona en ningún momento al vídeo 360 por lo que se puede deducir que no está preparado. Por otro lado este tipo de procesado de imágenes requiere una cantidad grande de tiempo por lo que es posible que no esté al alcance de todos.
+Una de las limitaciones que tiene este método es que está diseñado para fotografía en 360º y no se menciona en ningún momento al vídeo 360º por lo que se puede deducir que no está preparado. Por otro lado este tipo de procesado de imágenes requiere una cantidad grande de tiempo.
 
 \section{``Welcome to Lightfields''}
 Una compañía llamada Lytro creo un sistema que llamo campos de luz o Lightfields \cite{LytroLightfields} por su similitud con el concepto físico. Más tarde Google se interesó por la compañía comprando algunas de sus patentes e incorporando empleados a su plantilla.
 
-Google continuó el proyecto \cite{GoogleLightfields} y construyó un soporte que permite hacer fotografías de una escena desde puntos situados en una esfera.
+\textit{Google} continuó el proyecto \cite{GoogleLightfields} y construyó un soporte que permite hacer fotografías de una escena desde puntos situados en una esfera.
 
 \begin{figure}[h]
   \centering
@@ -125,15 +164,20 @@ Google continuó el proyecto \cite{GoogleLightfields} y construyó un soporte qu
   \label{fig:lightfields-camera}
 \end{figure}
 
-A partir de todas las fotos recuperadas se calcula la imagen correspondiente en función de la posición del usuario haciendo una interpolación entre diferentes imágenes.
+%comentar que el espacio de trabajo es bastante limitado
+
+A partir de todas las fotos recuperadas se calcula la imagen correspondiente en función de la posición del usuario haciendo una interpolación entre diferentes imágenes, eso hace que se recupere una imagen muy fiel a lo que se vería en la realidad. 
 
 \begin{figure}[h]
   \centering
-	\includegraphics[width=\linewidth]{lightfields-schema}
+	\includegraphics[width=0.5\linewidth]{lightfields-schema}
   \caption{Esquema de funcionamiento de los lightfields.}
   \label{fig:lightfields-schema}
 \end{figure}
 
+Además esto tiene una implicación que no había sido contemplada hasta ahora que son las superficies especulares. Estas superficies en el resto de técnicas se podían ver con reflejo o no, pero nunca respondería a la posición del usuario. La interpolación de imágenes hace que los espejos reflejen algo diferente en cada posición de la cabeza.
+
+Esta técnica para fotografía es probablemente la mejor en cuanto a calidad de imagen pero sin embargo no se puede utilizar en vídeo debido al tiempo que se tarda en capturar un sólo fotograma. Tampoco permite alterar la luz como se mostraba en la demo de \textit{Facebook}.
 
 
 

@@ -9,4 +9,6 @@ La fotografía y el vídeo para realidad virtual actualmente tienen muchas limit
 
 La foto y el vídeo sólo tienen tres grados de libertad y de ellos cabeceo o \textit{roll} (inclinar la cabeza sobre los hombros) no funciona como cabría esperar y puede provocar desde mareos hasta ver las imágenes duplicadas. La captura de imágenes tanto reales como virtuales se hace con cámaras que irremediablemente están en un punto concreto del espacio y eso en principio limita el movimiento del usuario.
 
+En mayo de 2017, Google dio una charla aportando que cerca del 50\% del tiempo pasado en Daydream se centra en experiencias de vídeo. Un año después Facebook en el F8 \cite{FBOculusGo}, hablando sobre el estudio para el diseño de Oculus Go, puso de manifiesto que el 99\% de los usuarios consumen vídeo y que el 83\% de tiempo utilizado se destina a multimedia llegando a la conclusión que es uno de los casos de uso principales.
+
 Por ello, este trabajo se centra en mejorar la visualización del vídeo con un sistema que permita al usuario desplazarse físicamente dentro de un área reaccionando el vídeo a ese posicionamiento en tiempo real.

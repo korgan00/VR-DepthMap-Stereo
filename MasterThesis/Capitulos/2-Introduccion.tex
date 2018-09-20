@@ -16,7 +16,7 @@
 \pagestyle{empty}
 \chapter{Introducción}
 % tema de trabajo
-La realidad virtual es una tecnología que desde hace unos años ha estado intentando hacerse un hueco en la industria del entretenimiento. Unity expuso estadísticas de consumo de realidad virtual durante el pasado año, proporcionando cifras como un 134\% de crecimiento en sobremesa y consola y un 295\% de crecimiento en las instalaciones de realidad virtual en móvil lo que hace casi un millón de usuarios a finales de 2017.
+La realidad virtual es una tecnología que desde hace unos años ha estado intentando hacerse un hueco en la industria del entretenimiento. Unity expuso estadísticas de consumo de realidad virtual durante el pasado año, proporcionando cifras como un 134\% de crecimiento en sobremesa y consola y un 295\% de crecimiento en las instalaciones de realidad virtual en móvil lo que hace casi un millón de usuarios activos en aplicaciones hechas con Unity a finales de 2017. Por último las estadisticas de uso en multimedia superan el 50\% del tiempo de uso llegando a más del 80\% según Facebook \cite{FBOculusGo}.
 
 \begin{figure}[h]
 \centering
@@ -41,11 +41,12 @@ El contenido que se genera todavía esta basado en gran parte en técnicas ya co
 
 La característica principal de este tipo de contenido es que cada imagen esta tomada desde un punto fijo en el espacio. Esto provoca una problemática que consiste en que el usuario únicamente tiene tres grados de libertad a la hora de visualizarlo en unas gafas de realidad virtual. Además de esta restricción debido a las técnicas de grabación que se usan, el cabeceo o \textit{roll} provoca ver imágenes duplicadas y puede provocar incomodidad o incluso mareo.
 
-Debido a las estadísticas de consumo del contenido multimedia grandes empresas como Google, Facebook y Disney entre otras, están trabajando en mejorar los sistemas de visualización de vídeo y fotos mediante vídeo volumétrico, lightfields o fotogrametría.
+Debido a las estadísticas de consumo del contenido multimedia grandes empresas como Google, Facebook y Disney entre otras, están trabajando en mejorar los sistemas de visualización de vídeo y fotos mediante vídeo volumétrico, campos de luz o fotogrametría.
 
-La mayoría de proyectos que están disponibles actualmente utilizan técnicas que transforman cada frame en polígonos y desplazan los vértices en función de la profundidad que le indica un mapa de profundidad. Esto provoca en demasiadas ocasiones una deformación de elementos pequeños y en algunas ocasiones se ocultan elementos que deberían ser visibles de otro modo.
+%La mayoría de proyectos que están disponibles actualmente utilizan técnicas que transforman cada frame en polígonos y desplazan los vértices en función de la profundidad que le indica un mapa de profundidad. Esto provoca en demasiadas ocasiones una deformación de elementos pequeños y en algunas ocasiones se ocultan elementos que deberían ser visibles de otro modo.
 
 \section{Qué aporta este proyecto}
+%que aporta que aporta
 Este trabajo toma la demo ``Welcome to lightfields'' como referencia pero creando un proyecto de código libre. Trata de conseguir una sensación real de tres dimensiones habilitando seis grados de libertad en un espacio reducido de desplazamiento a partir de un vídeo estereoscópico plano en dos dimensiones y su mapa de profundidad. Para ello se hará un paralaje en tres dimensiones píxel a píxel en función del mapa de profundidad y la posición del usuario.
 
 Durante el desarrollo del proyecto se llevan a cabo pruebas con diferentes técnicas y se evalúa la viabilidad en diferentes dispositivos (plataformas móviles y de sobremesa), el realismo del resultado así como la escalabilidad de los métodos.
