@@ -5,65 +5,69 @@
 \pagestyle{empty}
 \chapter {Estado del Arte}
 
-%dejar claro lo de los hapticos...
-La realidad virtual actualmente abarca muchas areas y se puede interactuar con ella de muchas formas. La forma más común y en la cual se va a centrar este documento es en la representación de imágenes mediante un casco o gafas de realidad virtual.
+La acepción de realidad virtual que va a ser tratado en este trabajo es un mundo generado por ordenador. Se puede interactuar con este mundo por medio diferentes dispositivos como los hápticos o los olfativos, pero la forma más común actualmente y en la cual se va a centrar este documento es en la representación de imágenes mediante un casco o gafas de realidad virtual.
 
 \section{Marco teórico}
 
 \subsection{Fotografía y vídeo}
-La fotografía y el vídeo en realidad virtual es un campo muy amplio en el que se pueden encontrar diferentes maneras guardar y reproducir la información.
+La fotografía y el vídeo en realidad virtual es un campo muy amplio en el que se pueden encontrar diferentes maneras guardar y reproducir la información. A continuación se comentan algunos conceptos importantes para entender el resto del documento. 
+
+\textbf{Nota:} Están organizados por conceptos alternativos, es decir, una foto no puede ser estereoscópica y monoscópica al mismo tiempo.
 
 \subsubsection{Estereoscopía/Monoscopía}
 La monoscopía implica que sólo existe una imagen para ambos ojos y por lo tanto no hay sensación de profundidad.
 
-La estereoscopía es el factor más importante en contenido multimedia para realidad virtual puesto que es el que más favorece la inmersión como se explica en \cite{DiegoBezStereoscopy}. Consiste en tener dos imágenes que muestran la misma escena desde dos puntos cercanos que representan los ojos (normalmente a 6,5cm de distancia). Cada una de estas imágenes se reproducen en una de las pantallas de las gafas, de tal manera que el cerebro del usuario se encarga de reconstruir la escena como si fuera realmente tridimensional. La imagen sigue siendo plana y por lo tanto no es posible desplazarse por el entorno capturado.
+La estereoscopía es un factor muy importante en contenido multimedia para realidad virtual puesto que es el que más favorece la inmersión, como se explica en \cite{DiegoBezStereoscopy}. Consiste en tener dos imágenes que muestran la misma escena desde dos puntos cercanos a una distancia fija (normalmente de 6,5cm) y que representan la posición de los ojos. Cada una de estas imágenes se reproducen en una de las pantallas de las gafas, de tal manera que el cerebro del usuario se encarga de reconstruir la escena como si fuera realmente tridimensional. Aunque exista la ilusión de tridimensionalidad no es posible desplazarse por el entorno capturado.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{stereo-example}
-  \caption{Ejemplo de imagen estéreo con lineas verticales para poder comparar el desplazamiento}
+  \caption{Ejemplo de imagen estéreo con lineas verticales para poder comparar el desplazamiento.}
   \label{fig:stereo-example}
 \end{figure}
 
-Es importante tener en cuenta que la separación entre las cámaras definirá la sensación de tamaño. Nuestro cerebro interpreta que si las cámaras están a menos distancia que nuestros ojos, todo parecerá más grande y será mas pequeño si ponemos demasiada distancia.
+Es importante tener en cuenta que la separación entre las cámaras definirá la sensación de tamaño. Nuestro cerebro interpreta que si las cámaras están a menos distancia que nuestros ojos, todo es más grande y será mas pequeño si ponemos demasiada distancia.
 
-La captura con cámara de imágenes estereoscópicas 360º no es trivial debido a que se deben hacer las diferentes capturas moviendo las cámaras en una circunferencia teniendo en cuenta el radio de la cabeza. Disney y Google explican como hacerlo en \cite{GoogleStereoscopy} y \cite{DisneyOmnistereoscopic}.
 
 \subsubsection{Campo de visión}
 Por lo general se utilizan dos ángulos para el campo de visión. 
 
-El más conocido y del que se suele hablar trata 360º de visión, es decir, una foto que genera una esfera alrededor del dispositivo. Es el que proporciona más inmersión. Habitualmente se utilizan varias fotos y se reconstruye la imagen. Este proceso es complicado y si no se hace bien se produce un efecto en el ensamblado que se llama stitching y que se evidencia con unos saltos de color o cortes en objetos. Este problema no es trivial y cuesta eliminarlo como se comenta en \cite{DiegoBezStitching}.
+El más conocido y del que se suele hablar trata 360º de visión, es decir, una foto que genera una esfera alrededor de la vista del usuario. Es el que proporciona más inmersión.
 
-El otro ángulo más utilizado es 180º que proporciona toda la visión frontal pero no hay imagen detrás. Las ventajas que más destacan son que puede ser grabado con cámaras poco especializadas y que se puede concentrar mayor cantidad de píxeles en el frente consiguiendo mayor calidad en la acción destacada.
+El otro ángulo más utilizado es 180º que proporciona toda la visión frontal pero no hay imagen detrás. Las ventajas que más destacan son que puede ser grabado con cámaras poco especializadas y que se puede concentrar mayor cantidad de píxeles en el frente, consiguiendo mayor calidad en la acción destacada.
 
+Existen diferentes métodos para la captura de vídeo como se explicará más adelante.
 
 \subsubsection{Proyecciones}
-Una proyección es una forma de representación de un elemento tridimensional, en este caso una geometría esférica, en un espacio bidimensional. A la hora de guardar o reproducir un contenido multimedia es importante tener en cuenta la proyección a utilizar ya que pueden distorisionar la imagen y saturar regiones poco interesantes, como el cielo, con una gran cantidad de píxeles. 
+Una proyección es una forma de representación de un elemento tridimensional, en este caso una geometría esférica, en un espacio bidimensional. A la hora de guardar o reproducir un contenido multimedia es importante tener en cuenta la proyección a utilizar ya que pueden distorisionar la imagen y saturar regiones poco interesantes, como veremos a continuación, con una gran cantidad de píxeles. 
 
-Una de las proyecciones más extendidas y utilizadas en realidad virtual es la equirectangular (\ref{fig:equirect360-example} y \ref{fig:equirect360-schema}) que coincide con la proyección más utilizada en la actualidad para representar el mundo en dos dimensiones. Esta proyección proporciona demasiada información en los polos que típicamente es el lugar al que menos se suele mirar. Esto hace que gran parte de los píxeles se malgasten. Facebook para mejorar el streamming de video en realidad virtual 360 propone mejoras en \cite{FBDynamicStreamming} que pueden ser utilizadas también en vídeo local como por ejemplo aplicar una distorsión intencionada a la imagen proporcionando más espacio a la parte central de la imagen y compensando esa distorsión en el reproductor.
+Una de las proyecciones más extendidas y utilizadas en realidad virtual es la equirectangular (\ref{fig:equirect360-example} y \ref{fig:equirect360-schema}), que coincide con la proyección más utilizada en la actualidad para representar el mundo en dos dimensiones. Esta proyección proporciona demasiada información en los polos y que típicamente es el lugar al que menos se suele mirar. Esto hace que gran parte de los píxeles se malgasten. 
+
+Facebook en \cite{FBDynamicStreamming}  propone varias mejoras para su sistema de streamming de vídeo en realidad virtual 360º. Algunas de estas mejoras pueden ser utilizadas también en vídeo local como por ejemplo aplicar una distorsión intencionada a la imagen proporcionando más espacio a la parte central de la imagen y compensando esa distorsión en el reproductor y así obtener más definición en las zonas importantes.
 
 \begin{figure}[h]
 \centering
 \begin{subfigure}{.8\linewidth}
 	\centering
   \includegraphics[width=\textwidth]{equirect360}
-  \caption{Ejemplo de proyección equirectangular}
+  \caption{Ejemplo.}
   \label{fig:equirect360-example}
 \end{subfigure}\\
 \begin{subfigure}{.8\linewidth}
 	\centering
   \includegraphics[width=\textwidth]{equirect360-schema}
-  \caption{Esquema de proyección equirectangular}
+  \caption{Esquema.}
   \label{fig:equirect360-schema}
 \end{subfigure}
+\caption{Proyección equirectangular.}
 \end{figure}
 
-Otra proyección que se utiliza mucho en videojuegos es la cúbica que divide la imagen en seis partes que forman las caras de un cubo. Tiene mayor densidad en las aristas del cubo pero que el porcentaje de píxeles útiles aumenta. Normalmente se le aplica una deformación al cubo dándole curvatura reduciendo la densidad de píxeles para que la distribución se más uniforme.
+Otra proyección que se utiliza menos es la cúbica que divide la imagen en seis partes que forman las caras de un cubo. Tiene mayor densidad en las aristas del cubo pero el porcentaje de píxeles útiles aumenta. Normalmente se le aplica una deformación al cubo dándole curvatura reduciendo la densidad de píxeles para que la distribución se más uniforme.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{cubemap}
-  \caption{Ejemplo de proyección cúbica}
+  \caption{Ejemplo de proyección cúbica.}
   \label{fig:cubemap-example}
 \end{figure}
 
@@ -71,6 +75,30 @@ Por último mencionar la proyección de barril que se construye como un cilindro
 
 Existen una infinidad de proyecciones y cada una tiene una serie de ventajas e inconvenientes.
  
+\subsubsection{Omni-directional Stereo}
+La captura con cámara de imágenes estereoscópicas 360º no es trivial.. Existen varios métodos para conseguir esto, y en vídeo el más común consiste en capturar un fotograma en diferentes puntos de una circunferencia teniendo en cuenta el radio de la cabeza, después esas fotos se unen y se reconstruye la imágen. Este proceso es complicado y si no se hace bien, se produce un efecto en el ensambrado llamado stitching y que se evidencia con unos saltos de color o cortes en objetos. Este problema no es trivial y cuesta eliminarlo como se comenta en \cite{DiegoBezStitching}.
+
+Disney y Google proponen un sistema para captura de imágenes llamado ODS (Omni-directional stereo) que explican detalladamente en \cite{GoogleStereoscopy} y \cite{DisneyOmnistereoscopic}. Este sistema consiste en dos cámaras, posicionadas a la distancia ocular y puestas en una circunferencia de un radio similar al de una cabeza. Durante la captura, las cámaras dan una vuelta por la circunferencia y guarda una linea de píxeles por cada posición de la cámara. Esto tiene como consecuencia que únicamente exista una linea de píxeles correcta en cada posición como se puede ver en la figura \ref{fig:ods-schema}.  conlleva implicaciones como que los objetos en la visión periférica no se visualizan correctamente. Pese a esto, la sensación que se consigue es buena y proporciona una gran inmersión.
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}{.47\linewidth}
+	\centering
+  \includegraphics[width=\textwidth]{correct-vision}
+  \caption{Esquema de la visión completa.}
+  \label{fig:correct-vision-schema}
+\end{subfigure}%
+\hspace{.05\linewidth}
+\begin{subfigure}{.47\linewidth}
+	\centering
+  \includegraphics[width=\textwidth]{ods}
+  \caption{Esquema la aproximación hecha con ODS.}
+  \label{fig:ods-schema}
+\end{subfigure}
+\caption{Imágenes obtenidas de \cite{GoogleStereoscopy}.}
+\end{figure}
+
+Por último comentar que el vídeo 180º tiene como beneficio que no necesita de ningún sistema como ODS ya que se hace directamente con cámara sin recurrir a métodos adicionales. Esto hace que todo el area de visualización sea correcta como se muestra en la figura \ref{fig:correct-vision-schema}.
 
 \subsection{Mapas de profundidad}
 Debido a la cantidad de técnicas que utilizan mapas de profundidad o \textit{depthmap} es interesante explicar en que consisten. 
@@ -85,10 +113,11 @@ Los mapas de profundidad son imagenes que en cada pixel se encuentra codificada 
 \end{figure}
 
 En el caso de la escala de grises (\ref{fig:depthmap-example}), los tonos más oscuros representan elementos en el fondo de la imagen, mientras que los tonos mas claro representan elementos más cercanos.
+
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.7\textwidth]{depthmap-example}
-  \caption{Ejemplo de mapa de profundidad cenital en escala de grises}
+  \caption{Ejemplo de mapa de profundidad cenital en escala de grises.}
   \label{fig:depthmap-example}
 \end{figure}
 
@@ -117,7 +146,7 @@ Josh en \cite{Josh6DoFUnity} nos muestra una aplicación de esta técnica creand
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.8\textwidth]{pointcloud-example}
-  \caption{Ejemplo de nube de puntos}
+  \caption{Ejemplo de nube de puntos obtenida de \cite{Josh6DoFUnity}.}
   \label{fig:pointcloud-example}
 \end{figure}
 
@@ -139,7 +168,7 @@ Una de las formas de conseguir seis grados de libertad es reconstruir la escena 
 \begin{figure}[h]
   \centering
 	\includegraphics[width=\linewidth]{FB/fbdepthmap}
-  \caption{Conferencia mostrando un mapa de profundidad de limite inferior}
+  \caption{Conferencia mostrando un mapa de profundidad de limite inferior obtenida de \cite{FBCasual3DCapture}.}
   \label{fig:fbLBdepthmap-example}
 \end{figure}
 
@@ -150,16 +179,17 @@ Este procedimiento utiliza una técnica nueva que han llamado ``mapa de profundi
 \begin{subfigure}{.47\linewidth}
 	\centering
 	\includegraphics[width=\linewidth]{FB/fbnormalartifacts}
-  \caption{Conferencia mostrando los artefactos que obtienen}
+  \caption{Conferencia mostrando los artefactos que obtienen.}
   \label{fig:fbnormalmapartifacts-example}
 \end{subfigure}%
 \hspace{.05\linewidth}
 \begin{subfigure}{.47\linewidth}
 	\centering
 	\includegraphics[width=\linewidth]{FB/fbnormalmap}
-  \caption{Conferencia mostrando los artefactos arreglados}
+  \caption{Conferencia mostrando los artefactos arreglados.}
   \label{fig:fbnormalmapcorrected-example}
 \end{subfigure}
+\caption{Imágenes obtenidas de \cite{FBCasual3DCapture}.}
 \end{figure}
 
 
@@ -172,16 +202,17 @@ Todo esto lo aprovechan para poder generar un entorno tridimensional con el que 
 \begin{subfigure}{.47\linewidth}
 	\centering
 	\includegraphics[width=\linewidth]{FB/fblighting}
-  \caption{Conferencia mostrando la malla iluminada}
+  \caption{Conferencia mostrando la malla iluminada.}
   \label{fig:fblighting-example}
 \end{subfigure}%
 \hspace{.05\linewidth}
 \begin{subfigure}{.47\linewidth}
 	\centering
 	\includegraphics[width=\linewidth]{FB/fbflooding}
-  \caption{Conferencia mostrando un escenario inundándose}
+  \caption{Conferencia mostrando un escenario inundándose.}
   \label{fig:fbflooding-example}
 \end{subfigure}
+\caption{Imágenes obtenidas de \cite{FBCasual3DCapture}.}
 \end{figure}
 
 Una de las limitaciones que tiene este método es que está diseñado para fotografía en 360º y no se menciona en ningún momento al vídeo 360º por lo que se puede deducir que no está preparado. Por otro lado este tipo de procesado de imágenes requiere una cantidad grande de tiempo.
@@ -194,22 +225,22 @@ Una compañía llamada Lytro creo un sistema que llamo campos de luz o Lightfiel
 \begin{figure}[h]
   \centering
 	\includegraphics[width=\linewidth]{lightfields-camera}
-  \caption{Prototipo haciendo una captura del interior de una cabina.}
+  \caption{Prototipo haciendo una captura del interior de una cabina. Obtenida de \cite{GoogleLightfields}.}
   \label{fig:lightfields-camera}
 \end{figure}
 
-%comentar que el espacio de trabajo es bastante limitado
+Este sistema no comprime las imágenes, sino que las utiliza directamente en el programa por lo que una ``foto'' en lightfields ocupa más de 250MB. A partir de todas las fotos se calcula la imagen correspondiente en tiempo real en función de la posición del usuario haciendo una interpolación entre diferentes imágenes, eso hace que se recupere una imagen muy fiel a lo que se vería en la realidad.
 
-A partir de todas las fotos recuperadas se calcula la imagen correspondiente en función de la posición del usuario haciendo una interpolación entre diferentes imágenes, eso hace que se recupere una imagen muy fiel a lo que se vería en la realidad. 
+Como se puede apreciar en \ref{fig:lightfields-schema}, el usuario debe estar dentro de la esfera de fotos, por lo que el rango de movimiento está limitado a menos de un metro.
 
 \begin{figure}[h]
   \centering
 	\includegraphics[width=0.5\linewidth]{lightfields-schema}
-  \caption{Esquema de funcionamiento de los lightfields.}
+  \caption{Esquema de funcionamiento de los lightfields. Obtenida de \cite{GoogleLightfields}.}
   \label{fig:lightfields-schema}
 \end{figure}
 
-Además esto tiene una implicación que no había sido contemplada hasta ahora que son las superficies especulares. Estas superficies en el resto de técnicas se podían ver con reflejo o no, pero nunca respondería a la posición del usuario. La interpolación de imágenes hace que los espejos reflejen algo diferente en cada posición de la cabeza.
+Además este sistema tiene una implicación que no había sido contemplada hasta ahora que son las superficies especulares. Estas superficies en el resto de técnicas se podían ver con reflejo o no, pero nunca respondería a la posición del usuario. La interpolación de imágenes hace que los espejos reflejen algo diferente en cada posición de la cabeza.
 
 Esta técnica para fotografía es probablemente la mejor en cuanto a calidad de imagen pero sin embargo no se puede utilizar en vídeo debido al tiempo que se tarda en capturar un sólo fotograma. Tampoco permite alterar la luz como se mostraba en la demo de \textit{Facebook}.
 

@@ -35,7 +35,7 @@
 \setlength{\parindent}{0cm}
 
 %evita dejar lineas en otra página
-\setlength{\parskip}{1.0\baselineskip plus 1\baselineskip minus .5\baselineskip}
+\setlength{\parskip}{1.0\baselineskip plus 1\baselineskip minus 0.7\baselineskip}
 
 
 %-----------
