@@ -38,18 +38,27 @@ El otro ángulo más utilizado es 180º que proporciona toda la visión frontal 
 
 
 \subsubsection{Proyecciones}
-A la hora de guardar o reproducir un contenido multimedia es importante tener en cuenta la proyección ya que distorsiona y puede saturar regiones con píxeles que no interese. 
+Una proyección es una forma de representación de un elemento tridimensional, en este caso una geometría esférica, en un espacio bidimensional. A la hora de guardar o reproducir un contenido multimedia es importante tener en cuenta la proyección a utilizar ya que pueden distorisionar la imagen y saturar regiones poco interesantes, como el cielo, con una gran cantidad de píxeles. 
 
-Una de las proyecciones más extendidas y utilizadas en realidad virtual es la equirectangular (\ref{fig:equirect360-example}) que coincide con la proyección más utilizada en la actualidad para representar el mundo en dos dimensiones. Esta proyección proporciona demasiada información en los polos que típicamente es el lugar al que menos se suele mirar. Esto hace que gran parte de los píxeles se malgasten. Facebook para mejorar el streamming de video en realidad virtual 360 propone mejoras en \cite{FBDynamicStreamming} que pueden ser utilizadas también en vídeo local.
+Una de las proyecciones más extendidas y utilizadas en realidad virtual es la equirectangular (\ref{fig:equirect360-example} y \ref{fig:equirect360-schema}) que coincide con la proyección más utilizada en la actualidad para representar el mundo en dos dimensiones. Esta proyección proporciona demasiada información en los polos que típicamente es el lugar al que menos se suele mirar. Esto hace que gran parte de los píxeles se malgasten. Facebook para mejorar el streamming de video en realidad virtual 360 propone mejoras en \cite{FBDynamicStreamming} que pueden ser utilizadas también en vídeo local como por ejemplo aplicar una distorsión intencionada a la imagen proporcionando más espacio a la parte central de la imagen y compensando esa distorsión en el reproductor.
 
 \begin{figure}[h]
-  \centering
+\centering
+\begin{subfigure}{.8\linewidth}
+	\centering
   \includegraphics[width=\textwidth]{equirect360}
   \caption{Ejemplo de proyección equirectangular}
   \label{fig:equirect360-example}
+\end{subfigure}\\
+\begin{subfigure}{.8\linewidth}
+	\centering
+  \includegraphics[width=\textwidth]{equirect360-schema}
+  \caption{Esquema de proyección equirectangular}
+  \label{fig:equirect360-schema}
+\end{subfigure}
 \end{figure}
 
-Otra proyección que se utiliza mucho en videojuegos es la cúbica que divide la imagen en seis partes que forman las caras de un cubo. Tiene mayor densidad en las aristas del cubo pero que el porcentaje de píxeles útiles aumenta. Normalmente se le aplica una deformación que reduce la densidad de píxeles para que la distribución se más uniforme.
+Otra proyección que se utiliza mucho en videojuegos es la cúbica que divide la imagen en seis partes que forman las caras de un cubo. Tiene mayor densidad en las aristas del cubo pero que el porcentaje de píxeles útiles aumenta. Normalmente se le aplica una deformación al cubo dándole curvatura reduciendo la densidad de píxeles para que la distribución se más uniforme.
 
 \begin{figure}[h]
   \centering
