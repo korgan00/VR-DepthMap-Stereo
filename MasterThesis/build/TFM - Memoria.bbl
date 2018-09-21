@@ -1,34 +1,90 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{13}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem{SidewinderAdobe}
+\bibitem[Bezares({\natexlab{a}})]{DiegoBezStereoscopy}
+Diego Bezares.
+\newblock Charla gamelab 2016 . estereoscopía en realidad virtual. r.v v.r vr,
+  {\natexlab{a}}.
+\newblock URL \url{https://www.youtube.com/watch?v=7OgqUSPTriE}.
+
+\bibitem[Bezares({\natexlab{b}})]{DiegoBezStitching}
+Diego Bezares.
+\newblock Video vr en daydream y plataformas de r.v móviles, {\natexlab{b}}.
+\newblock URL \url{https://www.youtube.com/watch?v=y2mkVQ57-90&t=634s}.
+
+\bibitem[Cloud()]{SidewinderAdobe}
 Adobe~Creative Cloud.
 \newblock Projectsidewinder: Adobe max 2017 (sneak peeks) | adobe creative
   cloud.
+\newblock URL \url{https://www.youtube.com/watch?v=HSXMs2wnNc4}.
 
-\bibitem{GoogleLightfields}
+\bibitem[de~Matías~Bejarano(2013)]{PhotogrametryThesis}
+Javier de~Matías~Bejarano.
+\newblock \emph{TÍTULO: TÉCNICAS DE FOTOGRAMETRÍA Y VISIÓN POR COMPUTADOR
+  PARA EL MODELADO 3D DE ESTRUCTURAS GEOMORFOLÓGICAS DINÁMICAS}.
+\newblock PhD thesis, Universidad de Extremadura, 2013.
+
+\bibitem[Debevec()]{GoogleLightfields}
 Paul Debevec.
 \newblock Experimenting with light fields.
+\newblock URL
+  \url{https://www.blog.google/products/google-ar-vr/experimenting-light-fields/}.
 
-\bibitem{Josh6DoFUnity}
+\bibitem[Gladstone()]{Josh6DoFUnity}
 Josh Gladstone.
 \newblock Use depth maps to create 6 dof in unity.
+\newblock URL
+  \url{https://www.immersiveshooter.com/2018/01/23/use-depth-maps-create-6dof-unity/}.
 
-\bibitem{FBCasual3DCapture}
+\bibitem[Inc.({\natexlab{a}})]{FBCasual3DCapture}
 Facebook Inc.
-\newblock Casual 3d capture.
+\newblock Casual 3d capture, {\natexlab{a}}.
+\newblock URL
+  \url{https://developers.facebook.com/videos/f8-2017/casual-3d-capture/}.
 
-\bibitem{LytroLightfields}
+\bibitem[Inc.({\natexlab{b}})]{FBDynamicStreamming}
+Facebook Inc.
+\newblock The evolution of dynamic streaming, {\natexlab{b}}.
+\newblock URL
+  \url{https://developers.facebook.com/videos/f8-2017/-the-evolution-of-dynamic-streaming/}.
+
+\bibitem[Inc.({\natexlab{c}})]{FBOculusGo}
+Facebook Inc.
+\newblock Oculus go: Designing for media and entertainment, {\natexlab{c}}.
+\newblock URL
+  \url{https://developers.facebook.com/videos/f8-2018/oculus-go-designing-for-media-and-entertainment//}.
+
+\bibitem[Inc.({\natexlab{d}})]{GoogleStereoscopy}
+Google Inc.
+\newblock Rendering omni‐directional stereo content, {\natexlab{d}}.
+\newblock URL
+  \url{https://developers.google.com/vr/jump/rendering-ods-content.pdf}.
+
+\bibitem[Lang()]{LytroLightfields}
 Ben Lang.
 \newblock Lytro is positioning its light field tech as vr’s master capture
   format.
+\newblock URL
+  \url{https://www.roadtovr.com/lytro-is-positioning-its-light-field-tech-as-vrs-master-capture-format/}.
 
-\bibitem{OtoyVR}
+\bibitem[OTOY()]{OtoyVR}
 OTOY.
 \newblock Otoy and facebook release revolutionary 6dof video vr camera pipeline
   and tools.
+\newblock URL
+  \url{https://home.otoy.com/otoy-facebook-release-revolutionary-6dof-video-vr-camera-pipeline-tools/}.
 
-\bibitem{UploadVR}
-UploadVR.
-\newblock Point cloud vr - htc vive.
+\bibitem[Schroers et~al.(2018)Schroers, Bazin, and
+  Sorkine-Hornung]{DisneyOmnistereoscopic}
+Christopher Schroers, Jean-Charles Bazin, and Alexander Sorkine-Hornung.
+\newblock An omnistereoscopic video pipeline for capture and display of
+  real-world vr.
+\newblock \emph{ACM Trans. Graph}, page~13, August 2018.
+\newblock \doi{10.1109/TVCG.2018.2794071}.
+\newblock URL \url{http://richardt.name/publications/parallax360/}.
 
 \end{thebibliography}

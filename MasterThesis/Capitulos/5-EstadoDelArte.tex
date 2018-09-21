@@ -14,14 +14,25 @@ La realidad virtual actualmente abarca muchas areas y se puede interactuar con e
 La fotografía y el vídeo en realidad virtual es un campo muy amplio en el que se pueden encontrar diferentes maneras guardar y reproducir la información.
 
 \subsubsection{Estereoscopía/Monoscopía}
-La estereoscopía es el factor más importante en contenido multimedia para realidad virtual puesto que es el que más favorece la inmersión. Consiste en tener dos imágenes que representan la misma escena desde dos puntos cercanos que representan los ojos (clásicamente a 6.5cm de distancia). Cada una de estas imágenes se reproducen en una de las pantallas de las gafas, de tal manera que el cerebro del usuario se encarga de reconstruir la escena como si fuera realmente tridimensional. La imagen sigue siendo plana y por lo tanto no es posible desplazarse por el entorno capturado.
-
 La monoscopía implica que sólo existe una imagen para ambos ojos y por lo tanto no hay sensación de profundidad.
+
+La estereoscopía es el factor más importante en contenido multimedia para realidad virtual puesto que es el que más favorece la inmersión como se explica en \cite{DiegoBezStereoscopy}. Consiste en tener dos imágenes que muestran la misma escena desde dos puntos cercanos que representan los ojos (normalmente a 6,5cm de distancia). Cada una de estas imágenes se reproducen en una de las pantallas de las gafas, de tal manera que el cerebro del usuario se encarga de reconstruir la escena como si fuera realmente tridimensional. La imagen sigue siendo plana y por lo tanto no es posible desplazarse por el entorno capturado.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{stereo-example}
+  \caption{Ejemplo de imagen estéreo con lineas verticales para poder comparar el desplazamiento}
+  \label{fig:stereo-example}
+\end{figure}
+
+Es importante tener en cuenta que la separación entre las cámaras definirá la sensación de tamaño. Nuestro cerebro interpreta que si las cámaras están a menos distancia que nuestros ojos, todo parecerá más grande y será mas pequeño si ponemos demasiada distancia.
+
+La captura con cámara de imágenes estereoscópicas 360º no es trivial debido a que se deben hacer las diferentes capturas moviendo las cámaras en una circunferencia teniendo en cuenta el radio de la cabeza. Disney y Google explican como hacerlo en \cite{GoogleStereoscopy} y \cite{DisneyOmnistereoscopic}.
 
 \subsubsection{Campo de visión}
 Por lo general se utilizan dos ángulos para el campo de visión. 
 
-El más conocido y del que se suele hablar trata 360º de visión, es decir, una foto que genera una esfera alrededor del dispositivo. Es el que proporciona más inmersión.
+El más conocido y del que se suele hablar trata 360º de visión, es decir, una foto que genera una esfera alrededor del dispositivo. Es el que proporciona más inmersión. Habitualmente se utilizan varias fotos y se reconstruye la imagen. Este proceso es complicado y si no se hace bien se produce un efecto en el ensamblado que se llama stitching y que se evidencia con unos saltos de color o cortes en objetos. Este problema no es trivial y cuesta eliminarlo como se comenta en \cite{DiegoBezStitching}.
 
 El otro ángulo más utilizado es 180º que proporciona toda la visión frontal pero no hay imagen detrás. Las ventajas que más destacan son que puede ser grabado con cámaras poco especializadas y que se puede concentrar mayor cantidad de píxeles en el frente consiguiendo mayor calidad en la acción destacada.
 
@@ -38,7 +49,14 @@ Una de las proyecciones más extendidas y utilizadas en realidad virtual es la e
   \label{fig:equirect360-example}
 \end{figure}
 
-Otra proyección que se utiliza mucho en videojuegos es la cúbica que divide la imágen en seis partes que forman las caras de un cubo. Tiene mayor densidad en las aristas del cubo pero que el porcentaje de píxeles útiles aumenta. Normalmente se le aplica una deformación que reduce la densidad de píxeles para que la distribución se más uniforme.
+Otra proyección que se utiliza mucho en videojuegos es la cúbica que divide la imagen en seis partes que forman las caras de un cubo. Tiene mayor densidad en las aristas del cubo pero que el porcentaje de píxeles útiles aumenta. Normalmente se le aplica una deformación que reduce la densidad de píxeles para que la distribución se más uniforme.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{cubemap}
+  \caption{Ejemplo de proyección cúbica}
+  \label{fig:cubemap-example}
+\end{figure}
 
 Por último mencionar la proyección de barril que se construye como un cilindro. La distribución de píxeles es uniforme en el campo de visión típico. Esta proyección desaprovecha píxeles que se pierden en los huecos que dejan las tapas del cilindro.
 
@@ -46,23 +64,30 @@ Existen una infinidad de proyecciones y cada una tiene una serie de ventajas e i
  
 
 \subsection{Mapas de profundidad}
-Debido a la cantidad de técnicas que utilizan mapas de profundidad es interesante explicar en que consisten. 
+Debido a la cantidad de técnicas que utilizan mapas de profundidad o \textit{depthmap} es interesante explicar en que consisten. 
 
 Los mapas de profundidad son imagenes que en cada pixel se encuentra codificada la profundidad de la foto en ese punto. Generalmente se utiliza una escala de grises o de rojos aunque se pueden recurrir a métodos más complejos.\cite{Josh6DoFUnity}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{red-depthmap-example}
+  \caption{Ejemplo de mapa de profundidad 360 en escala de rojos}
+  \label{fig:red-depthmap-example}
+\end{figure}
 
 En el caso de la escala de grises (\ref{fig:depthmap-example}), los tonos más oscuros representan elementos en el fondo de la imagen, mientras que los tonos mas claro representan elementos más cercanos.
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.7\textwidth]{depthmap-example}
-  \caption{Ejemplo de mapa de profundidad cenital}
+  \caption{Ejemplo de mapa de profundidad cenital en escala de grises}
   \label{fig:depthmap-example}
 \end{figure}
 
-En el caso de una imagen generada por ordenador, es fácil obetener un buen mapa de profundidad. Sin embargo en el caso de las imágenes captadas por cámaras reales, existe la posibilidad de que la cámara esté preparada o en caso contrario habría que aplicar algoritmos que calculen la profundidad en cada píxel. 
+En el caso de una imagen generada por ordenador, es fácil obtener un buen mapa de profundidad. Sin embargo en el caso de las imágenes captadas por cámaras reales, existe la posibilidad de que la cámara esté preparada o en caso contrario habría que aplicar algoritmos que calculen la profundidad en cada píxel. 
 
 Las cámaras que están preparadas para obtener el mapa de profundidad utilizan típicamente la emisión de infrarrojos. Existe una tecnología llamada LIDAR que obtiene mapas de profundidad de alta precisión con un haz láser, pero el tiempo que tarda en obtenerlo no lo hace compatible con la grabación de vídeo.
 
-Dentro de los algoritmos que infieren el mapa de profundidad, los más conocidos utilizan imágenes estereoscópicas como el algoritmo Algoritmo BM  intenta parear elementos que se encuentren a la misma altura y el Algoritmo SGBM que es una variación del anterior añadiendo una ventana de búsqueda para encontrar las correspondencias.
+Dentro de los algoritmos que infieren el mapa de profundidad, los más conocidos utilizan imágenes estereoscópicas como el algoritmo BM  intenta parear elementos que se encuentren a la misma altura y el algoritmo SGBM que es una variación del anterior añadiendo una ventana de búsqueda para encontrar las correspondencias.
 
 \subsection{Fotogrametría}
 La fotogrametría consiste en deducir la ubicación de múltiples puntos en el espacio a partir de una serie de fotografías. Después de eso se reconstruyen los triángulos para generar una malla texturizada que represente de la manera más fiel posible la escena fotografiada. Javier de Matías analiza en profundidad la fotogrametría en \cite{PhotogrametryThesis}.
@@ -71,16 +96,14 @@ Al igual que en los mapas de profundidad, utilizar imágenes estereoscópicas ay
 
 Algunos de los programas más conocidos para generación de mallas a partir de fotos son PIX4D y PhotoScan entre otros.
 
-\subsection{Mapas de profundidad}
-
 
 \section{Project Sidewinder}
-Adobe presento en 2017 \cite{SidewinderAdobe} una demo que utilizaba un depthmap de manera muy sencilla para permitir seis grados de libertad dentro de un video 360º. No proporcionan mucha información ya que es una prueba de concepto.
+Adobe presento en 2017 \cite{SidewinderAdobe} una demo que utilizaba un \textit{depthmap} de manera muy sencilla para permitir seis grados de libertad dentro de un video 360º. No proporcionan mucha información ya que es una prueba de concepto.
 
 El desplazamiento punto a punto parece correcto pero se ve una distorsión en los bordes probablemente debido al estado temprano del proyecto.
 
 \section{Nube de puntos}
-Esta técnica consiste en crear un punto en el espacio por cada pixel de la foto o el vídeo y utilizar la imagen y su mapa de profundidad para seleccionar el color y el desplazamiento del punto en el espacio. \cite{UploadVR} %intentar reexplicar
+Josh en \cite{Josh6DoFUnity} nos muestra una aplicación de esta técnica creando un punto en el espacio por cada píxel de la foto o el vídeo donde indique el mapa de profundidad.
 
 \begin{figure}[h]
   \centering
@@ -91,14 +114,13 @@ Esta técnica consiste en crear un punto en el espacio por cada pixel de la foto
 
 Esta implementación por contra provoca que aparezcan muchos huecos como se puede ver en \ref{fig:depthmap-example} y generalmente se suele acompañar la implementación con una selección del tamaño del punto como muestra \cite{Josh6DoFUnity} para ver una imagen más sólida.
 
-Otro de los problemas que tiene esta técnica es la cantidad de puntos que deben ser tratados, ya que una resolución QHD (2560x1440) requiere cuatro millones de puntos siendo la resolución recomendada actualmente es 4K.
-% recalcar el rendimiento.
+Otro de los problemas que tiene esta técnica es la cantidad de puntos que deben ser tratados, ya que una resolución \textit{QHD} (2560x1440) requiere cuatro millones de puntos siendo la resolución recomendada actualmente es \textit{4K}. Probablemente el rendimiento sea bajo en equipos poco potentes y en dispositivos móviles.
 
 \section{Cámara y herramientas de realidad virtual de OTOY y Facebook}
 
 En el F8 de 2017 en Los Ángeles \textit{OTOY} y \textit{Facebook} presentaron una colaboración para producir vídeo 360º volumétrico e interactivo a un precio asequible \cite{OtoyVR}. No hay noticias de 2018 por lo que puede que esté abandonado.
 
-La colaboración consistía en una cámara 360º especializada y una serie de herramientas para procesar el contenido y visualizarlo. El procedimiento implica subir el contenido a la nube de OTOY para procesarlo y así reconstruir la escena como una malla tridimensional. 
+La colaboración consistía en una cámara 360º especializada y una serie de herramientas para procesar el contenido y visualizarlo. El procedimiento implica subir el contenido a la nube de OTOY para procesarlo y así reconstruir la escena como una malla tridimensional.
 
 La calidad presentada en las demos era buena con poca distorsión aunque el desplazamiento que presentaban era pequeño.
 
