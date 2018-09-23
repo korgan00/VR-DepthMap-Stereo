@@ -5,8 +5,60 @@
 \pagestyle{empty}
 \chapter {Desarrollo}
 
+El principal objetivo del trabajo es implementar un algoritmo que aporte seis grados de libertad a vídeo e imagen para realidad virtual y que se pueda ejecutar consumiendo la menor cantidad de recursos posibles. Para poder tratar este planteamiento en tiempo real es necesario utilizar herramientas de aceleración por hardware.
+
+Las tecnologías que se van a explorar para los diferentes métodos son las siguientes:
+
+\begin{itemize}
+\item Unity como motor de desarrollo por ser de ambito profesional y multiplataforma.
+\item Shaders gráficos como herramienta que permita la explotación de la GPU mediante técnicas clásicas de gráficos.
+\item Shaders de cómputo como herramienta alternativa a los shaders gráficos por la versatilidad que proporcionan.
+\item Visual Studio como entorno de edición y depuración de código por la cantidad de plugins disponibles.
+\end{itemize}
+
+\section{El entorno de desarrollo}
+
+Los motores gráficos y de videojuegos son una herramienta para agilizar el desarrollo de demos y de aplicaciones multiplataforma. Unity se encarga de proporcionar la infraestructura necesaria para poder centrarse en el desarrollo específico del proyecto. Los principales elementos a utilizar serán:
+
+\begin{itemize}
+\item Las escenas se podrían definir como el contenedor global de objetos, camaras y luces.
+\item Los GameObject son todos los elementos que pueden ser metidos en una escena y sus componentes que son la manera de añadirles lógica mediante el lenguaje de programación C#.
+\end{itemize}
+
+\subsection{Shaders Gráficos}
+Los shaders graficos configuran la \textit{pipeline} gráfica que tiene la función de recibir una representación de la escena tridimensional como entrada y generar una imágen bidimensional como salida. 
+Son una de las partes de la infraestructura de Unity y se configuran mediante unos elementos llamados materiales. Existen diferentes maneras de programar los shaders gráficos, entre las cuales se ha decidido utilizar los metodos de modificación de vértices y fragmentos por tener experiencia previa utilizándolos y ofrecer lo necesario para el desarrollo.
+
+\subsection{Shaders de cómputo}
+Los shaders de cómputo surgieron como respuesta a los desarrolladores que utilizaban los shaders gráficos con un propósito general para aprovechar la capacidad de cálculo de la tarjeta gráfica.
+
+Unity tambien proporciona maneras de utilizar estos shaders y al contrario que los anteriores, no están sujetos a una pipeline, sino que pueden ser utilizados en cualquier momento.
+
+Estos shaders, al utilizar la GPU al igual que los gráficos pueden hacer uso, si así se les indica, de recursos de manera compartida. Esta funcionalidad es importante porque será utilizada durante el desarrollo.
 
 
+\section{Metodología}
+La metodología utilizada en el desarrollo se ha basado en \textit{Scrum}, proponiendo pequeños \textit{sprint} una vez terminado el anterior. Se podrían clasificar estos sprint en tres grupos:
+
+\begin{itemize}
+\item Investigación, cuya motivación era el descubrimiento de tecnologías utilizadas por otros desarrolladores para conseguir mejorar los resultados tanto en calidad como en rendimiento.
+\item Implementación de nuevos algoritmos o mejoras de los ya existentes, habitualmente en función de lo investigado.
+\item Evaluación de la valided de la implementación y poner de manifiesto los problemas que deben ser solucionados.
+\end{itemize}
+
+\section{Generación de imágenes con las que trabajar}
+Con la finalidad de tener un entorno de pruebas controlado y fiable, se ha montado una escena con contenido gratuito del Asset Store. Las principales caracteristicas buscadas eran un entorno con suficientes elementos con una buena distribución, que el entorno fuera complejo y que las medidas fueran coherentes. Finalmente se eligio el paquete ``Sci-Fi Styled Modular Pack'' y se estableció la cámara como indica la foto.
+
+%%
+
+Una vez elegido el entorno, se procede a realizar una imagen 360.
+
+
+\section{Parallax}
+\subsection{Test 1}
+\subsection{Test 2}
+\subsection{Test 3}
+\subsection{Test 4}
 
 
 
