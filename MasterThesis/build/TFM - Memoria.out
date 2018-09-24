@@ -16,6 +16,29 @@
 \BOOKMARK [1][-]{section.5.5}{Facebook: Seis Grados de libertad con Fotogrametr\355a}{chapter.5}% 16
 \BOOKMARK [1][-]{section.5.6}{``Welcome to Lightfields''}{chapter.5}% 17
 \BOOKMARK [0][-]{chapter.6}{Desarrollo}{}% 18
-\BOOKMARK [0][-]{chapter.7}{Resultados}{}% 19
-\BOOKMARK [0][-]{chapter.8}{Conclusiones}{}% 20
-\BOOKMARK [0][-]{chapter*.16}{Bibliograf\355a}{}% 21
+\BOOKMARK [1][-]{section.6.1}{El entorno de desarrollo}{chapter.6}% 19
+\BOOKMARK [2][-]{subsection.6.1.1}{Shaders Gr\341ficos}{section.6.1}% 20
+\BOOKMARK [2][-]{subsection.6.1.2}{Shaders de c\363mputo}{section.6.1}% 21
+\BOOKMARK [1][-]{section.6.2}{Metodolog\355a}{chapter.6}% 22
+\BOOKMARK [1][-]{section.6.3}{Generaci\363n de im\341genes con las que trabajar}{chapter.6}% 23
+\BOOKMARK [1][-]{section.6.4}{Primera aproximaci\363n: Paralaje sencillo}{chapter.6}% 24
+\BOOKMARK [2][-]{subsection.6.4.1}{Qu\351 es el paralaje}{section.6.4}% 25
+\BOOKMARK [2][-]{subsection.6.4.2}{Implementaci\363n}{section.6.4}% 26
+\BOOKMARK [2][-]{subsection.6.4.3}{Resultado}{section.6.4}% 27
+\BOOKMARK [1][-]{section.6.5}{Segunda aproximaci\363n: Paralaje sencillo}{chapter.6}% 28
+\BOOKMARK [2][-]{subsection.6.5.1}{Implementaci\363n}{section.6.5}% 29
+\BOOKMARK [2][-]{subsection.6.5.2}{Resultado}{section.6.5}% 30
+\BOOKMARK [1][-]{section.6.6}{Tercera aproximaci\363n: Paralaje sencillo con shaders de c\363mputo}{chapter.6}% 31
+\BOOKMARK [2][-]{subsection.6.6.1}{Implementaci\363n}{section.6.6}% 32
+\BOOKMARK [2][-]{subsection.6.6.2}{Resultado}{section.6.6}% 33
+\BOOKMARK [1][-]{section.6.7}{Cuarta aproximaci\363n: Resolviendo la condici\363n de carrera}{chapter.6}% 34
+\BOOKMARK [2][-]{subsection.6.7.1}{Implementaci\363n}{section.6.7}% 35
+\BOOKMARK [2][-]{subsection.6.7.2}{Resultado}{section.6.7}% 36
+\BOOKMARK [1][-]{section.6.8}{Quita aproximaci\363n: Resolviendo la condici\363n de carrera 2}{chapter.6}% 37
+\BOOKMARK [2][-]{subsection.6.8.1}{Resultado}{section.6.8}% 38
+\BOOKMARK [1][-]{section.6.9}{Sexta aproximaci\363n: Pasando a espacio de mundo}{chapter.6}% 39
+\BOOKMARK [2][-]{subsection.6.9.1}{Implementaci\363n}{section.6.9}% 40
+\BOOKMARK [2][-]{subsection.6.9.2}{Resultado}{section.6.9}% 41
+\BOOKMARK [0][-]{chapter.7}{Resultados}{}% 42
+\BOOKMARK [0][-]{chapter.8}{Conclusiones}{}% 43
+\BOOKMARK [0][-]{chapter*.31}{Bibliograf\355a}{}% 44

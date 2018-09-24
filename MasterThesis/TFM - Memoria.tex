@@ -17,17 +17,17 @@
             pdfproducer={Latex con hyperref},
             pdfcreator={pdflatex}]{hyperref}
 
-\usepackage{beton}
-\usepackage{euler}
+\usepackage{arev}
 \usepackage[rm]{roboto}
 \usepackage[T1]{fontenc}
 \usepackage{setspace}
 \usepackage{parskip}
 \usepackage{cite}
 \usepackage{url}
+\usepackage{placeins}
+\usepackage{float}
 \urlstyle{same}
 \usepackage[square,numbers]{natbib}
-
 
 \singlespace
 
@@ -36,7 +36,6 @@
 
 %evita dejar lineas en otra página
 \setlength{\parskip}{1.0\baselineskip plus 1\baselineskip minus 0.7\baselineskip}
-
 
 %-----------
 %	TITLES REFORMAT
@@ -50,6 +49,26 @@
 %	Index REFORMAT
 %-----------
 \renewcommand*\contentsname{Índice}
+
+%-----------
+%	Code printing REFORMAT
+%-----------
+\usepackage{xcolor}
+\usepackage{listings}
+
+\lstloadlanguages{C}
+
+\lstdefinelanguage{glsl}[]{C}{
+  basicstyle=\ttfamily\small,
+  showstringspaces=false,
+  commentstyle=\itshape,
+  keywordstyle=\bfseries,
+  morekeywords={float4, float3, float2, fixed4, fixed3, fixed2, v2f, SV_Target, tex2D, kernel, Texture2D, RWTexture2D, uint4, uint3, uint2},
+  backgroundcolor=\color[rgb]{0.95,0.95,0.95},
+  framesep=10pt,
+  frame=single
+}
+
 
 \begin{document}
 

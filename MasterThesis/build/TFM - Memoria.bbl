@@ -1,4 +1,4 @@
-\begin{thebibliography}{13}
+\begin{thebibliography}{14}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -33,6 +33,11 @@ Paul Debevec.
 \newblock Experimenting with light fields.
 \newblock URL
   \url{https://www.blog.google/products/google-ar-vr/experimenting-light-fields/}.
+
+\bibitem[Fernandez()]{PedroParallax}
+Pedro Fernando~Gomez Fernandez.
+\newblock Parallax test.
+\newblock URL \url{https://www.youtube.com/watch?v=LPfYrwvZHsQ}.
 
 \bibitem[Gladstone()]{Josh6DoFUnity}
 Josh Gladstone.

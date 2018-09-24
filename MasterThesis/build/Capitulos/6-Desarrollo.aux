@@ -1,12 +1,90 @@
 \relax 
 \providecommand\hyper@newdestlabel[2]{}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Desarrollo}{29}{chapter.6}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Desarrollo}{31}{chapter.6}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}El entorno de desarrollo}{32}{section.6.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Shaders Gr\IeC {\'a}ficos}{32}{subsection.6.1.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Shaders de c\IeC {\'o}mputo}{33}{subsection.6.1.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Metodolog\IeC {\'\i }a}{33}{section.6.2}}
+\citation{GoogleStereoscopy}
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Generaci\IeC {\'o}n de im\IeC {\'a}genes con las que trabajar}{34}{section.6.3}}
+\newlabel{fig:camera-position}{{6.1a}{34}{Posición desde un punto de vista.\relax }{figure.caption.19}{}}
+\newlabel{sub@fig:camera-position}{{a}{34}{Posición desde un punto de vista.\relax }{figure.caption.19}{}}
+\newlabel{fig:camera-position-2}{{6.1b}{34}{Posición desde otro punto de vista.\relax }{figure.caption.19}{}}
+\newlabel{sub@fig:camera-position-2}{{b}{34}{Posición desde otro punto de vista.\relax }{figure.caption.19}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Posici\IeC {\'o}n de la c\IeC {\'a}mara para captar im\IeC {\'a}genes est\IeC {\'e}reo 360\IeC {\textordmasculine }.\relax }}{34}{figure.caption.19}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Mapa de profundidad codificado a float.\relax }}{36}{figure.caption.20}}
+\newlabel{fig:float-encoded-depthmap-example}{{6.2}{36}{Mapa de profundidad codificado a float.\relax }{figure.caption.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Mapa de profundidad guardado en la componente r de una textura ``ARGB32''.\relax }}{36}{figure.caption.21}}
+\newlabel{fig:red-depthmap-encoded-example}{{6.3}{36}{Mapa de profundidad guardado en la componente r de una textura ``ARGB32''.\relax }{figure.caption.21}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}Primera aproximaci\IeC {\'o}n: Paralaje sencillo}{37}{section.6.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.1}Qu\IeC {\'e} es el paralaje}{37}{subsection.6.4.1}}
+\citation{PedroParallax}
+\newlabel{fig:parallax-1}{{6.4a}{38}{\relax }{figure.caption.22}{}}
+\newlabel{sub@fig:parallax-1}{{a}{38}{\relax }{figure.caption.22}{}}
+\newlabel{fig:parallax-2}{{6.4b}{38}{\relax }{figure.caption.22}{}}
+\newlabel{sub@fig:parallax-2}{{b}{38}{\relax }{figure.caption.22}{}}
+\newlabel{fig:parallax-3}{{6.4c}{38}{\relax }{figure.caption.22}{}}
+\newlabel{sub@fig:parallax-3}{{c}{38}{\relax }{figure.caption.22}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Ejemplo de paralaje en tres fotogramas.\relax }}{38}{figure.caption.22}}
+\newlabel{fig:full-parallax}{{6.4}{38}{Ejemplo de paralaje en tres fotogramas.\relax }{figure.caption.22}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.2}Implementaci\IeC {\'o}n}{38}{subsection.6.4.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.3}Resultado}{39}{subsection.6.4.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces Paralaje err\IeC {\'o}neo usando el desplazamiento equivocado.\relax }}{40}{figure.caption.23}}
+\newlabel{fig:parallax-test-1}{{6.5}{40}{Paralaje erróneo usando el desplazamiento equivocado.\relax }{figure.caption.23}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.5}Segunda aproximaci\IeC {\'o}n: Paralaje sencillo}{40}{section.6.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.1}Implementaci\IeC {\'o}n}{41}{subsection.6.5.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.2}Resultado}{42}{subsection.6.5.2}}
+\newlabel{fig:parallax-test-2-a}{{6.6a}{43}{Relative position a 0.\relax }{figure.caption.24}{}}
+\newlabel{sub@fig:parallax-test-2-a}{{a}{43}{Relative position a 0.\relax }{figure.caption.24}{}}
+\newlabel{fig:parallax-test-2-b}{{6.6b}{43}{Relative position a 1.\relax }{figure.caption.24}{}}
+\newlabel{sub@fig:parallax-test-2-b}{{b}{43}{Relative position a 1.\relax }{figure.caption.24}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces Paralaje correcto con ruido.\relax }}{43}{figure.caption.24}}
+\newlabel{fig:parallax-test-2}{{6.6}{43}{Paralaje correcto con ruido.\relax }{figure.caption.24}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.6}Tercera aproximaci\IeC {\'o}n: Paralaje sencillo con \textit  {shaders} de c\IeC {\'o}mputo}{44}{section.6.6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6.1}Implementaci\IeC {\'o}n}{44}{subsection.6.6.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6.2}Resultado}{46}{subsection.6.6.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces Paralaje con condici\IeC {\'o}n de carrera.\relax }}{47}{figure.caption.25}}
+\newlabel{fig:parallax-test-3}{{6.7}{47}{Paralaje con condición de carrera.\relax }{figure.caption.25}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.7}Cuarta aproximaci\IeC {\'o}n: Resolviendo la condici\IeC {\'o}n de carrera}{47}{section.6.7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.7.1}Implementaci\IeC {\'o}n}{48}{subsection.6.7.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.7.2}Resultado}{50}{subsection.6.7.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.8}{\ignorespaces Paralaje InterlockedMax.\relax }}{50}{figure.caption.26}}
+\newlabel{fig:parallax-test-4}{{6.8}{50}{Paralaje InterlockedMax.\relax }{figure.caption.26}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.8}Quita aproximaci\IeC {\'o}n: Resolviendo la condici\IeC {\'o}n de carrera 2}{50}{section.6.8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.8.1}Resultado}{52}{subsection.6.8.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.9}Sexta aproximaci\IeC {\'o}n: Pasando a espacio de mundo}{52}{section.6.9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.9.1}Implementaci\IeC {\'o}n}{53}{subsection.6.9.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.9.2}Resultado}{57}{subsection.6.9.2}}
+\newlabel{fig:parallax-test-5-1}{{6.9a}{57}{\relax }{figure.caption.27}{}}
+\newlabel{sub@fig:parallax-test-5-1}{{a}{57}{\relax }{figure.caption.27}{}}
+\newlabel{fig:parallax-test-5-2}{{6.9b}{57}{\relax }{figure.caption.27}{}}
+\newlabel{sub@fig:parallax-test-5-2}{{b}{57}{\relax }{figure.caption.27}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.9}{\ignorespaces Sin desplazamiento.\relax }}{57}{figure.caption.27}}
+\newlabel{fig:parallax-test-5-12}{{6.9}{57}{Sin desplazamiento.\relax }{figure.caption.27}{}}
+\newlabel{fig:parallax-test-5-3}{{6.10a}{57}{\relax }{figure.caption.28}{}}
+\newlabel{sub@fig:parallax-test-5-3}{{a}{57}{\relax }{figure.caption.28}{}}
+\newlabel{fig:parallax-test-5-5}{{6.10b}{57}{\relax }{figure.caption.28}{}}
+\newlabel{sub@fig:parallax-test-5-5}{{b}{57}{\relax }{figure.caption.28}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.10}{\ignorespaces Con el m\IeC {\'a}ximo desplazamiento\relax }}{57}{figure.caption.28}}
+\newlabel{fig:parallax-test-5-35}{{6.10}{57}{Con el máximo desplazamiento\relax }{figure.caption.28}{}}
+\newlabel{fig:parallax-test-5-a}{{6.11a}{58}{\relax }{figure.caption.29}{}}
+\newlabel{sub@fig:parallax-test-5-a}{{a}{58}{\relax }{figure.caption.29}{}}
+\newlabel{fig:parallax-test-5-b}{{6.11b}{58}{\relax }{figure.caption.29}{}}
+\newlabel{sub@fig:parallax-test-5-b}{{b}{58}{\relax }{figure.caption.29}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.11}{\ignorespaces Desplazamiento rea.\relax }}{58}{figure.caption.29}}
+\newlabel{fig:parallax-test-5ab}{{6.11}{58}{Desplazamiento rea.\relax }{figure.caption.29}{}}
+\newlabel{fig:parallax-test-5-c}{{6.12a}{59}{\relax }{figure.caption.30}{}}
+\newlabel{sub@fig:parallax-test-5-c}{{a}{59}{\relax }{figure.caption.30}{}}
+\newlabel{fig:parallax-test-5-d}{{6.12b}{59}{\relax }{figure.caption.30}{}}
+\newlabel{sub@fig:parallax-test-5-d}{{b}{59}{\relax }{figure.caption.30}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.12}{\ignorespaces Paralaje correcto con ruido.\relax }}{59}{figure.caption.30}}
+\newlabel{fig:parallax-test-5cd}{{6.12}{59}{Paralaje correcto con ruido.\relax }{figure.caption.30}{}}
 \@setckpt{Capitulos/6-Desarrollo}{
-\setcounter{page}{30}
+\setcounter{page}{60}
 \setcounter{equation}{0}
-\setcounter{enumi}{0}
+\setcounter{enumi}{3}
 \setcounter{enumii}{0}
 \setcounter{enumiii}{0}
 \setcounter{enumiv}{0}
@@ -14,20 +92,23 @@
 \setcounter{mpfootnote}{0}
 \setcounter{part}{0}
 \setcounter{chapter}{6}
-\setcounter{section}{0}
-\setcounter{subsection}{0}
+\setcounter{section}{9}
+\setcounter{subsection}{2}
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
-\setcounter{figure}{0}
+\setcounter{figure}{12}
 \setcounter{table}{0}
 \setcounter{parentequation}{0}
 \setcounter{ContinuedFloat}{0}
-\setcounter{subfigure}{0}
+\setcounter{subfigure}{2}
 \setcounter{subtable}{0}
-\setcounter{Item}{0}
+\setcounter{Item}{3}
 \setcounter{Hfootnote}{0}
-\setcounter{bookmark@seq@number}{18}
+\setcounter{bookmark@seq@number}{41}
+\setcounter{float@type}{8}
 \setcounter{NAT@ctr}{0}
+\setcounter{lstnumber}{116}
 \setcounter{section@level}{0}
+\setcounter{lstlisting}{0}
 }
