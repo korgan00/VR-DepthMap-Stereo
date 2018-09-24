@@ -63,7 +63,7 @@
   showstringspaces=false,
   commentstyle=\itshape,
   keywordstyle=\bfseries,
-  morekeywords={float4, float3, float2, fixed4, fixed3, fixed2, v2f, SV_Target, tex2D, kernel, Texture2D, RWTexture2D, uint4, uint3, uint2},
+  morekeywords={float4, float3, float2, fixed4, fixed3, fixed2, v2f, SV_Target, tex2D, kernel, Texture2D, RWTexture2D, uint4, uint3, uint2, uint},
   backgroundcolor=\color[rgb]{0.95,0.95,0.95},
   framesep=10pt,
   frame=single
@@ -77,14 +77,23 @@
 
 \include{Capitulos/_-Portada}
 
+
 \frontmatter
 \pagestyle{plain}
+
+\newpage
+\thispagestyle{empty}
+\mbox{}
+
 %----------------------------------------------------------------------------------------
 %	INDICE
 %---------------------------------------------------------------------------------------
 
 \tableofcontents
 
+\newpage
+\thispagestyle{empty}
+\mbox{}
 %----------------------------------------------------------------------------------------
 %	SECCIONES
 %----------------------------------------------------------------------------------------
@@ -113,11 +122,14 @@
 \include{Capitulos/6-Desarrollo}
 
 %RESULTADOS (5-10 hojas)
-\include{Capitulos/7-Resultados}
+%\include{Capitulos/7-Resultados}
 
 %CONCLUSIONES (2 hojas)
 \include{Capitulos/8-Conclusiones}
 
+\newpage
+\thispagestyle{empty}
+\mbox{}
 
 \bibliography{bibliografia}{}
 \bibliographystyle{plainnat}

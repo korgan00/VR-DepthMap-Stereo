@@ -5,3 +5,10 @@
 \pagestyle{empty}
 \chapter {Resumen}
 
+El vídeo y la fotografía es, hoy en día, una parte imprescindible del entretenimiento en  realidad virtual, pero tiene grandes desventajas frente a otras tecnologías, como las experiencias en entornos tridimensionales, debido a la falta de interactividad.
+
+Desde hace unos años empresas como Disney, Facebook y Google han establecido un precedente en la industria tecnológica, buscando establecer los llamados seis grados de libertad al vídeo y la fotografía 360º para mejorar la sensación de inmersión. Existen numerosas maneras de conseguir este objetivo y cada una tiene sus ventajas y sus inconvenientes.
+
+El propósito del trabajo descrito en esta memoria es implementar, de la manera más realista y eficiente posible, un sistema que proporcione seis grados de libertad en un rango de movimiento limitado. Para ello se va a recurrir a un algoritmo basado en desplazamientos pixel a pixel, teniendo capacidad de manipulación de la información al nivel mas detallado disponible, haciendo uso de todos los recursos disponibles en los dispositivos incluyendo hardware gráfico con propósito general.
+
+La forma de conseguir este objetivo será evaluar muchas implementaciones para, más tarde, seleccionar los mejores resultados y trabajar sobre ellos con la finalidad de hacerlos más eficientes y realistas. Todo esto sin dejar de contemplar más opciones como las que han implementado otros desarrolladores.

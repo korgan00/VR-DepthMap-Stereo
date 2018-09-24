@@ -96,26 +96,29 @@ La captura con cámara de imágenes estereoscópicas 360º no es trivial.. Exist
 
 Disney y Google proponen un sistema para captura de imágenes llamado ODS (Omni-directional stereo) que explican detalladamente en \cite{GoogleStereoscopy} y \cite{DisneyOmnistereoscopic}. Este sistema consiste en dos cámaras, posicionadas a la distancia ocular y puestas en una circunferencia de un radio similar al de una cabeza. Durante la captura, las cámaras dan una vuelta por la circunferencia y guarda una linea de píxeles por cada posición de la cámara. Esto tiene como consecuencia que únicamente exista una linea de píxeles correcta en cada posición como se puede ver en la figura \ref{fig:ods-schema}.  conlleva implicaciones como que los objetos en la visión periférica no se visualizan correctamente. Pese a esto, la sensación que se consigue es buena y proporciona una gran inmersión.
 
+
+Por último comentar que el vídeo 180º tiene como beneficio que no necesita de ningún sistema como ODS ya que se hace directamente con cámara sin recurrir a métodos adicionales. Esto hace que todo el area de visualización sea correcta como se muestra en la figura \ref{fig:correct-vision-schema}.
+
+
 \begin{figure}[H]
 \centering
-\begin{subfigure}{.47\linewidth}
+\begin{subfigure}{.40\linewidth}
 	\centering
   \includegraphics[width=\textwidth]{correct-vision}
   \caption{Esquema de la visión completa.}
   \label{fig:correct-vision-schema}
 \end{subfigure}%
 \hspace{.05\linewidth}
-\begin{subfigure}{.47\linewidth}
+\begin{subfigure}{.40\linewidth}
 	\centering
   \includegraphics[width=\textwidth]{ods}
-  \caption{Esquema la aproximación hecha con ODS.}
+  \caption{Esquema de la aproximación hecha con ODS.}
   \label{fig:ods-schema}
 \end{subfigure}
 \caption{Imágenes obtenidas de \cite{GoogleStereoscopy}.}
 \end{figure}
-\FloatBarrier
 
-Por último comentar que el vídeo 180º tiene como beneficio que no necesita de ningún sistema como ODS ya que se hace directamente con cámara sin recurrir a métodos adicionales. Esto hace que todo el area de visualización sea correcta como se muestra en la figura \ref{fig:correct-vision-schema}.
+\FloatBarrier
 
 \subsection{Mapas de profundidad}
 Debido a la cantidad de técnicas que utilizan mapas de profundidad o \textit{depthmap} es interesante explicar en que consisten. 
@@ -124,7 +127,7 @@ Los mapas de profundidad son imagenes que en cada pixel se encuentra codificada 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{red-depthmap-example}
+  \includegraphics[width=0.8\textwidth]{red-depthmap-example}
   \caption{Ejemplo de mapa de profundidad 360 en escala de rojos}
   \label{fig:red-depthmap-example}
 \end{figure}
@@ -134,7 +137,7 @@ En el caso de la escala de grises (\ref{fig:depthmap-example}), los tonos más o
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\textwidth]{depthmap-example}
+  \includegraphics[width=0.6\textwidth]{depthmap-example}
   \caption{Ejemplo de mapa de profundidad cenital en escala de grises.}
   \label{fig:depthmap-example}
 \end{figure}
@@ -182,7 +185,7 @@ La colaboración consistía en una cámara 360º especializada y una serie de he
 
 La calidad presentada en las demos era buena con poca distorsión aunque el desplazamiento que presentaban era pequeño.
 
-\section{Facebook: Seis Grados de libertad con Fotogrametría}
+\section{Facebook: Realidad virtual y Fotogrametría}
 Una de las formas de conseguir seis grados de libertad es reconstruir la escena mediante fotogrametría como muestra \textit{Facebook} en \cite{FBCasual3DCapture} para procesar la imagen y obtener una malla que pueda ser mostrada usando técnicas convencionales.
 
 \begin{figure}[H]
@@ -247,7 +250,7 @@ Una compañía llamada Lytro creo un sistema que llamo campos de luz o Lightfiel
 
 \begin{figure}[H]
   \centering
-	\includegraphics[width=\linewidth]{lightfields-camera}
+	\includegraphics[width=0.8\linewidth]{lightfields-camera}
   \caption{Prototipo haciendo una captura del interior de una cabina. Obtenida de \cite{GoogleLightfields}.}
   \label{fig:lightfields-camera}
 \end{figure}

@@ -13,7 +13,7 @@
 \BOOKMARK [1][-]{section.5.2}{Project Sidewinder}{chapter.5}% 13
 \BOOKMARK [1][-]{section.5.3}{Nube de puntos}{chapter.5}% 14
 \BOOKMARK [1][-]{section.5.4}{C\341mara y herramientas de realidad virtual de OTOY y Facebook}{chapter.5}% 15
-\BOOKMARK [1][-]{section.5.5}{Facebook: Seis Grados de libertad con Fotogrametr\355a}{chapter.5}% 16
+\BOOKMARK [1][-]{section.5.5}{Facebook: Realidad virtual y Fotogrametr\355a}{chapter.5}% 16
 \BOOKMARK [1][-]{section.5.6}{``Welcome to Lightfields''}{chapter.5}% 17
 \BOOKMARK [0][-]{chapter.6}{Desarrollo}{}% 18
 \BOOKMARK [1][-]{section.6.1}{El entorno de desarrollo}{chapter.6}% 19
@@ -34,11 +34,14 @@
 \BOOKMARK [1][-]{section.6.7}{Cuarta aproximaci\363n: Resolviendo la condici\363n de carrera}{chapter.6}% 34
 \BOOKMARK [2][-]{subsection.6.7.1}{Implementaci\363n}{section.6.7}% 35
 \BOOKMARK [2][-]{subsection.6.7.2}{Resultado}{section.6.7}% 36
-\BOOKMARK [1][-]{section.6.8}{Quita aproximaci\363n: Resolviendo la condici\363n de carrera 2}{chapter.6}% 37
+\BOOKMARK [1][-]{section.6.8}{Quinta aproximaci\363n: Resolviendo la condici\363n de carrera 2}{chapter.6}% 37
 \BOOKMARK [2][-]{subsection.6.8.1}{Resultado}{section.6.8}% 38
-\BOOKMARK [1][-]{section.6.9}{Sexta aproximaci\363n: Pasando a espacio de mundo}{chapter.6}% 39
+\BOOKMARK [1][-]{section.6.9}{Aproximaci\363n final: Pasando a espacio de mundo}{chapter.6}% 39
 \BOOKMARK [2][-]{subsection.6.9.1}{Implementaci\363n}{section.6.9}% 40
 \BOOKMARK [2][-]{subsection.6.9.2}{Resultado}{section.6.9}% 41
-\BOOKMARK [0][-]{chapter.7}{Resultados}{}% 42
-\BOOKMARK [0][-]{chapter.8}{Conclusiones}{}% 43
-\BOOKMARK [0][-]{chapter*.31}{Bibliograf\355a}{}% 44
+\BOOKMARK [1][-]{section.6.10}{Otras pruebas}{chapter.6}% 42
+\BOOKMARK [2][-]{subsection.6.10.1}{Evitar borrar el buffer de color}{section.6.10}% 43
+\BOOKMARK [2][-]{subsection.6.10.2}{Desplazamiento en espacio de mundo con shaders gr\341ficos}{section.6.10}% 44
+\BOOKMARK [2][-]{subsection.6.10.3}{Completar con el ojo opuesto}{section.6.10}% 45
+\BOOKMARK [0][-]{chapter.7}{Conclusiones}{}% 46
+\BOOKMARK [0][-]{chapter*.31}{Bibliograf\355a}{}% 47
